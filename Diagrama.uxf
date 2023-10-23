@@ -1,0 +1,73 @@
+<diagram program="umletino" version="15.1"><zoom_level>5</zoom_level><element><id>UMLClass</id><coordinates><x>590</x><y>250</y><w>210</w><h>100</h></coordinates><panel_attributes>_AMAZING_
+--
+-HashMap &lt;Integer, Pedido&gt; pedidos;
+-HashMap &lt;String, Transporte&gt; transportes;
+--
++CrearA(int Cuit)
+-registrarPedido(Cliente cliente): void;
+-totalPagoCliente(): double;
+-agregarTransporte(Transporte transporte): void;
+-cargarTransporte(Transporte transporte): void;
+-facturacionTotal(): double;
+-paquetesNoEntregados(): List;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>305</x><y>445</y><w>145</w><h>70</h></coordinates><panel_attributes>_Paquetes_
+--
+-int idUnico;
+-int volumen;
+-double precio;
+-String direccion;
+-boolean entregado;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>905</x><y>425</y><w>175</w><h>95</h></coordinates><panel_attributes>_TRANSPORTE_
+--
+-String patente;
+-int volumenMaximo;
+-double valorQueCobra;
+-List&lt;Paquete&gt; paquetesCargados;
+--
+-cargarPaquetes(Paquete paquete): void;
+-listadoPaquetesAEntregar: List&lt;Paquete&gt;;
+-obtenerCostoViaje: double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>665</y><w>145</w><h>60</h></coordinates><panel_attributes>_PaquetesOrdinario_
+--
+-double costoEnvio;
+
+--
+crear(idUnico, volumen, precio, direccion): void;
+calcularPrecio(): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>215</x><y>665</y><w>140</w><h>60</h></coordinates><panel_attributes>_PaquetesEspecial_
+--
+-double costo;
+
+--
+crear(idUnico, volumen, precio, direccion): void;
+calcularNuevoPrecio(): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>510</y><w>85</w><h>165</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;150;310</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>510</y><w>85</w><h>165</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>150;10;10;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>870</x><y>590</y><w>265</w><h>40</h></coordinates><panel_attributes>_UTILITARIOS_
+--
+-double valorExtra;
+
+--
+-crear(String patente, int volumenMaximo, double valorExtra, double valorQueCobra): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>740</x><y>665</y><w>280</w><h>55</h></coordinates><panel_attributes>_COMUNES_
+--
+-int limitePaquetes;
+
+--
+-crear(String patente, int limitePaquetes, double volumenMaximo, double valorQueCobra): void;
+-paqueteCompatible(Paquete paquete): boolean;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1030</x><y>665</y><w>275</w><h>55</h></coordinates><panel_attributes>_CAMIONES_
+--
+-double valorAdicional;
+
+--
+-crear(String patente, int volumenMaximo, double valorAdicional, double valorQueCobra): void;
+-paqueteCompatible(Paquete paquete): boolean;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1070</x><y>515</y><w>110</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;200;10;200;300</additional_attributes></element><element><id>Relation</id><coordinates><x>825</x><y>515</y><w>90</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;10;10;10;300</additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>515</y><w>15</w><h>85</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>445</x><y>475</y><w>125</w><h>20</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;230;20</additional_attributes></element><element><id>Relation</id><coordinates><x>365</x><y>280</y><w>235</w><h>175</h></coordinates><panel_attributes></panel_attributes><additional_attributes>450;20;10;20;10;330</additional_attributes></element><element><id>Relation</id><coordinates><x>795</x><y>280</y><w>255</w><h>155</h></coordinates><panel_attributes></panel_attributes><additional_attributes>490;290;490;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>440</y><w>195</w><h>95</h></coordinates><panel_attributes>_Cliente_
+--
+-String nombre;
+-String direccion;
+-HashMap &lt;Integer, Paquete&gt; carrito;
+-double totalAPagar;
+-HashMap &lt;Integer, Pedido&gt; pedidos;
+--
+-agregarProducto(int codigo, Paquete paquete): void;
+-eliminarProducto(int codigo): void;
+-calcularTotal: void;
+-getTotalAPagar: double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>585</x><y>665</y><w>145</w><h>60</h></coordinates><panel_attributes>_Pedido_
+--
+-int nroPedido;
+-String direccion;
+-List &lt;Paquete&gt; paquetes;
+--
+crear(nroPedido,direccion): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>530</y><w>15</w><h>145</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;270</additional_attributes></element></diagram>

@@ -7,6 +7,12 @@ public class Camion extends Transporte{
         super(patente, volumenMaximo, valorQueCobra);
         this.valorAdicional = valorAdicional;
     }
+    public double getValorAdicional() {
+        return valorAdicional;
+    }
+    public void setValorAdicional(double valorAdicional) {
+        this.valorAdicional = valorAdicional;
+    }
 
     
     

@@ -1,7 +1,8 @@
-<diagram program="umletino" version="15.1"><zoom_level>5</zoom_level><element><id>UMLClass</id><coordinates><x>590</x><y>250</y><w>210</w><h>100</h></coordinates><panel_attributes>_AMAZING_
+<diagram program="umletino" version="15.1"><zoom_level>6</zoom_level><element><id>UMLClass</id><coordinates><x>486</x><y>96</y><w>252</w><h>120</h></coordinates><panel_attributes>_AMAZING_
 --
 -HashMap &lt;Integer, Pedido&gt; pedidos;
 -HashMap &lt;String, Transporte&gt; transportes;
+-List &lt;Paquete&gt; paquetes;
 --
 +CrearA(int Cuit)
 -registrarPedido(Cliente cliente): void;
@@ -9,13 +10,13 @@
 -agregarTransporte(Transporte transporte): void;
 -cargarTransporte(Transporte transporte): void;
 -facturacionTotal(): double;
--paquetesNoEntregados(): List;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>305</x><y>445</y><w>145</w><h>70</h></coordinates><panel_attributes>_Paquetes_
+-paquetesNoEntregados(): List;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>498</x><y>354</y><w>174</w><h>96</h></coordinates><panel_attributes>_Paquete_
 --
 -int idUnico;
 -int volumen;
 -double precio;
 -String direccion;
--boolean entregado;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>905</x><y>425</y><w>175</w><h>95</h></coordinates><panel_attributes>_TRANSPORTE_
+-boolean entregado;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>864</x><y>306</y><w>210</w><h>114</h></coordinates><panel_attributes>_TRANSPORTE_
 --
 -String patente;
 -int volumenMaximo;
@@ -24,36 +25,36 @@
 --
 -cargarPaquetes(Paquete paquete): void;
 -listadoPaquetesAEntregar: List&lt;Paquete&gt;;
--obtenerCostoViaje: double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>665</y><w>145</w><h>60</h></coordinates><panel_attributes>_PaquetesOrdinario_
+-obtenerCostoViaje: double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>588</y><w>174</w><h>72</h></coordinates><panel_attributes>_PaqueteOrdinario_
 --
 -double costoEnvio;
 
 --
 crear(idUnico, volumen, precio, direccion): void;
-calcularPrecio(): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>215</x><y>665</y><w>140</w><h>60</h></coordinates><panel_attributes>_PaquetesEspecial_
+calcularPrecio(): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>588</y><w>168</w><h>72</h></coordinates><panel_attributes>_PaqueteEspecial_
 --
 -double costo;
 
 --
 crear(idUnico, volumen, precio, direccion): void;
-calcularNuevoPrecio(): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>380</x><y>510</y><w>85</w><h>165</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;150;310</additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>510</y><w>85</w><h>165</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>150;10;10;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>870</x><y>590</y><w>265</w><h>40</h></coordinates><panel_attributes>_UTILITARIOS_
+calcularNuevoPrecio(): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>588</x><y>444</y><w>18</w><h>156</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;240</additional_attributes></element><element><id>Relation</id><coordinates><x>372</x><y>414</y><w>138</w><h>186</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>210;10;10;10;10;290</additional_attributes></element><element><id>UMLClass</id><coordinates><x>822</x><y>504</y><w>318</w><h>48</h></coordinates><panel_attributes>_UTILITARIO_
 --
 -double valorExtra;
 
 --
--crear(String patente, int volumenMaximo, double valorExtra, double valorQueCobra): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>740</x><y>665</y><w>280</w><h>55</h></coordinates><panel_attributes>_COMUNES_
+-crear(String patente, int volumenMaximo, double valorExtra, double valorQueCobra): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>666</x><y>594</y><w>336</w><h>66</h></coordinates><panel_attributes>_COMUN_
 --
 -int limitePaquetes;
 
 --
 -crear(String patente, int limitePaquetes, double volumenMaximo, double valorQueCobra): void;
--paqueteCompatible(Paquete paquete): boolean;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1030</x><y>665</y><w>275</w><h>55</h></coordinates><panel_attributes>_CAMIONES_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1014</x><y>594</y><w>330</w><h>66</h></coordinates><panel_attributes>_CAMION_
 --
 -double valorAdicional;
 
 --
 -crear(String patente, int volumenMaximo, double valorAdicional, double valorQueCobra): void;
--paqueteCompatible(Paquete paquete): boolean;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1070</x><y>515</y><w>110</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;200;10;200;300</additional_attributes></element><element><id>Relation</id><coordinates><x>825</x><y>515</y><w>90</w><h>160</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;10;10;10;300</additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>515</y><w>15</w><h>85</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>445</x><y>475</y><w>125</w><h>20</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;230;20</additional_attributes></element><element><id>Relation</id><coordinates><x>365</x><y>280</y><w>235</w><h>175</h></coordinates><panel_attributes></panel_attributes><additional_attributes>450;20;10;20;10;330</additional_attributes></element><element><id>Relation</id><coordinates><x>795</x><y>280</y><w>255</w><h>155</h></coordinates><panel_attributes></panel_attributes><additional_attributes>490;290;490;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>440</y><w>195</w><h>95</h></coordinates><panel_attributes>_Cliente_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1062</x><y>414</y><w>132</w><h>192</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;200;10;200;300</additional_attributes></element><element><id>Relation</id><coordinates><x>768</x><y>414</y><w>108</w><h>192</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;10;10;10;300</additional_attributes></element><element><id>Relation</id><coordinates><x>966</x><y>414</y><w>18</w><h>102</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>210</y><w>18</w><h>156</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;240</additional_attributes></element><element><id>Relation</id><coordinates><x>732</x><y>132</y><w>306</w><h>186</h></coordinates><panel_attributes></panel_attributes><additional_attributes>490;290;490;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>102</x><y>306</y><w>234</w><h>126</h></coordinates><panel_attributes>_Cliente_
 --
 -String nombre;
 -String direccion;
@@ -64,10 +65,10 @@ calcularNuevoPrecio(): void;</panel_attributes><additional_attributes></addition
 -agregarProducto(int codigo, Paquete paquete): void;
 -eliminarProducto(int codigo): void;
 -calcularTotal: void;
--getTotalAPagar: double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>585</x><y>665</y><w>145</w><h>60</h></coordinates><panel_attributes>_Pedido_
+-getTotalAPagar: double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>114</x><y>588</y><w>174</w><h>72</h></coordinates><panel_attributes>_Pedido_
 --
 -int nroPedido;
 -String direccion;
 -List &lt;Paquete&gt; paquetes;
 --
-crear(nroPedido,direccion): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>530</y><w>15</w><h>145</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;270</additional_attributes></element></diagram>
+crear(nroPedido,direccion): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>426</y><w>18</w><h>174</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;270</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>354</y><w>180</w><h>24</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;280;20</additional_attributes></element><element><id>Relation</id><coordinates><x>666</x><y>354</y><w>210</w><h>24</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;330;20</additional_attributes></element></diagram>

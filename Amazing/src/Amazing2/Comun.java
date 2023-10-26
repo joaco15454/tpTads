@@ -1,6 +1,7 @@
  package Amazing.Amazing;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class Comun extends Transporte{
     
@@ -47,7 +48,8 @@ public class Comun extends Transporte{
         }
     }
     @Override
-    public void cargarPaquetes2(Pedido pedido){
+    public List<String> cargarPaquetes2(Pedido pedido){
+        List<String> listaPaquetesCargados = new List<String>();
         transporteEstaLleno();
         Iterator <Integer> it = pedido.getCarrito().keySet().iterator();
         while(it.hasNext()){
@@ -55,8 +57,10 @@ public class Comun extends Transporte{
             Paquete paquete = pedido.obtenerPaquete(id);
             if(paquete.getVolumen() < 2000){
                 cargarPaquete(paquete);
-                System.out.println("+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion());
+                String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion();
+                listaPaquetesCargados.add(paqueteCargado);
             }
         }
+        return listaPaquetesCargados;
     }
  }

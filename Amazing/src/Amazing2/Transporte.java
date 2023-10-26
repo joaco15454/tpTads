@@ -82,15 +82,18 @@ public class Transporte{
         }
     }
 
-    public void cargarPaquetes2(Pedido pedido){
+    public List<String> cargarPaquetes2(Pedido pedido){
+        List<String> listaPaquetesCargados = new List<String>();
         transporteEstaLleno();
         Iterator <Integer> it = pedido.getCarrito().keySet().iterator();
         while(it.hasNext()){
             int id = it.next();
             Paquete paquete = pedido.obtenerPaquete(id);
             cargarPaquete(paquete);
-            System.out.println("+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion());
+            String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion(); 
+            listaPaquetesCargados.add(paqueteCargado);
         }
+        return listaPaquetesCargados;
     }
     public void cargarPaquete(Paquete paquete){
         paquetesCargados.add(paquete);

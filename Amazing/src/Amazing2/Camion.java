@@ -1,6 +1,7 @@
 package Amazing.Amazing;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class Camion extends Transporte{
     
@@ -47,7 +48,8 @@ public class Camion extends Transporte{
     }
 
     @Override
-    public void cargarPaquetes2(Pedido pedido){
+    public List<String> cargarPaquetes2(Pedido pedido){
+        List<String> listaPaquetesCargados = new List<String>();
         transporteEstaLleno();
         Iterator <Integer> it = pedido.getCarrito().keySet().iterator();
         while(it.hasNext()){
@@ -55,9 +57,11 @@ public class Camion extends Transporte{
             Paquete paquete = pedido.obtenerPaquete(id);
             if(paquete.getVolumen() > 2000){
                 cargarPaquete(paquete);
-                System.out.println("+ [" + pedido.getNroPedido() + "  - " + paquete.getIdUnico() + " ] " + pedido.getDireccion());
+                String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion();    
+                listaPaquetesCargados.add(paqueteCargado);
             }
         }
+        return listaPaquetesCargados;
     }
     
     public void costoViaje(){

@@ -242,4 +242,8 @@ public class Amazing {
 	public boolean hayTransportesIdenticos(){
 		return false;
 	}
+	/*Metodos auxiliares hayTransportesIdenticos */
+
+	
+	/*Fin metodos auxiliares hayTransporteIdenticos */
 }

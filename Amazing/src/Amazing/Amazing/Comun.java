@@ -40,8 +40,6 @@ public class Comun extends Transporte{
                 if(paquete.getVolumen() < 2000){ 
                     cargarPaquete(paquete);
                     System.out.println("+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion());
-                }else{
-                    throw new RuntimeException("Error, el volumen del paquete debe ser menor a 2000.");
                 }
             }else{
                 transporteEstaLleno();
@@ -58,8 +56,6 @@ public class Comun extends Transporte{
             if(paquete.getVolumen() < 2000){
                 cargarPaquete(paquete);
                 System.out.println("+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion());
-            }else{
-                throw new RuntimeException("Error, el volumen del paquete debe ser menor a 2000.");
             }
         }
     }

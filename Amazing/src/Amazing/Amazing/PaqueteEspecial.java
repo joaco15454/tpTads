@@ -1,4 +1,4 @@
-package Amazing;
+package Amazing.Amazing;
 public class PaqueteEspecial extends Paquete{
     private int porcentajeAdicional;
     private int valorAdicional;

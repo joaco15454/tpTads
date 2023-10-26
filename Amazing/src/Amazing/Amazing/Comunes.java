@@ -1,4 +1,4 @@
-package Amazing;
+package Amazing.Amazing;
 public class Comunes {
     
 }

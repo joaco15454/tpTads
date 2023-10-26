@@ -1,4 +1,4 @@
-package Amazing;
+package Amazing.Amazing;
 
 import java.util.Iterator;
 import java.util.List;

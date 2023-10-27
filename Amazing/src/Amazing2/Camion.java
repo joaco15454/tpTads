@@ -1,7 +1,6 @@
-package Amazing.Amazing;
+package Amazing;
 
 import java.util.Iterator;
-import java.util.List;
 
 public class Camion extends Transporte{
     
@@ -17,21 +16,48 @@ public class Camion extends Transporte{
         this.valorAdicional = valorAdicional;
     }
 
+    // @Override
+    // public void cargarPaquetes(Paquete paquete){
+    //     if(!transporteLleno()){
+    //         if(paquete.getVolumen() > 2000){
+    //             paquetesCargados.add(paquete);
+    //             System.out.println("+ [ " + paquete.nroPedido + "- " + paquete.getIdUnico() + " ] " + paquete.direccion);
+    //         }else{
+    //             throw new RuntimeException("Error, el volumen del paquete debe ser mayor a 2000.");            }
+    //     }else{
+    //         mensajeErrorTransporteLleno();
+    //     }
+    // }
+    // cargarPaquetes2
     @Override
-    public List<String> cargarPedido(Pedido pedido){
-        List<String> listaPaquetesCargados = new List<String>();
+    public void cargarPaquetes(Pedido pedido){
+        Iterator <Integer> it = pedido.getCarrito().keySet().iterator();
+        while(it.hasNext()){
+            int id = it.next();
+            Paquete paquete = pedido.obtenerPaquete(id);
+            if(!transporteLleno()){
+                if(paquete.getVolumen() > 2000){ 
+                    cargarPaquete(paquete);
+                    System.out.println("+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion());
+                }
+            }else{
+                transporteEstaLleno();
+            }
+        }
+    }
+
+    @Override
+    public void cargarPaquetes2(Pedido pedido){
         transporteEstaLleno();
         Iterator <Integer> it = pedido.getCarrito().keySet().iterator();
         while(it.hasNext()){
             int id = it.next();
             Paquete paquete = pedido.obtenerPaquete(id);
-            if((paquete instanceof PaqueteEspecial) && (paquete.getVolumen() > 2000)){
+            if(paquete.getVolumen() > 2000){
                 cargarPaquete(paquete);
-                String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion();    
-                listaPaquetesCargados.add(paqueteCargado);
+                System.out.println("+ [" + pedido.getNroPedido() + "  - " + paquete.getIdUnico() + " ] " + pedido.getDireccion());
             }
         }
-        return listaPaquetesCargados;
     }
     
     public void costoViaje(){

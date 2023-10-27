@@ -1,4 +1,4 @@
-package Amazing;
+package amazing;
 public class PaqueteOrdinario extends Paquete{
     private int costoDeEnvio;
 

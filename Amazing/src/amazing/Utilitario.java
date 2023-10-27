@@ -1,4 +1,4 @@
-package Amazing;
+package amazing;
 
 public class Utilitario extends Transporte {
     private double valorExtra;

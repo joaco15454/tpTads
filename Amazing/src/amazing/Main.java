@@ -1,5 +1,5 @@
-package Amazing;
-public class App {
+package amazing;
+
     public class Main {
 
         public static void main(String[] args) {
@@ -15,9 +15,11 @@ public class App {
     
               
                int p1 = empresa.registrarPedido("Angel Gutierrez",  "San Martin 321", 28324132);
+                
                int p2 = empresa.registrarPedido("Marta Benitez",  "Pasco 1020", 19456398);
-               int p3 = empresa.registrarPedido("Daniel Constanzo",  "J.Verdi 876", 35678901);
-               int p4 = empresa.registrarPedido("Beatriz Espinoza",  "L.Alberdi 549", 20345678);
+            
+             //  int p3 = empresa.registrarPedido("Daniel Constanzo",  "J.Verdi 876", 35678901);
+               /*int p4 = empresa.registrarPedido("Beatriz Espinoza",  "L.Alberdi 549", 20345678);
                int p5 = empresa.registrarPedido("Angel Gutierrez",  "Madariaga 321", 28324132);
                int p6 = empresa.registrarPedido("Beatriz Espinoza", "L.Alberdi 549", 20345678);
                
@@ -30,12 +32,12 @@ public class App {
                int paq7= empresa.agregarPaquete(p6, 17000, 28900, 1000);
                int paq8= empresa.agregarPaquete(p1, 35000, 134000, 3, 400);
                int paq9= empresa.agregarPaquete(p4, 120000, 56000, 2, 1100);
-               int paq10= empresa.agregarPaquete(p6, 1500, 3890, 1000);
+               int paq10= empresa.agregarPaquete(p6, 1500, 3890, 1000);*/
                
-               empresa.cerrarPedido(p1);
-               empresa.cerrarPedido(p3);
+               /*empresa.cerrarPedido(p1);
+               empresa.cerrarPedido(p3);*/
                
-               System.out.println(p1);  
+              
              /*  System.out.println("Listados con la carga de transportes: ");
               
                System.out.println(empresa.cargarTransporte("AA222FF"));
@@ -66,4 +68,4 @@ public class App {
                System.out.println(empresa.toString());   */
         }
     }
-}
+

@@ -1,4 +1,4 @@
-package Amazing;
+package amazing;
 
 
 import java.util.HashMap;

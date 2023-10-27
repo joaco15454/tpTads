@@ -17,36 +17,6 @@ public class Comun extends Transporte{
         return limitePaquetes;
     }
 
-    // @Override
-    // public void cargarPaquetes(Paquete paquete){
-    //     if(!transporteLleno()){
-    //         if(paquete.getVolumen() < 2000){
-    //             paquetesCargados.add(paquete);
-    //             aumentarVolumen(getVolumenActual(), paquete.getVolumen());
-    //             System.out.println("+ [ " + paquete.nroPedido + "- " + paquete.getIdUnico() + " ] " + paquete.direccion);
-    //         }else{
-    //             throw new RuntimeException("Error, el volumen del paquete debe ser menor a 2000.");            }
-    //     }else{
-    //         mensajeErrorTransporteLleno();
-    //     }
-    // }
-
-    @Override
-    public void cargarPaquetes(Pedido pedido){
-        Iterator <Integer> it = pedido.getCarrito().keySet().iterator();
-        while(it.hasNext()){
-            int id = it.next();
-            Paquete paquete = pedido.obtenerPaquete(id);
-            if(!transporteLleno()){
-                if(paquete.getVolumen() < 2000){ 
-                    cargarPaquete(paquete);
-                    System.out.println("+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion());
-                }
-            }else{
-                transporteEstaLleno();
-            }
-        }
-    }
     @Override
     public List<String> cargarPaquetes2(Pedido pedido){
         List<String> listaPaquetesCargados = new List<String>();
@@ -55,7 +25,7 @@ public class Comun extends Transporte{
         while(it.hasNext()){
             int id = it.next();
             Paquete paquete = pedido.obtenerPaquete(id);
-            if(paquete.getVolumen() < 2000){
+            if((paquete instanceof PaqueteOrdinario) && (paquete.getVolumen() < 2000)){
                 cargarPaquete(paquete);
                 String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion();
                 listaPaquetesCargados.add(paqueteCargado);

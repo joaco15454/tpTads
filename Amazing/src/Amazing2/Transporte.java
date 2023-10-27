@@ -89,9 +89,12 @@ public class Transporte{
         while(it.hasNext()){
             int id = it.next();
             Paquete paquete = pedido.obtenerPaquete(id);
-            cargarPaquete(paquete);
-            String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion(); 
-            listaPaquetesCargados.add(paqueteCargado);
+            if(paquete instanceof PaqueteOrdinario || paquete instanceof PaqueteEspecial){
+                cargarPaquete(paquete);
+                String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion(); 
+                listaPaquetesCargados.add(paqueteCargado);
+            }
+
         }
         return listaPaquetesCargados;
     }

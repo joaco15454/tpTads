@@ -2,6 +2,7 @@ package Amazing.Amazing;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Amazing {
@@ -240,10 +241,42 @@ public class Amazing {
 	 *   VER EJEMPLO EN ENUNCIADO
 	 */
 	public boolean hayTransportesIdenticos(){
+		for(Transporte t1 : transportes.values()){
+			for(Transporte t2 : transportes.values()){
+				if(distintaPatente(t1, t2) && mismaClaseTransporte(t1,t2) && cargaIdentica(t1,t2)){
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 	/*Metodos auxiliares hayTransportesIdenticos */
-
-	
+	private boolean cargaIdentica(Transporte t1, Transporte t2){
+		boolean mismosPaquetes = true;
+		List <Paquete> primeraCarga = t1.getPaquetesCargados();
+		List <Paquete> segundaCarga = t2.getPaquetesCargados();
+		if(primeraCarga.size() != segundaCarga.size()){
+			return false;
+		}
+		for(Paquete p1 : primeraCarga){
+			for(Paquete p2 : segundaCarga){
+				mismosPaquetes = mismosPaquetes && mismoPrecioVolumen(p1,p2) && mismaClasePaquete(p1,p2);
+			}
+		}
+	}
+	private boolean mismoPrecioVolumen(Paquete p1, Paquete p2){
+		boolean mismoPrecio = (p1.getPrecio() == p2.getPrecio());
+		boolean mismoVolumen = (p1.getVolumen() == p2.getVolumen());
+		return mismoPrecio && mismoVolumen;
+	}
+	private boolean distintaPatente(Transporte t1, Transporte t2){
+		return t1.getPatente() != t2.getPatente();
+	}
+	private boolean mismaClasePaquete(Paquete p1, Paquete p2){
+		return p1.getClass() == p2.getClass();
+	}
+	private boolean mismaClaseTransporte(Transporte t1, Transporte t2){
+		return t1.getClass() == t2.getClass();
+	}
 	/*Fin metodos auxiliares hayTransporteIdenticos */
 }

@@ -1,4 +1,4 @@
-package Amazing.Amazing;
+package Amazing2;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,14 +11,16 @@ public class Pedido {
     private String direccion;
     private String nombreDeCliente;
     private HashMap<Integer,Paquete> carrito;
+    private boolean estaCerrado;
 
     /* CONSTRUCTOR  */
-    public Pedido(int nroPedido, String direccion, String nombreDeCliente, HashMap<Integer, Paquete> carrito, int dni) {
+    public Pedido(int nroPedido, String direccion, String nombreDeCliente, HashMap<Integer, Paquete> carrito, int dni, boolean estaCerrado) {
         this.nroPedido = nroPedido;
         this.direccion = direccion;
         this.nombreDeCliente = nombreDeCliente;
         this.carrito = carrito;
         this.dni = dni;
+        this.estaCerrado = estaCerrado;
     }
     /* FIN CONSTRUCTOR */
     /* GETTERS AND SETTERS */
@@ -62,12 +64,18 @@ public class Pedido {
     public void setCarrito(HashMap<Integer, Paquete> carrito) {
         this.carrito = carrito;
     }
+    public boolean isEstaCerrado() {
+        return estaCerrado;
+    }
+    public void setEstaCerrado(boolean estaCerrado) {
+        this.estaCerrado = estaCerrado;
+    }
     /* FIN GETTERS AND SETTERS */
     /* OPERACIONES */
     protected  void agregarProductoCarrito(int id, int volumen, double precio) {
         /*COMPLETAR */
-         if (paqueteEnCarrito(id)) {
-            throw new RuntimeException("Error, ya existe un paquete con esa id");
+         if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
+            throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro");
          }
         Paquete p = new Paquete(id,volumen,precio,getDireccion(),false);
         carrito.put(id, p);
@@ -75,7 +83,7 @@ public class Pedido {
     
     protected  void eliminarProductoCarrito (int id) {
         
-        if (!paqueteEnCarrito(id)) {
+        if (!paqueteEnCarrito(id) || isEstaCerrado() == true) {
             throw new RuntimeException("Error, el paquete que desea borrar no esta en el carrito");
         }
         carrito.remove(id);
@@ -114,6 +122,7 @@ public class Pedido {
                 return false;
         return true;
     }
+    
 
    
 }

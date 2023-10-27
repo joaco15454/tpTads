@@ -1,8 +1,7 @@
-package Amazing.Amazing;
+package Amazing2;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Amazing {
@@ -48,12 +47,12 @@ public class Amazing {
     
 	/**
 	 * Registra un nuevo transporte tipo Automovil en el sistema con los siguientes 
-	 * datos que corresponden a toda clase de transporte:
+	 * datos correspondiente a todo transporte:
 	 *  - patente, 
 	 *  - volumen maximo de carga
-	 *  - valor del viaje (que cobrara la empresa)
+	 *  - valor del viaje (que cobrará a la empresa)
 	 *  
-	 * Ademas por ser Automovil se proporciona el dato:
+	 * Además por ser Automovil se proporciona el dato:
 	 *  - cantidad maxima de paquetes que transporta
 	 *  
 	 * Si esa patente ya esta en el sistema se debe generar una  excepcion.
@@ -89,7 +88,7 @@ public class Amazing {
 	/**
 	 * Se registra un nuevo pedido en el sistema proporcionando los siguientes datos:
 	 * - el nombre del cliente que lo solicita
-	 * - su direccion
+	 * - su dirección
 	 * - su dni
 	 * 
 	 * El sistema le asigna un numero de pedido unico y crea un carrito de ventas vacio.
@@ -97,12 +96,15 @@ public class Amazing {
 	 * 
 	 */
 	public int registrarPedido(String cliente, String direccion, int dni){
+
 		return 0;
 	}
 	
+	
 	/**
-	 * Se registra la solicitud de un nuevo paquete, el cual se agregara al carrito 
-	 * del pedido indicado como un paquete de tipo ordinario. 
+	 * Se registra la compra de un producto, el cual se agregara al carrito del pedido dado 
+	 * como un paquete de tipo ordinario. 
+	 * 
 	 * Se ingresan los datos necesario para agregarlo:
 	 *  - pedido al que corresponde agregarlo
 	 *  - volumen del paquete a agregar
@@ -111,10 +113,10 @@ public class Amazing {
 	 *  Ademas por ser un paquete de tipo ordinario:
 	 *  - costo del envio
 	 * 
-	 * Si el pedido ya esta terminado devuelve False. sino True.
-	 * Si ese pedido no esta registrado en el sistema se debe generar una excepcion.
+	 *  Si ese pedido no esta registrado en el sistema o ya está finalizado
+	 *  se debe generar una  excepcion.
 	 * 
-	 * Devuelve el codigo de paquete (unico).
+	 * devuelve el codigo de paquete unico.
 	 * 
 	 */
 	public int agregarPaquete(int codPedido, int volumen, int precio, int costoEnvio){
@@ -134,10 +136,10 @@ public class Amazing {
 	 *  - porcentaje adicional (que se calcula y suma a su precio)
 	 *  - adicional (se suma si el paquete tiene volumen>3000)
 	 * 
-	 * Si el pedido ya esta terminado devuelve False, sino devuelve True.
-	 * Si ese pedido no esta registrado en el sistema se debe generar una  excepcion.
+	 *  Si ese pedido no esta registrado en el sistema o ya está finalizado
+	 *  se debe generar una  excepcion.
 	 * 
-	 * devuelve el codigo de paquete (unico).
+	 * devuelve el codigo de paquete unico.
 	 * 
 	 */
 	public int agregarPaquete(int codPedido, int volumen, int precio, int porcentaje, int adicional){
@@ -145,10 +147,14 @@ public class Amazing {
 	}
 
 
+	
 	/**
 	 * quita un paquete del pedido dado su codigo unico de paquete.
 	 * 
-	 * Demostrar la complejidad en terminos de O grande.
+	 * Devuelve true si pudo quitar el paquete. 
+	 * si no lo encontró o  el pedido ya esta finalizado, devuelve false.
+	 * 
+	 * Demostrar la complejidad en terminos de O grande en el informe.
 	 */
 	public boolean quitarPaquete(int codPaquete){
 		return false;
@@ -157,30 +163,35 @@ public class Amazing {
 
 
 	/**
-	 * Se registra el cierre de un pedido registrado en la empresa, 
+	 * Se registra la finalizacion de un pedido registrado en la empresa, 
 	 * dado su codigo.
+	 * Devuelve el total a pagar por el pedido.
 	 * 
-	 * Si ese codigo no esta en el sistema se debe generar una  excepcion.
+	 * Si ese codigo no esta en el sistema o ya fue finalizado se debe 
+	 * generar una excepcion.
 	 *
 	 */
 	public void cerrarPedido(int codPedido){
-
+		Pedido p = buscarPedido(codPedido);
+		
+		p.setEstaCerrado(true);
 	}
 	
 	/**
-	 * Se registra la carga de un transporte registrado en la empresa, dada su patente.
+	 * Se solicita la carga de un transporte registrado en la empresa, dada su patente.
 	 * 
-	 * Devuelve un String con forma de listado donde cada renglon representa un 
+	 * Devuelve un String con forma de listado donde cada renglón representa un 
 	 * paquete cargado.
-	 * Cada renglon debe respetar el siguiente formato: 
+	 * Cada renglón debe respetar el siguiente formato: 
 	 *      " + [ NroPedido - codPaquete ] direccion"
 	 * por ejemplo:
 	 *      " + [ 1002 - 101 ] Gutierrez 1147"
-	 *      
-	 * Si esa patente no esta en el sistema se debe generar una  excepcion. 
-	 * Si el pedido no esta terminado devuelve una excepcion. 
-	 * Si esta terminado y no hay productos comprados devuelve [].
 	 *
+	 * Los paquetes que se cargan deben pertenecer a pedidos finaizados.
+	 * Si no se encontró ningún paquete para cargar, se debe devolver un string vacio.
+	 * 
+	 * Si esa patente no esta en el sistema se debe generar una  excepcion. 
+	 * 
 	 */
 	public String cargarTransporte(String patente){
 		return "HOLA";
@@ -241,47 +252,14 @@ public class Amazing {
 	 *   VER EJEMPLO EN ENUNCIADO
 	 */
 	public boolean hayTransportesIdenticos(){
-		for(Transporte t1 : transportes.values()){
-			for(Transporte t2 : transportes.values()){
-				if(distintaPatente(t1, t2) && mismaClaseTransporte(t1,t2) && cargaIdentica(t1,t2)){
-					return true;
-				}
-			}
-		}
 		return false;
 	}
-	/*Metodos auxiliares hayTransportesIdenticos */
-	private boolean cargaIdentica(Transporte t1, Transporte t2){
-		List <Paquete> primeraCarga = t1.getPaquetesCargados();
-		List <Paquete> segundaCarga = t2.getPaquetesCargados();
-		if(primeraCarga.size() != segundaCarga.size()){
-			return false;
-		}
-		for(Paquete p1 : primeraCarga){
-			boolean mismasCaracteristicas = false;
-			for(Paquete p2 : segundaCarga){
-				if(mismoPrecioVolumen(p1,p2) && mismaClasePaquete(p1,p2)){
-					sonIguales = true;
-					break;
-				}
-			}
-		}
-		return mismasCaracteristicas;
-	}
 
-	private boolean mismoPrecioVolumen(Paquete p1, Paquete p2){
-		boolean mismoPrecio = (p1.getPrecio() == p2.getPrecio());
-		boolean mismoVolumen = (p1.getVolumen() == p2.getVolumen());
-		return mismoPrecio && mismoVolumen;
+	/*METODOS AUXILIARES */
+	public Pedido buscarPedido(int codPedido) {
+		Pedido p = pedidos.get((codPedido));
+		
+		return p;
 	}
-	private boolean distintaPatente(Transporte t1, Transporte t2){
-		return t1.getPatente() != t2.getPatente();
-	}
-	private boolean mismaClasePaquete(Paquete p1, Paquete p2){
-		return p1.getClass() == p2.getClass();
-	}
-	private boolean mismaClaseTransporte(Transporte t1, Transporte t2){
-		return t1.getClass() == t2.getClass();
-	}
-	/*Fin metodos auxiliares hayTransporteIdenticos */
+	
 }

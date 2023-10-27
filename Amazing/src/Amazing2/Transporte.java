@@ -1,5 +1,6 @@
 package Amazing.Amazing;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -68,7 +69,22 @@ public class Transporte{
                 String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion(); 
                 listaPaquetesCargados.add(paqueteCargado);
             }
-
+        }
+        return listaPaquetesCargados;
+    }
+    // otra forma de hacerlo, elimina un paquete del carrito del pedido 
+    //para que el pedido pueda ser llevado a otro transporte y seguir.
+    public List<String> cargarPedido2(Pedido pedido){
+        List<String> listaPaquetesCargados = new List<String>();
+        transporteEstaLleno();
+        HashMap<Integer,Paquete> carrito = pedido.getCarrito();
+        for(Paquete p : carrito.values()){
+            if(paquete instanceof PaqueteOrdinario || paquete instanceof PaqueteEspecial){
+                cargarPaquete(p);
+                String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion(); 
+                listaPaquetesCargados.add(paqueteCargado);
+                carrito.remove(p.getIdUnico());
+            }
         }
         return listaPaquetesCargados;
     }

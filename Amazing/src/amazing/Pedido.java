@@ -73,7 +73,8 @@ public class Pedido {
     }
     /* FIN GETTERS AND SETTERS */
     /* OPERACIONES */
-    protected  void agregarProductoCarrito(int id, int volumen, double precio) {
+    //Agrega un producto ordinario
+    protected  void agregarProductoCarrito(int id, int volumen, double precio, int costoEnvio) {
         /*COMPLETAR */
          if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
             throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro");
@@ -81,7 +82,15 @@ public class Pedido {
         Paquete p = new Paquete(getDireccion(),volumen,precio);
         carrito.put(id, p);
     }
-    
+    //Agrega producto especial
+    protected  void agregarProductoCarrito(int id, int volumen, double precio, int costoEnvio, int adicional) {
+        /*COMPLETAR */
+         if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
+            throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro");
+         }
+        Paquete p = new Paquete(getDireccion(),volumen,precio);
+        carrito.put(id, p);
+    }
     protected  void eliminarProductoCarrito (int id) {
         
         if (!paqueteEnCarrito(id) || isEstaCerrado() == true) {

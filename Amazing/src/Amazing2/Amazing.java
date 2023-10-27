@@ -263,6 +263,7 @@ public class Amazing {
 				mismosPaquetes = mismosPaquetes && mismoPrecioVolumen(p1,p2) && mismaClasePaquete(p1,p2);
 			}
 		}
+		return mismosPaquetes;
 	}
 	private boolean mismoPrecioVolumen(Paquete p1, Paquete p2){
 		boolean mismoPrecio = (p1.getPrecio() == p2.getPrecio());

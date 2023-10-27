@@ -12,7 +12,7 @@ public class Pedido {
     private String nombreDeCliente;
     private HashMap<Integer,Paquete> carrito = new HashMap<>();
     private boolean estaCerrado;
-    private static int contadorPedidos = 1;
+    private static int contadorPedidos = 1000;
 
     /* CONSTRUCTOR  */
     public Pedido(int nroPedido, String direccion, String nombreDeCliente, int dni, boolean estaCerrado) {

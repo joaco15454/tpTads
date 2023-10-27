@@ -227,10 +227,11 @@ public class Amazing {
 	 * generar una excepcion.
 	 *
 	 */
-	public void cerrarPedido(int codPedido){
+	public double cerrarPedido(int codPedido){
 		Pedido p = buscarPedido(codPedido);
-		System.out.println(p.calcularValorAPagar()); // Devuelve el total a pagar pero es un void, por las dudas dejo esto aca para correccion futura
 		p.setEstaCerrado(true);
+		return p.calcularValorAPagar(); // Devuelve el total a pagar pero es un void, por las dudas dejo esto aca para correccion futura
+		
 	}
 	
 	/**

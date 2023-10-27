@@ -1,7 +1,7 @@
 package amazing;
 
 public class Paquete{
-    private static int contadorPedidos = 1;
+    private static int contadorPedidos = 100;
     private int idUnico;
     private int volumen;
     private double precio;

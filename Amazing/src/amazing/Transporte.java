@@ -41,6 +41,9 @@ public class Transporte{
     }
 
     public void setVolumenMaximo(int volumenMaximo) {
+        if(volumenMaximo < 0){
+            throw new RuntimeException("Error, tiene que ser mayor que 0.");
+        }
         this.volumenMaximo = volumenMaximo;
     }
 
@@ -48,6 +51,9 @@ public class Transporte{
         return volumenActual;
     }
     public void setVolumenActual(int volumenActual){
+        if(volumenActual > getVolumenMaximo()){
+            throw new RuntimeException("Error, el volumen no puede superar " + getVolumenMaximo());
+        }
         this.volumenActual = volumenActual;
     }
     public void aumentarVolumen(int volumenPaquete){
@@ -75,9 +81,16 @@ public class Transporte{
         for(Paquete paquete : carrito.values()){
             if(paquete instanceof PaqueteOrdinario || paquete instanceof PaqueteEspecial){
                 cargarPaquete(paquete);
-                String paqueteCargado = "+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion(); 
+                StringBuilder sb = new StringBuilder();
+                sb.append("+ [");
+                sb.append(pedido.getNroPedido());
+                sb.append(" - ");
+                sb.append(paquete.getIdUnico());
+                sb.append(" ] ");
+                sb.append(pedido.getDireccion());
+                String paqueteCargado = sb.toString();
                 listaPaquetesCargados.add(paqueteCargado);
-                carrito.remove(paquete.getIdUnico());
+                //carrito.remove(paquete.getIdUnico());
             }
         }
         return listaPaquetesCargados;

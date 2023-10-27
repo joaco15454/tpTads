@@ -73,24 +73,48 @@ public class Pedido {
     }
     /* FIN GETTERS AND SETTERS */
     /* OPERACIONES */
+
+
+
+
+
+
     //Agrega un producto ordinario
-    protected  void agregarProductoCarrito(int id, int volumen, double precio, int costoEnvio) {
+    protected  int agregarProductoCarrito(int volumen, int precio, int costoEnvio) {
         /*COMPLETAR */
-         if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
+         
+        PaqueteOrdinario p = new PaqueteOrdinario(getDireccion(),volumen,precio, costoEnvio);
+        agregarProductoOrdinario(p.getIdUnico(), p);
+        return p.getIdUnico();
+    }
+    protected void agregarProductoOrdinario (Integer id, PaqueteOrdinario p) {
+        if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
             throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro");
          }
-        Paquete p = new Paquete(getDireccion(),volumen,precio);
         carrito.put(id, p);
     }
+
+
+
     //Agrega producto especial
-    protected  void agregarProductoCarrito(int id, int volumen, double precio, int costoEnvio, int adicional) {
+    protected  int agregarProductoCarrito( int volumen, double precio, int porcentaje, int adicional) {
         /*COMPLETAR */
-         if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
+
+        PaqueteEspecial p = new PaqueteEspecial(getDireccion(),volumen,precio, porcentaje,adicional);
+        agregarProductoEspecial(p.getIdUnico(), p);
+        return p.getIdUnico();
+    }
+    protected void agregarProductoEspecial (Integer id, PaqueteEspecial p) {
+        if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
             throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro");
          }
-        Paquete p = new Paquete(getDireccion(),volumen,precio);
         carrito.put(id, p);
     }
+
+
+
+
+
     protected  void eliminarProductoCarrito (int id) {
         
         if (!paqueteEnCarrito(id) || isEstaCerrado() == true) {
@@ -98,6 +122,9 @@ public class Pedido {
         }
         carrito.remove(id);
     }
+
+
+
     public double calcularValorAPagar() {
         /*COMPLETAR */
         double valor = 0.0;
@@ -107,6 +134,8 @@ public class Pedido {
             valor+= calcularValorPaquete(id);
         }
         return valor;
+
+        
     }
     public boolean paqueteEnCarrito (int id) {
         return obtenerPaquete(id) == null ? false: true;

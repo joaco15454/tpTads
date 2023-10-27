@@ -138,12 +138,10 @@ public class Amazing {
 	 */
 	public int agregarPaquete(int codPedido, int volumen, int precio, int costoEnvio){
 		Pedido p = pedidos.get(codPedido);
-		if (p == null ) {
-			throw new RuntimeException("pedido no encontrado");
+		if (p == null  || p.isEstaCerrado()) {
+			throw new RuntimeException("pedido no encontrado o cerrado");
 		}
-		Paquete paquete = new PaqueteOrdinario(p.getDireccion(),volumen, precio, costoEnvio);
-		p.agregarProductoCarrito(paquete.getIdUnico(), paquete.getVolumen(), paquete.getPrecio() + paquete.getCostoDeEnvio());
-		return 0;
+		return p.agregarProductoCarrito(volumen, precio, costoEnvio);			
 	}
 	
 	/**
@@ -166,7 +164,11 @@ public class Amazing {
 	 * 
 	 */
 	public int agregarPaquete(int codPedido, int volumen, int precio, int porcentaje, int adicional){
-		return 0;
+		Pedido p = pedidos.get(codPedido);
+		if (p == null  || p.isEstaCerrado()) {
+			throw new RuntimeException("pedido no encontrado o cerrado");
+		}
+		return p.agregarProductoCarrito(volumen, precio, porcentaje,adicional);	
 	}
 
 

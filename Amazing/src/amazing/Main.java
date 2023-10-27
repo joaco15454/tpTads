@@ -13,7 +13,7 @@ package amazing;
                empresa.registrarUtilitario("AG111ZZ", 21000, 6000, 9000);
                empresa.registrarCamion("AA111BB", 55000, 300000, 35);
     
-              
+        
                int p1 = empresa.registrarPedido("Angel Gutierrez",  "San Martin 321", 28324132);
                 
                int p2 = empresa.registrarPedido("Marta Benitez",  "Pasco 1020", 19456398);

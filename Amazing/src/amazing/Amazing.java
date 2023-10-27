@@ -2,6 +2,7 @@ package amazing;
 
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Amazing {
@@ -159,6 +160,21 @@ public class Amazing {
 	 * Demostrar la complejidad en terminos de O grande en el informe.
 	 */
 	public boolean quitarPaquete(int codPaquete){
+		Iterator<Integer> it = pedidos.keySet().iterator();
+ 
+		while(it.hasNext()){
+    		Integer clave = it.next();
+    		Pedido p = pedidos.get(clave);
+			 
+			for (Integer id : p.getCarrito().keySet()) {
+				Paquete pedido = p.getCarrito().get(id);
+				if (pedido.getIdUnico() == codPaquete) {
+					return true;
+				}
+				// Hacer algo con el pedido
+			}
+			
+		}
 		return false;
 	}
 
@@ -225,6 +241,7 @@ public class Amazing {
 	 * Se debe realizar esta operacion en O(1).
 	 */
 	public double facturacionTotalPedidosCerrados(){
+
 		return 0.0;
 	}
 	

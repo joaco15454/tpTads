@@ -10,16 +10,16 @@ public class Pedido {
     private int nroPedido;
     private String direccion;
     private String nombreDeCliente;
-    private HashMap<Integer,Paquete> carrito;
+    private HashMap<Integer,Paquete> carrito = new HashMap<>();
     private boolean estaCerrado;
     private static int contadorPedidos = 1;
 
     /* CONSTRUCTOR  */
-    public Pedido(int nroPedido, String direccion, String nombreDeCliente, HashMap<Integer, Paquete> carrito, int dni, boolean estaCerrado) {
+    public Pedido(int nroPedido, String direccion, String nombreDeCliente, int dni, boolean estaCerrado) {
         this.nroPedido = contadorPedidos++; // numero unico
         this.direccion = direccion;
         this.nombreDeCliente = nombreDeCliente;
-        this.carrito = carrito;
+    
         this.dni = dni;
         this.estaCerrado = estaCerrado;
     }
@@ -135,7 +135,7 @@ public class Pedido {
         }
         return valor;
 
-        
+
     }
     public boolean paqueteEnCarrito (int id) {
         return obtenerPaquete(id) == null ? false: true;

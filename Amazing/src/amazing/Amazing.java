@@ -111,7 +111,7 @@ public class Amazing {
 	 * 
 	 */
 	public int registrarPedido(String cliente, String direccion, int dni){
-		Pedido p = new Pedido(dni, direccion, cliente, null, dni, false);
+		Pedido p = new Pedido(dni, direccion, cliente, dni, false);
 		pedidos.put(p.getNroPedido(), p);
 		System.out.println(p.getNroPedido());
 		return p.getNroPedido();
@@ -292,8 +292,17 @@ public class Amazing {
 	 * 
 	 */
 	public Map<Integer,String> pedidosNoEntregados(){
-		Map<Integer, String> hola = new HashMap<>();
-		return hola;
+		Map<Integer, String> pedidosNoEntregados = new HashMap<>();
+		for (Pedido p : pedidos.values()) {
+			if (p.isEstaCerrado()) {
+				for(Paquete c : p.getCarrito().values()) {
+					if (!c.fueEntregado() && !pedidosNoEntregados.containsKey(p.getNroPedido())) {
+						pedidosNoEntregados.put(p.getNroPedido(), p.getNombreDeCliente());
+					}
+				}
+			}
+		}
+		return pedidosNoEntregados;
 	}
 	
 	/**

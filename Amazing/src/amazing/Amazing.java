@@ -111,7 +111,7 @@ public class Amazing {
 	 * 
 	 */
 	public int registrarPedido(String cliente, String direccion, int dni){
-		Pedido p = new Pedido(dni, direccion, cliente, null, dni, false);
+		Pedido p = new Pedido(dni, direccion, cliente, dni, false);
 		pedidos.put(p.getNroPedido(), p);
 		System.out.println(p.getNroPedido());
 		return p.getNroPedido();
@@ -138,12 +138,10 @@ public class Amazing {
 	 */
 	public int agregarPaquete(int codPedido, int volumen, int precio, int costoEnvio){
 		Pedido p = pedidos.get(codPedido);
-		if (p == null ) {
-			throw new RuntimeException("pedido no encontrado");
+		if (p == null  || p.isEstaCerrado()) {
+			throw new RuntimeException("pedido no encontrado o cerrado");
 		}
-		Paquete paquete = new PaqueteOrdinario(p.getDireccion(),volumen, precio, costoEnvio);
-		p.agregarProductoCarrito(paquete.getIdUnico(), paquete.getVolumen(), paquete.getPrecio() + paquete.getCostoDeEnvio());
-		return 0;
+		return p.agregarProductoCarrito(volumen, precio, costoEnvio);			
 	}
 	
 	/**
@@ -166,7 +164,11 @@ public class Amazing {
 	 * 
 	 */
 	public int agregarPaquete(int codPedido, int volumen, int precio, int porcentaje, int adicional){
-		return 0;
+		Pedido p = pedidos.get(codPedido);
+		if (p == null  || p.isEstaCerrado()) {
+			throw new RuntimeException("pedido no encontrado o cerrado");
+		}
+		return p.agregarProductoCarrito(volumen, precio, porcentaje,adicional);	
 	}
 
 
@@ -290,8 +292,17 @@ public class Amazing {
 	 * 
 	 */
 	public Map<Integer,String> pedidosNoEntregados(){
-		Map<Integer, String> hola = new HashMap<>();
-		return hola;
+		Map<Integer, String> pedidosNoEntregados = new HashMap<>();
+		for (Pedido p : pedidos.values()) {
+			if (p.isEstaCerrado()) {
+				for(Paquete c : p.getCarrito().values()) {
+					if (!c.fueEntregado() && !pedidosNoEntregados.containsKey(p.getNroPedido())) {
+						pedidosNoEntregados.put(p.getNroPedido(), p.getNombreDeCliente());
+					}
+				}
+			}
+		}
+		return pedidosNoEntregados;
 	}
 	
 	/**

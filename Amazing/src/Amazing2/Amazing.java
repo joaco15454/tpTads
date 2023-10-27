@@ -252,19 +252,23 @@ public class Amazing {
 	}
 	/*Metodos auxiliares hayTransportesIdenticos */
 	private boolean cargaIdentica(Transporte t1, Transporte t2){
-		boolean mismosPaquetes = true;
 		List <Paquete> primeraCarga = t1.getPaquetesCargados();
 		List <Paquete> segundaCarga = t2.getPaquetesCargados();
 		if(primeraCarga.size() != segundaCarga.size()){
 			return false;
 		}
 		for(Paquete p1 : primeraCarga){
+			boolean mismasCaracteristicas = false;
 			for(Paquete p2 : segundaCarga){
-				mismosPaquetes = mismosPaquetes && mismoPrecioVolumen(p1,p2) && mismaClasePaquete(p1,p2);
+				if(mismoPrecioVolumen(p1,p2) && mismaClasePaquete(p1,p2)){
+					sonIguales = true;
+					break;
+				}
 			}
 		}
-		return mismosPaquetes;
+		return mismasCaracteristicas;
 	}
+
 	private boolean mismoPrecioVolumen(Paquete p1, Paquete p2){
 		boolean mismoPrecio = (p1.getPrecio() == p2.getPrecio());
 		boolean mismoVolumen = (p1.getVolumen() == p2.getVolumen());

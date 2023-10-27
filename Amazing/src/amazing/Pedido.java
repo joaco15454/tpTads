@@ -16,7 +16,7 @@ public class Pedido {
 
     /* CONSTRUCTOR  */
     public Pedido(int nroPedido, String direccion, String nombreDeCliente, HashMap<Integer, Paquete> carrito, int dni, boolean estaCerrado) {
-        this.nroPedido = contadorPedidos++;
+        this.nroPedido = contadorPedidos++; // numero unico
         this.direccion = direccion;
         this.nombreDeCliente = nombreDeCliente;
         this.carrito = carrito;
@@ -78,7 +78,7 @@ public class Pedido {
          if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
             throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro");
          }
-        Paquete p = new Paquete(id,volumen,precio,getDireccion(),false);
+        Paquete p = new Paquete(getDireccion(),volumen,precio);
         carrito.put(id, p);
     }
     

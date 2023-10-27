@@ -2,9 +2,9 @@ package amazing;
 public class PaqueteEspecial extends Paquete{
     private int porcentajeAdicional;
     private int valorAdicional;
-    public PaqueteEspecial(int idUnico, int volumen, double precio, String direccion, Boolean entregado,
+    public PaqueteEspecial(String direccion, int volumen, double precio,
             int porcentajeAdicional, int valorAdicional) {
-        super(idUnico, volumen, precio, direccion, entregado);
+        super(direccion, volumen, precio);
         this.porcentajeAdicional = porcentajeAdicional;
         this.valorAdicional = valorAdicional;
     }

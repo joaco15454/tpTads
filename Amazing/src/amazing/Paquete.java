@@ -2,7 +2,6 @@ package amazing;
 
 public class Paquete{
     private static int contadorPedidos = 1;
-
     private int idUnico;
     private int volumen;
     private double precio;
@@ -10,14 +9,13 @@ public class Paquete{
     private Boolean entregado;
 
     /* CONSTRUCTOR, SETTERS AND GETTERS */
-    public Paquete(int idUnico, int volumen, double precio, String direccion, Boolean entregado) {
+    public Paquete(String direccion ,int volumen, double precio) {
         this.idUnico = contadorPedidos++;
         this.volumen = volumen;
         this.precio = precio;
-        this.direccion = direccion;
+        this.direccion = direccion; 
         this.entregado = false;
     }
-
 
     public int getIdUnico() {
 

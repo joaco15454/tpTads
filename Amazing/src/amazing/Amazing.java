@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
 public class Amazing {
 	private String Cuit; 
 	
@@ -123,6 +125,12 @@ public class Amazing {
 	 * 
 	 */
 	public int agregarPaquete(int codPedido, int volumen, int precio, int costoEnvio){
+		Pedido p = pedidos.get(codPedido);
+		if (p == null ) {
+			throw new RuntimeException("pedido no encontrado");
+		}
+		Paquete paquete = new PaqueteOrdinario(p.getDireccion(),volumen, precio, costoEnvio);
+		p.agregarProductoCarrito(paquete.getIdUnico(), paquete.getVolumen(), paquete.getPrecio() + paquete.getCostoDeEnvio());
 		return 0;
 	}
 	

@@ -18,7 +18,7 @@ public class Camion extends Transporte{
     }
 
     @Override
-    public List<String> cargarPaquetes2(Pedido pedido){
+    public List<String> cargarPedido(Pedido pedido){
         List<String> listaPaquetesCargados = new List<String>();
         transporteEstaLleno();
         Iterator <Integer> it = pedido.getCarrito().keySet().iterator();

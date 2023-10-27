@@ -56,22 +56,7 @@ public class Transporte{
         this.valorQueCobra = valorQueCobra;
     }
 
-    public void cargarPaquetes(Pedido pedido){
-        
-        Iterator <Integer> it = pedido.getCarrito().keySet().iterator();
-        while(it.hasNext()){
-            int id = it.next();
-            Paquete paquete = pedido.obtenerPaquete(id);
-            if(!transporteLleno()){
-                cargarPaquete(paquete);
-                System.out.println("+ [" + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion());
-            }else{
-                transporteEstaLleno();
-            } 
-        }
-    }
-
-    public List<String> cargarPaquetes2(Pedido pedido){
+    public List<String> cargarPedido(Pedido pedido){
         List<String> listaPaquetesCargados = new List<String>();
         transporteEstaLleno();
         Iterator <Integer> it = pedido.getCarrito().keySet().iterator();

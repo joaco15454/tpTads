@@ -3,16 +3,14 @@ package amazing;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.management.RuntimeErrorException;
+import javax.swing.TransferHandler.TransferSupport;
 
 public class Amazing {
 	private String Cuit; 
-	
-
-	
-
 	private HashMap <Integer, Pedido> pedidos = new HashMap<>();
 	private HashMap <String, Transporte> transportes = new HashMap<>();
 	public Amazing(String cuit) {
@@ -60,9 +58,19 @@ public class Amazing {
 	 *  
 	 * Si esa patente ya esta en el sistema se debe generar una  excepcion.
 	 */
-	public void registrarAutomovil(String patente, int volMax, int valorViaje, int maxPaq){
-
+	/*Metodos auxiliares transportes */
+	private void existeTransporte(String patente){
+		Transporte t = transportes.get(patente);
+		if(t == null){
+			throw new RuntimeException("Error, ya hay un vehiculo registrado con la patente " + patente +".");
+		}
 	}
+	/*Fin metodos auxiliares transportes */
+	public void registrarAutomovil(String patente, int volMax, int valorViaje, int maxPaq){
+		existeTransporte(patente);
+		Transporte t = new Comun(patente, volMax,valorViaje, maxPaq);
+		transportes.put(patente, t);
+	}	
 	
 	/**
 	 * Registra un nuevo transporte tipo Utilitario en el sistema con los  
@@ -73,7 +81,9 @@ public class Amazing {
 	 * Si esa patente ya esta en el sistema se debe generar una  excepcion.
 	 */
 	public void registrarUtilitario(String patente, int volMax, int valorViaje, int valorExtra){
-
+		existeTransporte(patente);
+		Transporte t = new Utilitario(patente, volMax, valorViaje, valorExtra);
+		transportes.put(patente, t);
 	}
 	
 	/**
@@ -85,7 +95,9 @@ public class Amazing {
 	 * Si esa patente ya esta en el sistema se debe generar una  excepcion.
 	 */
 	public void registrarCamion(String patente, int volMax, int valorViaje, int adicXPaq){
-
+		existeTransporte(patente);
+		Transporte t = new Camion(patente, volMax, valorViaje, adicXPaq);
+		transportes.put(patente, t);
 	}
 	
 	/**
@@ -185,7 +197,23 @@ public class Amazing {
 		}
 		return false;
 	}
-
+	public boolean quitarPaquete2(int codPaquete){
+		for(Pedido p : pedidos.values()){
+			if(paqueteEnPedido(p, codPaquete)){
+				p.getCarrito().remove(codPaquete);
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean paqueteEnPedido(Pedido p, int codPaquete){
+		HashMap<Integer,Paquete> carrito = p.getCarrito();
+		Paquete paquete = carrito.get(codPaquete);
+		if(paquete == null){
+			return false;
+		}
+		return true;
+	}
 
 
 	/**
@@ -279,8 +307,48 @@ public class Amazing {
 	 *   VER EJEMPLO EN ENUNCIADO
 	 */
 	public boolean hayTransportesIdenticos(){
+		for(Transporte t1 : transportes.values()){
+			for(Transporte t2 : transportes.values()){
+				if(distintaPatente(t1, t2) && mismaClaseTransporte(t1,t2) && cargaIdentica(t1,t2)){
+					return true;
+				}
+			}
+		}
 		return false;
 	}
+	/*Metodos auxiliares transportes identicos */
+	private boolean cargaIdentica(Transporte t1, Transporte t2){
+		List <Paquete> primeraCarga = t1.getPaquetesCargados();
+		List <Paquete> segundaCarga = t2.getPaquetesCargados();
+		if(primeraCarga.size() != segundaCarga.size()){
+			return false;
+		}
+		boolean mismasCaracteristicas = false;
+		for(Paquete p1 : primeraCarga){
+			for(Paquete p2 : segundaCarga){
+				if(mismoPrecioVolumen(p1,p2) && mismaClasePaquete(p1,p2)){
+					mismasCaracteristicas = true;
+					break;
+				}
+			}
+		}
+		return mismasCaracteristicas;
+	}
+	private boolean mismoPrecioVolumen(Paquete p1, Paquete p2){
+		boolean mismoPrecio = (p1.getPrecio() == p2.getPrecio());
+		boolean mismoVolumen = (p1.getVolumen() == p2.getVolumen());
+		return mismoPrecio && mismoVolumen;
+		}
+	private boolean distintaPatente(Transporte t1, Transporte t2){
+		return t1.getPatente() != t2.getPatente();
+		}
+	private boolean mismaClasePaquete(Paquete p1, Paquete p2){
+		return p1.getClass() == p2.getClass();
+		}
+	private boolean mismaClaseTransporte(Transporte t1, Transporte t2){
+		return t1.getClass() == t2.getClass();
+		}
+	/*Fin metodos auxiliares transportes identicos */
 
 	/*METODOS AUXILIARES */
 	public Pedido buscarPedido(int codPedido) {

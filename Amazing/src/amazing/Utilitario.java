@@ -1,10 +1,10 @@
 package amazing;
 
 public class Utilitario extends Transporte {
-    private double valorExtra;
+    private double valorExtra ;
 
-    public Utilitario(String patente, int volumenMaximo, double valorQueCobra, double valorExtra, int volumenActual) {
-        super(patente, volumenMaximo, valorQueCobra, volumenActual);
+    public Utilitario(String patente, int volumenMaximo, double valorQueCobra, double valorExtra) {
+        super(patente, volumenMaximo, valorQueCobra);
         this.valorExtra = valorExtra;
     }
 

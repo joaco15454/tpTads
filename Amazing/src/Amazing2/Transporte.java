@@ -56,17 +56,6 @@ public class Transporte{
         this.valorQueCobra = valorQueCobra;
     }
 
-    // corregir, necesita tomar un paquete de Pedido.
-    // public void cargarPaquetes(Paquete paquete){
-    //     if(!transporteLleno()){
-    //         paquetesCargados.add(paquete);
-    //         aumentarVolumen(getVolumenActual(), paquete.getVolumen());
-    //         System.out.println("+ [ " + paquete.nroPedido + "- " + paquete.getIdUnico() + " ] " + paquete.direccion);
-    //     }else{
-    //         mensajeErrorTransporteLleno();
-    //     }
-    // }
-
     public void cargarPaquetes(Pedido pedido){
         
         Iterator <Integer> it = pedido.getCarrito().keySet().iterator();

@@ -10,7 +10,8 @@ import javax.management.RuntimeErrorException;
 import javax.swing.TransferHandler.TransferSupport;
 
 public class Amazing {
-	private String Cuit; 
+	private String Cuit;
+	private double facturacionTotalPedidosCerrados = 0;
 	private HashMap <Integer, Pedido> pedidos = new HashMap<>();
 	private HashMap <String, Transporte> transportes = new HashMap<>();
 	public Amazing(String cuit) {
@@ -20,7 +21,13 @@ public class Amazing {
 	public String getCuit() {
 		return Cuit;
 	}
+	public double getFacturacionTotalPedidosCerrados() {
+		return facturacionTotalPedidosCerrados;
+	}
 
+	public void setFacturacionTotalPedidosCerrados(double facturacionTotalPedidosCerrados) {
+		this.facturacionTotalPedidosCerrados += facturacionTotalPedidosCerrados;
+	}
 	public HashMap<Integer, Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -230,6 +237,7 @@ public class Amazing {
 	public double cerrarPedido(int codPedido){
 		Pedido p = buscarPedido(codPedido);
 		p.setEstaCerrado(true);
+		setFacturacionTotalPedidosCerrados(p.calcularValorAPagar());
 		return p.calcularValorAPagar(); // Devuelve el total a pagar pero es un void, por las dudas dejo esto aca para correccion futura
 		
 	}
@@ -281,7 +289,7 @@ public class Amazing {
 	 */
 	public double facturacionTotalPedidosCerrados(){
 
-		return 0.0;
+		return getFacturacionTotalPedidosCerrados();
 	}
 	
 	/**
@@ -368,5 +376,7 @@ public class Amazing {
 		
 		return p;
 	}
+
+	
 	
 }

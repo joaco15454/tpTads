@@ -1,9 +1,5 @@
 package amazing;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 public class Comun extends Transporte {
 
     private int limitePaquetes;

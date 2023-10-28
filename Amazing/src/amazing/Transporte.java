@@ -1,14 +1,12 @@
 package amazing;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Transporte {
 
     private String patente;
     private int volumenMaximo;
-    private int volumenActual = 0;
+    private int volumenActual;
     private double valorQueCobra;
     protected List<Paquete> paquetesCargados;
 
@@ -16,7 +14,8 @@ public class Transporte {
         this.patente = patente;
         this.volumenMaximo = volumenMaximo;
         this.valorQueCobra = valorQueCobra;
-
+        this.volumenActual = 0;
+        this.paquetesCargados = new ArrayList<>();
     }
 
     public String getPatente() {
@@ -72,7 +71,6 @@ public class Transporte {
     public void cargarPaquete(Paquete paquete, Pedido pedido) {
         paquetesCargados.add(paquete);
         aumentarVolumen(paquete.getVolumen());
-        pedido.getCarrito().remove(paquete.getIdUnico());
     }
 
     public List<Paquete> listadoPaquetesAEntregar() {
@@ -84,10 +82,7 @@ public class Transporte {
     }
 
     public boolean superaLimite() {
-        if (paquetesCargados.size() > getVolumenMaximo()) {
-            return true;
-        }
-        return false;
+        return paquetesCargados.size() > getVolumenMaximo();
     }
 
     public boolean transporteLleno() {

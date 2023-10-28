@@ -276,8 +276,9 @@ public class Amazing {
 		Transporte t = transportes.get(patente);
 		for (Pedido p : pedidos.values()) {
 			if (p.isEstaCerrado()) {
-				cargarPedido(t, p);
-				sb.append(cargarPedido(t, p));
+				List<String> listaPaquetesCargados = cargarPedido(t, p);
+				//sb.append(listaPaquetesCargados);
+				sb.append(String.join("\n", listaPaquetesCargados)).append("\n");
 			}
 		}
 		String listadoPaquetesCargados = sb.toString();
@@ -292,13 +293,14 @@ public class Amazing {
 		for (Paquete paquete : carrito.values()) {
 			if (t.seCumplenCondiciones(paquete)) {
 				t.cargarPaquete(paquete, pedido);
-				listaPaquetesCargados.add(stringPaquetePedido(pedido, paquete));
+				listaPaquetesCargados.add(formatoEntrega(pedido, paquete));
 			}
 		}
+		//System.out.println(listaPaquetesCargados);
 		return listaPaquetesCargados;
 	}
 
-	public String stringPaquetePedido(Pedido pedido, Paquete paquete) {
+	public String formatoEntrega(Pedido pedido, Paquete paquete) {
 		// String pa = "+ [ " + pedido.getNroPedido() + " - " + paquete.getIdUnico() + "
 		// ] " + pedido.getDireccion() + "\n";
 		StringBuilder sb = new StringBuilder();

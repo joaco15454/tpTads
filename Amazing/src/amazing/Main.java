@@ -45,36 +45,28 @@ public class Main {
     empresa.cerrarPedido(p1);
     empresa.cerrarPedido(p3);
 
-    /*
-     * System.out.println("Listados con la carga de transportes: ");
-     * 
-     * System.out.println(empresa.cargarTransporte("AA222FF"));
-     * 
-     * System.out.println(empresa.cargarTransporte("AA666XX"));
-     * System.out.println();
-     */
+    
+    System.out.println("Listados con la carga de transportes: ");
+    
+    System.out.println(empresa.cargarTransporte("AA222FF"));
+     
+    System.out.println(empresa.cargarTransporte("AA666XX"));
+    System.out.println();
+    
     empresa.cerrarPedido(p6);
     empresa.quitarPaquete2(paq10);
 
     System.out.println(empresa.cargarTransporte("AE555YY"));
     System.out.println();
     System.out.println("Costo del transporte: " + empresa.costoEntrega("AE555YY"));
-    /*
-     * System.out.println("Costo del transporte: " +
-     * empresa.costoEntrega("AE555YY"));
-     * System.out.println();
-     */
+
     System.out.println("Facturacion total de pedidos: " + empresa.facturacionTotalPedidosCerrados());
     System.out.println();
 
     System.out.println("Listados con paquetes sin entregar: ");
     System.out.println(empresa.pedidosNoEntregados());
     System.out.println();
-    /*
-     * System.out.println("Hay transportes iguales: " +
-     * empresa.hayTransportesIdenticos());
-     * 
-     * System.out.println(empresa.toString());
-     */
+
+      System.out.println("Hay transportes iguales: " + empresa.hayTransportesIdenticos());
   }
 }

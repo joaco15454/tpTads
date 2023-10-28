@@ -29,7 +29,7 @@ public class PaqueteEspecial extends Paquete{
     /* OPERACIONES */
     public int seSuperaElVolumen(){
     	int valorAdicionalAPagar = 0;
-        if(getVolumen() > 3000 && getVolumen() < 5000) {
+        if(getVolumen() >= 3000 && getVolumen() < 5000) {
         	valorAdicionalAPagar=(getValorAdicional());
         }
         else if (getVolumen() > 5000) {

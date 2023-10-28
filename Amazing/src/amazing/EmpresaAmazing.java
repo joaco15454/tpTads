@@ -25,7 +25,7 @@ public class EmpresaAmazing implements IEmpresa {
 	}
 
 	public void setFacturacionTotalPedidosCerrados(double facturacionTotalPedidosCerrados) {
-		this.facturacionTotalPedidosCerrados += facturacionTotalPedidosCerrados;
+		this.facturacionTotalPedidosCerrados = facturacionTotalPedidosCerrados;
 	}
 
 	public HashMap<Integer, Pedido> getPedidos() {
@@ -434,7 +434,7 @@ public class EmpresaAmazing implements IEmpresa {
 				boolean distintaPatenteMismaClase = (distintaPatente(t1,t2) && mismaClaseTransporte(t1,t2));
 				boolean transportesNoVacios = (!t1.transporteVacio() && !t2.transporteVacio());
 				boolean mismaCarga = (cargaIdentica(t1,t2));
-				if (transportesNoVacios && distintaPatenteMismaClase && mismaCarga) {
+				if (!transportesNoVacios && distintaPatenteMismaClase && mismaCarga) {
 					return true;
 				}
 			}
@@ -442,6 +442,17 @@ public class EmpresaAmazing implements IEmpresa {
 		return false;
 	}
 
+	
+
+	/* METODOS AUXILIARES */
+	public Pedido buscarPedido(int codPedido) {
+		if(existePedido(codPedido)) {
+			Pedido p = pedidos.get((codPedido));
+
+			return p;
+		}
+		throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
+	}
 	/* Metodos auxiliares transportes identicos */
 	private boolean cargaIdentica(Transporte t1, Transporte t2) {
 		List<Paquete> primeraCarga = t1.getPaquetesCargados();
@@ -484,15 +495,4 @@ public class EmpresaAmazing implements IEmpresa {
 		return t1.getClass() == t2.getClass();
 	}
 	/* Fin metodos auxiliares transportes identicos */
-
-	/* METODOS AUXILIARES */
-	public Pedido buscarPedido(int codPedido) {
-		if(existePedido(codPedido)) {
-			Pedido p = pedidos.get((codPedido));
-
-			return p;
-		}
-		throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
-	}
-
 }

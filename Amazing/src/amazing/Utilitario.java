@@ -1,7 +1,7 @@
 package amazing;
 
 public class Utilitario extends Transporte {
-    private double valorExtra ;
+    private double valorExtra;
 
     public Utilitario(String patente, int volumenMaximo, double valorQueCobra, double valorExtra) {
         super(patente, volumenMaximo, valorQueCobra);
@@ -15,10 +15,10 @@ public class Utilitario extends Transporte {
     public void setValorExtra(double valorExtra) {
         this.valorExtra = valorExtra;
     }
-    
-    public void calcularCostoViaje(){
+
+    public void calcularCostoViaje() {
         double costo = paquetesCargados.size() > 3 ? (getValorQueCobra() + getValorExtra()) : getValorQueCobra();
         setValorQueCobra(costo);
     }
-    
+
 }

@@ -1,4 +1,5 @@
 package amazing;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,32 +65,14 @@ public class Transporte {
         this.valorQueCobra = valorQueCobra;
     }
 
-    public List<String> cargarPedido(Pedido pedido) {
-        List<String> listaPaquetesCargados = new ArrayList<>();
-        transporteEstaLleno();
-        HashMap<Integer, Paquete> carrito = pedido.getCarrito();
-        for (Paquete paquete : carrito.values()) {
-            if (paquete instanceof PaqueteOrdinario || paquete instanceof PaqueteEspecial) {
-                cargarPaquete(paquete,pedido);
-                listaPaquetesCargados.add(cargarPaquete(paquete, pedido));
-            }
-        }
-        return listaPaquetesCargados;
+    public boolean seCumplenCondiciones(Paquete p) {
+        return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !transporteLleno();
     }
 
-    public String cargarPaquete(Paquete paquete, Pedido pedido) {
+    public void cargarPaquete(Paquete paquete, Pedido pedido) {
         paquetesCargados.add(paquete);
         aumentarVolumen(paquete.getVolumen());
-        StringBuilder sb = new StringBuilder();
-        sb.append("+ [");
-        sb.append(pedido.getNroPedido());
-        sb.append(" - ");
-        sb.append(paquete.getIdUnico());
-        sb.append(" ] ");
-        sb.append(pedido.getDireccion());
-        String paqueteCargado = sb.toString();
         pedido.getCarrito().remove(paquete.getIdUnico());
-        return paqueteCargado;
     }
 
     public List<Paquete> listadoPaquetesAEntregar() {

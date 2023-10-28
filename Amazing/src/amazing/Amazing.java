@@ -1,5 +1,6 @@
 package amazing;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -104,7 +105,7 @@ public class Amazing {
 	 * Si esa patente ya esta en el sistema se debe generar una excepcion.
 	 */
 	public void registrarCamion(String patente, int volMax, int valorViaje, int adicXPaq) {
-		if(existeTransporte(patente)){
+		if (existeTransporte(patente)) {
 			throw new RuntimeException("Error, ya hay un transporte registrado con la patente " + patente);
 		}
 		Transporte t = new Camion(patente, volMax, valorViaje, adicXPaq);
@@ -268,8 +269,48 @@ public class Amazing {
 	 * 
 	 */
 	public String cargarTransporte(String patente) {
-		return "HOLA";
+		if (!existeTransporte(patente)) {
+			throw new RuntimeException("Error, no existe un transporte registrado con la patente " + patente);
+		}
+		StringBuilder sb = new StringBuilder();
+		Transporte t = transportes.get(patente);
+		for (Pedido p : pedidos.values()) {
+			cargarPedido(t, p);
+			sb.append(cargarPedido(t, p));
+		}
+		String listadoPaquetesCargados = sb.toString();
+		return listadoPaquetesCargados;
 	}
+
+	/* metodo auxiliar cargarTransporte */
+	private List<String> cargarPedido(Transporte t, Pedido pedido) {
+		t.transporteEstaLleno();
+		List<String> listaPaquetesCargados = new ArrayList<>();
+		HashMap<Integer, Paquete> carrito = pedido.getCarrito();
+		for (Paquete paquete : carrito.values()) {
+			if (t.seCumplenCondiciones(paquete)) {
+				t.cargarPaquete(paquete, pedido);
+				listaPaquetesCargados.add(stringPaquetePedido(pedido, paquete));
+			}
+		}
+		return listaPaquetesCargados;
+	}
+
+	public String stringPaquetePedido(Pedido pedido, Paquete paquete) {
+		// String pa = "+ [ " + pedido.getNroPedido() + " - " + paquete.getIdUnico() + "
+		// ] " + pedido.getDireccion() + "\n";
+		StringBuilder sb = new StringBuilder();
+		sb.append("+ [ ");
+		sb.append(pedido.getNroPedido());
+		sb.append(" - ");
+		sb.append(paquete.getIdUnico());
+		sb.append(" ] ");
+		sb.append(pedido.getDireccion());
+		sb.append("\n");
+		String datosEntrega = sb.toString();
+		return datosEntrega;
+	}
+	/* Fin metodo auxiliar cargarTransporte */
 
 	/**
 	 * Se registra el costo del viaje de un transporte dado su patente

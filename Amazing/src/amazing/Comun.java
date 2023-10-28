@@ -1,4 +1,5 @@
 package amazing;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,31 +22,12 @@ public class Comun extends Transporte {
     }
 
     @Override
-    public List<String> cargarPedido(Pedido pedido) {
-        List<String> listaPaquetesCargados = new ArrayList<>();
-        if (pedido.isEstaCerrado() && !transporteLleno()) {
-            HashMap<Integer, Paquete> carrito = pedido.getCarrito();
-            for (Paquete paquete : carrito.values()) {
-                if (paquete instanceof PaqueteOrdinario && paquete.getVolumen() < 2000) {
-                    cargarPaquete(paquete);
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("+ [");
-                    sb.append(pedido.getNroPedido());
-                    sb.append(" - ");
-                    sb.append(paquete.getIdUnico());
-                    sb.append(" ] ");
-                    sb.append(pedido.getDireccion());
-                    String paqueteCargado = sb.toString();
-                    listaPaquetesCargados.add(paqueteCargado);
-                    carrito.remove(paquete.getIdUnico());
-                }
-            }
-        }
-        return listaPaquetesCargados;
+    public boolean transporteLleno() {
+        return ((paquetesCargados.size() == getLimitePaquetes()) || (getVolumenActual() == getVolumenMaximo()));
     }
 
     @Override
-    public boolean transporteLleno() {
-        return ((paquetesCargados.size() == getLimitePaquetes()) || (getVolumenActual() == getVolumenMaximo()));
+    public boolean seCumplenCondiciones(Paquete p) {
+        return (p instanceof PaqueteOrdinario) && !transporteLleno() && p.getVolumen() < 2000;
     }
 }

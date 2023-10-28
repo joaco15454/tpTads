@@ -242,12 +242,25 @@ public class EmpresaAmazing implements IEmpresa {
 	 *
 	 */
 	public double cerrarPedido(int codPedido) {
+		//Pedido p = buscarPedido(codPedido);
+		//p.setEstaCerrado(true);
+		//setFacturacionTotalPedidosCerrados(p.calcularValorAPagar());
+		//return p.calcularValorAPagar(); 
+		// Devuelve el total a pagar pero es un void, por las dudas dejo esto aca para
+		// correccion futura
+		
+		if(!existePedido(codPedido)) {
+			throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
+		}else if(buscarPedido(codPedido).isEstaCerrado()) {
+			throw new RuntimeException("Error, el pedido ya esta cerrado.");
+		}
 		Pedido p = buscarPedido(codPedido);
-		p.setEstaCerrado(true);
-		setFacturacionTotalPedidosCerrados(p.calcularValorAPagar());
-		return p.calcularValorAPagar(); // Devuelve el total a pagar pero es un void, por las dudas dejo esto aca para
-										// correccion futura
+		p.establecerCerrado();
+		return p.calcularValorAPagar();
 
+	}
+	public boolean existePedido(int codPaquete) {
+		return pedidos.get(codPaquete) != null;
 	}
 
 	/**
@@ -453,9 +466,12 @@ public class EmpresaAmazing implements IEmpresa {
 
 	/* METODOS AUXILIARES */
 	public Pedido buscarPedido(int codPedido) {
-		Pedido p = pedidos.get((codPedido));
+		if(existePedido(codPedido)) {
+			Pedido p = pedidos.get((codPedido));
 
-		return p;
+			return p;
+		}
+		throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
 	}
 
 }

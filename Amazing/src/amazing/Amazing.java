@@ -11,7 +11,6 @@ public class Amazing {
 	private double facturacionTotalPedidosCerrados = 0;
 	private HashMap<Integer, Pedido> pedidos = new HashMap<>();
 	private HashMap<String, Transporte> transportes = new HashMap<>();
-	private HashMap<String, Double> costoEntregaTrasnportes = new HashMap<>();
 
 	public Amazing(String cuit) {
 		Cuit = cuit;

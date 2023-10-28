@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class EmpresaAmazing implements IEmpresa{
+public class EmpresaAmazing implements IEmpresa {
 	private String Cuit;
 	private double facturacionTotalPedidosCerrados = 0;
 	private HashMap<Integer, Pedido> pedidos = new HashMap<>();
@@ -222,7 +222,6 @@ public class EmpresaAmazing implements IEmpresa{
 		}
 		throw new RuntimeException("Error, no hay ningun paquete registrado con el codigo: " + codPaquete);
 	}
-	
 
 	private boolean paqueteEnPedido(Pedido p, int codPaquete) {
 		HashMap<Integer, Paquete> carrito = p.getCarrito();
@@ -347,7 +346,7 @@ public class EmpresaAmazing implements IEmpresa{
 			throw new RuntimeException("Error, no hay un transport registrado con la patente " + patente);
 		}
 		Transporte t = transportes.get(patente);
-		if(t.transporteVacio()){
+		if (t.transporteVacio()) {
 			throw new RuntimeException("Error, el transporte esta vacio.");
 		}
 		return t.costoEntrega();
@@ -411,23 +410,26 @@ public class EmpresaAmazing implements IEmpresa{
 
 	/* Metodos auxiliares transportes identicos */
 	private boolean cargaIdentica(Transporte t1, Transporte t2) {
-		boolean mismos = true;
 		List<Paquete> primeraCarga = t1.getPaquetesCargados();
 		List<Paquete> segundaCarga = t2.getPaquetesCargados();
 		if (primeraCarga.size() != segundaCarga.size()) {
 			return false;
 		}
 		for (Paquete p1 : primeraCarga) {
-			boolean mismasCaracteristicas = false;
-			for (Paquete p2 : segundaCarga) {
-				if (mismoPrecioVolumen(p1, p2) && mismaClasePaquete(p1, p2)) {
-					mismasCaracteristicas = true;
-					break;
-				}
+			if (!existePaqueteIgual(p1, segundaCarga)) {
+				return false;
 			}
-			mismos = mismos && mismasCaracteristicas;
 		}
-		return mismos;
+		return true;
+	}
+
+	private boolean existePaqueteIgual(Paquete p1, List<Paquete> cargaPaquetes) {
+		for (Paquete p2 : cargaPaquetes) {
+			if (mismoPrecioVolumen(p1, p2) && mismaClasePaquete(p1, p2)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean mismoPrecioVolumen(Paquete p1, Paquete p2) {

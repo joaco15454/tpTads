@@ -81,7 +81,7 @@ public class Transporte {
 
     }
     public boolean transporteVacio(){
-        return paquetesCargados.size() == 0;
+        return paquetesCargados.isEmpty();
     }
 
     public List<Paquete> listadoPaquetesAEntregar() {

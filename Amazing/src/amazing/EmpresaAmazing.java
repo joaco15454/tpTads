@@ -288,9 +288,6 @@ public class EmpresaAmazing implements IEmpresa{
 
 	/* metodo auxiliar cargarTransporte */
 	public void actualizarCostoEntrega(Transporte t) {
-		if(t.transporteVacio()){
-			throw new RuntimeException("Error, el transporte esta vacio.");
-		}
 		if (t instanceof Camion) {
 			((Camion) t).calcularCostoViaje();
 		} else if (t instanceof Utilitario) {
@@ -349,6 +346,9 @@ public class EmpresaAmazing implements IEmpresa{
 			throw new RuntimeException("Error, no hay un transport registrado con la patente " + patente);
 		}
 		Transporte t = transportes.get(patente);
+		if(t.transporteVacio()){
+			throw new RuntimeException("Error, el transporte esta vacio.");
+		}
 		return t.costoEntrega();
 	}
 

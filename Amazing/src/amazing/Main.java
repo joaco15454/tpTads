@@ -20,15 +20,14 @@ public class Main {
     empresa.registrarCamion("AE555YY", 40000, 200000, 50);
     empresa.registrarUtilitario("AG111ZZ", 21000, 6000, 9000);
     empresa.registrarCamion("AA111BB", 55000, 300000, 35);
-    
-    
+
     int p1 = empresa.registrarPedido("Angel Gutierrez", "San Martin 321", 28324132);
 
     int p2 = empresa.registrarPedido("Marta Benitez", "Pasco 1020", 19456398);
 
     int p3 = empresa.registrarPedido("Daniel Constanzo", "J.Verdi 876", 35678901);
     int p4 = empresa.registrarPedido("Beatriz Espinoza", "L.Alberdi 549", 20345678);
-    //int p5 = empresa.registrarPedido("Angel Gutierrez", "Madariaga 321", 28324132);
+    int p5 = empresa.registrarPedido("Angel Gutierrez", "Madariaga 321", 28324132);
     int p6 = empresa.registrarPedido("Beatriz Espinoza", "L.Alberdi 549", 20345678);
 
     int paq1 = empresa.agregarPaquete(p1, 1235, 2890, 1000);
@@ -56,10 +55,11 @@ public class Main {
      */
     empresa.cerrarPedido(p6);
     empresa.quitarPaquete2(paq10);
+
+    System.out.println(empresa.cargarTransporte("AE555YY"));
+    System.out.println();
+    System.out.println("Costo del transporte: " + empresa.costoEntrega("AE555YY"));
     /*
-     * System.out.println(empresa.cargarTransporte("AE555YY"));
-     * System.out.println();
-     * 
      * System.out.println("Costo del transporte: " +
      * empresa.costoEntrega("AE555YY"));
      * System.out.println();
@@ -76,17 +76,5 @@ public class Main {
      * 
      * System.out.println(empresa.toString());
      */
-      /*
-     * empresa.registrarAutomovil("AB444ZZ", 10000, 3500, 5);
-     * empresa.registrarUtilitario("AA222FF", 18000, 10000, 10000);
-     * empresa.registrarAutomovil("AA666XX", 8000, 2500, 4);
-     * empresa.registrarCamion("AE555YY", 40000, 200000, 50);
-     * empresa.registrarUtilitario("AG111ZZ", 21000, 6000, 9000);
-     * empresa.registrarCamion("AA111BB", 55000, 300000, 35);
-     */
-    String resultado = empresa.cargarTransporte("AE555YY");
-    System.out.println(resultado);
-    
-    
   }
 }

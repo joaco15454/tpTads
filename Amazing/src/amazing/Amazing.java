@@ -11,6 +11,7 @@ public class Amazing {
 	private double facturacionTotalPedidosCerrados = 0;
 	private HashMap<Integer, Pedido> pedidos = new HashMap<>();
 	private HashMap<String, Transporte> transportes = new HashMap<>();
+	private HashMap<String, Double> costoEntregaTrasnportes = new HashMap<>();
 
 	public Amazing(String cuit) {
 		Cuit = cuit;
@@ -277,9 +278,14 @@ public class Amazing {
 		for (Pedido p : pedidos.values()) {
 			if (p.isEstaCerrado()) {
 				List<String> listaPaquetesCargados = cargarPedido(t, p);
-				//sb.append(listaPaquetesCargados);
+				// sb.append(listaPaquetesCargados);
 				sb.append(String.join("\n", listaPaquetesCargados)).append("\n");
 			}
+		}
+		if (t instanceof Camion) {
+			((Camion) t).calcularCostoViaje();
+		} else if (t instanceof Utilitario) {
+			((Utilitario) t).calcularCostoViaje();
 		}
 		String listadoPaquetesCargados = sb.toString();
 		return listadoPaquetesCargados;
@@ -296,7 +302,7 @@ public class Amazing {
 				listaPaquetesCargados.add(formatoEntrega(pedido, paquete));
 			}
 		}
-		//System.out.println(listaPaquetesCargados);
+		// System.out.println(listaPaquetesCargados);
 		return listaPaquetesCargados;
 	}
 
@@ -333,7 +339,11 @@ public class Amazing {
 	 * Se debe resolver en O(1)
 	 */
 	public double costoEntrega(String patente) {
-		return 0.0;
+		if (!existeTransporte(patente)) {
+			throw new RuntimeException("Error, no hay un transport registrado con la patente " + patente);
+		}
+		Transporte t = transportes.get(patente);
+		return t.getValorQueCobra();
 	}
 
 	/**

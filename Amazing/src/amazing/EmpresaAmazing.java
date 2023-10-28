@@ -6,13 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Amazing {
+public class EmpresaAmazing implements IEmpresa{
 	private String Cuit;
 	private double facturacionTotalPedidosCerrados = 0;
 	private HashMap<Integer, Pedido> pedidos = new HashMap<>();
 	private HashMap<String, Transporte> transportes = new HashMap<>();
 
-	public Amazing(String cuit) {
+	public EmpresaAmazing(String cuit) {
 		Cuit = cuit;
 	}
 

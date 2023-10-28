@@ -4,7 +4,7 @@ public class Main {
 
   public static void main(String[] args) {
 
-    Amazing empresa = new Amazing("30-456789-2");
+    EmpresaAmazing empresa = new EmpresaAmazing("30-456789-2");
 
     /*
      * empresa.registrarAutomovil("AB444ZZ", 10000, 3500, 5);

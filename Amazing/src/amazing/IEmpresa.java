@@ -107,7 +107,7 @@ public interface IEmpresa {
 	 * Si ese codigo no esta en el sistema se debe generar una  excepcion.
 	 *
 	 */
-	public void cerrarPedido(int codPedido);
+	public double cerrarPedido(int codPedido);
 	
 	/**
 	 * Se registra la carga de un transporte registrado en la empresa, dada su patente.

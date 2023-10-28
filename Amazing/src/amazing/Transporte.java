@@ -69,8 +69,11 @@ public class Transporte {
     }
 
     public void cargarPaquete(Paquete paquete, Pedido pedido) {
-        paquetesCargados.add(paquete);
-        aumentarVolumen(paquete.getVolumen());
+        if((paquete.getVolumen() + getVolumenActual()) < getVolumenMaximo()){
+            paquetesCargados.add(paquete);
+            aumentarVolumen(paquete.getVolumen());
+        }
+        
     }
 
     public List<Paquete> listadoPaquetesAEntregar() {

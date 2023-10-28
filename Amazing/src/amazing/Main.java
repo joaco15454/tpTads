@@ -17,7 +17,7 @@ public class Main {
     empresa.registrarAutomovil("AB444ZZ", 10000, 3500, 5);
     empresa.registrarUtilitario("AA222FF", 18000, 10000, 10000);
     empresa.registrarAutomovil("AA666XX", 8000, 2500, 4);
-    empresa.registrarCamion("AE555YY", 400000, 200000, 50);
+    empresa.registrarCamion("AE555YY", 40000, 200000, 50);
     empresa.registrarUtilitario("AG111ZZ", 21000, 6000, 9000);
     empresa.registrarCamion("AA111BB", 55000, 300000, 35);
     
@@ -84,7 +84,7 @@ public class Main {
      * empresa.registrarUtilitario("AG111ZZ", 21000, 6000, 9000);
      * empresa.registrarCamion("AA111BB", 55000, 300000, 35);
      */
-    String resultado = empresa.cargarTransporte("AE555YY");
+    String resultado = empresa.cargarTransporte("AB444ZZ");
     System.out.println(resultado);
     
     

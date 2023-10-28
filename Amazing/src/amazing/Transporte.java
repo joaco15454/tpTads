@@ -1,4 +1,5 @@
 package amazing;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,16 +65,20 @@ public class Transporte {
         this.valorQueCobra = valorQueCobra;
     }
 
+    public double costoEntrega() {
+        return getValorQueCobra();
+    }
+
     public boolean seCumplenCondiciones(Paquete p) {
         return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !transporteLleno();
     }
 
     public void cargarPaquete(Paquete paquete) {
-        if((paquete.getVolumen() + getVolumenActual()) < getVolumenMaximo()){
+        if ((paquete.getVolumen() + getVolumenActual()) < getVolumenMaximo()) {
             paquetesCargados.add(paquete);
             aumentarVolumen(paquete.getVolumen());
         }
-        
+
     }
 
     public List<Paquete> listadoPaquetesAEntregar() {

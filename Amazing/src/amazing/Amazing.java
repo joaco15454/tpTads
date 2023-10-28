@@ -281,16 +281,20 @@ public class Amazing {
 				sb.append(String.join("\n", listaPaquetesCargados)).append("\n");
 			}
 		}
-		if (t instanceof Camion) {
-			((Camion) t).calcularCostoViaje();
-		} else if (t instanceof Utilitario) {
-			((Utilitario) t).calcularCostoViaje();
-		}
+		actualizarCostoEntrega(t);
 		String listadoPaquetesCargados = sb.toString();
 		return listadoPaquetesCargados;
 	}
 
 	/* metodo auxiliar cargarTransporte */
+	public void actualizarCostoEntrega(Transporte t) {
+		if (t instanceof Camion) {
+			((Camion) t).calcularCostoViaje();
+		} else if (t instanceof Utilitario) {
+			((Utilitario) t).calcularCostoViaje();
+		}
+	}
+
 	private List<String> cargarPedido(Transporte t, Pedido pedido) {
 		t.transporteEstaLleno();
 		List<String> listaPaquetesCargados = new ArrayList<>();
@@ -342,7 +346,7 @@ public class Amazing {
 			throw new RuntimeException("Error, no hay un transport registrado con la patente " + patente);
 		}
 		Transporte t = transportes.get(patente);
-		return t.getValorQueCobra();
+		return t.costoEntrega();
 	}
 
 	/**

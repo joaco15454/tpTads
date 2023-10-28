@@ -275,8 +275,10 @@ public class Amazing {
 		StringBuilder sb = new StringBuilder();
 		Transporte t = transportes.get(patente);
 		for (Pedido p : pedidos.values()) {
-			cargarPedido(t, p);
-			sb.append(cargarPedido(t, p));
+			if (p.isEstaCerrado()) {
+				cargarPedido(t, p);
+				sb.append(cargarPedido(t, p));
+			}
 		}
 		String listadoPaquetesCargados = sb.toString();
 		return listadoPaquetesCargados;

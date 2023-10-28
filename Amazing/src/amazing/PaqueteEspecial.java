@@ -1,21 +1,21 @@
 package amazing;
 public class PaqueteEspecial extends Paquete{
-    private int porcentajeAdicional;
+    private double porcentajeAdicional;
     private int valorAdicional;
     public PaqueteEspecial(String direccion, int volumen, double precio,
-            int porcentajeAdicional, int valorAdicional) {
+            double porcentajeAdicional, int valorAdicional) {
         super(direccion, volumen, precio);
         this.porcentajeAdicional = porcentajeAdicional;
         this.valorAdicional = valorAdicional;
     }
-    public int getPorcentajeAdicional() {
-        return porcentajeAdicional;
+    public double getPorcentajeAdicional() {
+        return porcentajeAdicional/100;
     }
     public void setPorcentajeAdicional(int porcentajeAdicional) {
     	if (porcentajeAdicional < 0) {
     		throw new RuntimeException("Error porcentaje negativo");
     	}
-        this.porcentajeAdicional = porcentajeAdicional/100;
+        this.porcentajeAdicional = porcentajeAdicional;
     }
     public int getValorAdicional() {
         return valorAdicional;
@@ -39,7 +39,7 @@ public class PaqueteEspecial extends Paquete{
     }
     @Override
     public double costoFinal(){
-    	double precioBaseConPorcentaje = getPrecio() + (getPrecio() * getPorcentajeAdicional());
+    	double precioBaseConPorcentaje = getPrecio() + (getPrecio() * (getPorcentajeAdicional()));
     	precioBaseConPorcentaje += seSuperaElVolumen();
     	return precioBaseConPorcentaje;
     	

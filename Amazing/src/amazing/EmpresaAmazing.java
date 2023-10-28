@@ -194,7 +194,7 @@ public class EmpresaAmazing implements IEmpresa{
 	 * 
 	 * Demostrar la complejidad en terminos de O grande en el informe.
 	 */
-	public boolean quitarPaquete(int codPaquete) {
+	public boolean quitarPaquete2(int codPaquete) {
 		Iterator<Integer> it = pedidos.keySet().iterator();
 
 		while (it.hasNext()) {
@@ -213,15 +213,16 @@ public class EmpresaAmazing implements IEmpresa{
 		return false;
 	}
 
-	public boolean quitarPaquete2(int codPaquete) {
+	public boolean quitarPaquete(int codPaquete) {
 		for (Pedido p : pedidos.values()) {
 			if (paqueteEnPedido(p, codPaquete)) {
 				p.getCarrito().remove(codPaquete);
 				return true;
 			}
 		}
-		return false;
+		throw new RuntimeException("Error, no hay ningun paquete registrado con el codigo: " + codPaquete);
 	}
+	
 
 	private boolean paqueteEnPedido(Pedido p, int codPaquete) {
 		HashMap<Integer, Paquete> carrito = p.getCarrito();

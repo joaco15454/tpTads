@@ -147,8 +147,8 @@ public class EmpresaAmazingTest {
 		idPaquete = emp.agregarPaquete(pedidoAbiertoAux, 1000, 5000, 20, 300 );
 		listadoPaquetesCargados += registrarPaqueteEnListado(pedidoAbiertoAux, idPaquete, "Inframundo 72");
 		emp.cerrarPedido(pedidoAbiertoAux);
-				
-		assertEquals(listadoPaquetesCargados, emp.cargarTransporte(patenteUtilitarios));
+						assertEquals(listadoPaquetesCargados, emp.cargarTransporte(patenteUtilitarios));
+
 	}
 	
 	// costo de entrega
@@ -185,9 +185,9 @@ public class EmpresaAmazingTest {
 	public void hayTransportesIdenticosDevuelve_true() {
 		assertFalse(emp.hayTransportesIdenticos());
 		// cargar algun transporte identico
-		//emp.cerrarPedido(pedidoAbierto);
-		//emp.cargarTransporte(patenteAuto2);
-		//assertTrue(emp.hayTransportesIdenticos());
+		emp.cerrarPedido(pedidoAbierto);
+		emp.cargarTransporte(patenteAuto2);
+		assertTrue(emp.hayTransportesIdenticos());
 	}
 	
 }

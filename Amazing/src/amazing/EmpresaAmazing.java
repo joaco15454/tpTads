@@ -251,12 +251,18 @@ public class EmpresaAmazing implements IEmpresa {
 		
 		if(!existePedido(codPedido)) {
 			throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
-		}else if(buscarPedido(codPedido).isEstaCerrado()) {
-			throw new RuntimeException("Error, el pedido ya esta cerrado.");
 		}
-		Pedido p = buscarPedido(codPedido);
-		p.establecerCerrado();
-		return p.calcularValorAPagar();
+		else {
+			Pedido p = buscarPedido(codPedido);
+			if(p.isEstaCerrado()) {
+				throw new RuntimeException("Error, el pedido ya esta cerrado.");
+			}else {
+				p.finalizarPedido();
+				return p.calcularValorAPagar();
+			}
+		}
+		
+		
 
 	}
 	public boolean existePedido(int codPaquete) {
@@ -290,7 +296,7 @@ public class EmpresaAmazing implements IEmpresa {
 		for (Pedido p : pedidos.values()) {
 			if (p.isEstaCerrado()) {
 				List<String> listaPaquetesCargados = cargarPedido(t, p);
-				// sb.append(listaPaquetesCargados);
+				 //sb.append(listaPaquetesCargados);
 				sb.append(String.join("\n", listaPaquetesCargados)).append("\n");
 			}
 		}
@@ -315,10 +321,11 @@ public class EmpresaAmazing implements IEmpresa {
 		for (Paquete paquete : carrito.values()) {
 			if (t.seCumplenCondiciones(paquete)) {
 				t.cargarPaquete(paquete);
-				listaPaquetesCargados.add(formatoEntrega(pedido, paquete));
+				String datosEntrega = formatoEntrega(pedido,paquete);
+				listaPaquetesCargados.add(datosEntrega);
 			}
 		}
-		// System.out.println(listaPaquetesCargados);
+		
 		return listaPaquetesCargados;
 	}
 
@@ -413,7 +420,10 @@ public class EmpresaAmazing implements IEmpresa {
 	public boolean hayTransportesIdenticos() {
 		for (Transporte t1 : transportes.values()) {
 			for (Transporte t2 : transportes.values()) {
-				if (distintaPatente(t1, t2) && mismaClaseTransporte(t1, t2) && cargaIdentica(t1, t2)) {
+				boolean distintaPatenteMismaClase = (distintaPatente(t1,t2) && mismaClaseTransporte(t1,t2));
+				boolean transportesNoVacios = (!t1.transporteVacio() && !t2.transporteVacio());
+				boolean mismaCarga = (cargaIdentica(t1,t2));
+				if (transportesNoVacios && distintaPatenteMismaClase && mismaCarga) {
 					return true;
 				}
 			}

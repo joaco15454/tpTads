@@ -161,9 +161,8 @@ public class Pedido {
                 return false;
         return true;
     }
-	public void establecerCerrado() {
+	public void finalizarPedido() {
 		setEstaCerrado(true);
-		
 	}
     
 

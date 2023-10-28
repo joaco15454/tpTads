@@ -75,17 +75,15 @@ public class Paquete{
     }
     /* FIN CONSTRUCTOR, SETTERS AND GETTERS */
     /* OPERACIONES */
-    public void precioTotal(){
-
-    }
+    
     public void paqueteEntregado() {
         setEntregado(true);
     }
     public boolean fueEntregado() {
         return getEntregado();
     }
-
-	public double consultarPrecio() {
+    
+	public double costoFinal() {
 		return getPrecio();
 	}
 }

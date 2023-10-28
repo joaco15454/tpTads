@@ -2,7 +2,7 @@ package amazing;
 public class PaqueteOrdinario extends Paquete{
     private int costoDeEnvio;
 
-    public PaqueteOrdinario(String direccion, int volumen, int precio, 
+    public PaqueteOrdinario(String direccion, int volumen, double precio, 
             int costoDeEnvio) {
         super( direccion, volumen, precio);
         this.costoDeEnvio = costoDeEnvio;
@@ -17,5 +17,8 @@ public class PaqueteOrdinario extends Paquete{
     }
     
     /* OPERACIONES */
-    
+    @Override
+    public double costoFinal () {
+    	return getPrecio() + costoDeEnvio;
+    }
 }

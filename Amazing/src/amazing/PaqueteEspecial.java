@@ -12,21 +12,38 @@ public class PaqueteEspecial extends Paquete{
         return porcentajeAdicional;
     }
     public void setPorcentajeAdicional(int porcentajeAdicional) {
-        this.porcentajeAdicional = porcentajeAdicional;
+    	if (porcentajeAdicional < 0) {
+    		throw new RuntimeException("Error porcentaje negativo");
+    	}
+        this.porcentajeAdicional = porcentajeAdicional/100;
     }
     public int getValorAdicional() {
         return valorAdicional;
     }
     public void setValorAdicional(int valorAdicional) {
+    	if (valorAdicional < 0) {
+    		throw new RuntimeException("Error valor negativo negativo");
+    	}
         this.valorAdicional = valorAdicional;
     }
     /* OPERACIONES */
-    public void seSuperaElVolumen(int volumen){
-        if(volumen > 3000) {
-            setValorAdicional(400);
+    public int seSuperaElVolumen(){
+    	int valorAdicionalAPagar = 0;
+        if(getVolumen() > 3000 && getVolumen() < 5000) {
+        	valorAdicionalAPagar=(getValorAdicional());
         }
-        else if (volumen > 5000) {
-            setValorAdicional(800);
-        }    
+        else if (getVolumen() > 5000) {
+        	valorAdicionalAPagar=(getValorAdicional()  * 2);
+        }
+        return valorAdicionalAPagar;
+    }
+    @Override
+    public double costoFinal(){
+    	double precioBaseConPorcentaje = getPrecio() + (getPrecio() * getPorcentajeAdicional());
+    	precioBaseConPorcentaje += seSuperaElVolumen();
+    	return precioBaseConPorcentaje;
+    	
+    	
+    	
     }
 }

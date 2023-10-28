@@ -141,7 +141,7 @@ public class Pedido {
     	double valor = 0;
     	for(Paquete p : carrito.values()) {
     		if(!p.fueEntregado()) {
-    			valor += p.consultarPrecio();
+    			valor += p.costoFinal();
     		}
     	}
     	

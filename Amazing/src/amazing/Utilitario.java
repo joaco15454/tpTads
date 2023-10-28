@@ -17,8 +17,7 @@ public class Utilitario extends Transporte {
     }
     
     public void calcularCostoViaje(){
-        //return paquetesCargados.size() > 10 ? (getValorQueCobra() + getValorExtra()) : getValorQueCobra();
-        double costo = paquetesCargados.size() > 10 ? (getValorQueCobra() + getValorExtra()) : getValorQueCobra();
+        double costo = paquetesCargados.size() > 3 ? (getValorQueCobra() + getValorExtra()) : getValorQueCobra();
         setValorQueCobra(costo);
     }
     

@@ -258,6 +258,7 @@ public class EmpresaAmazing implements IEmpresa {
 				throw new RuntimeException("Error, el pedido ya esta cerrado.");
 			}else {
 				p.finalizarPedido();
+				actualizarFacturacionTotal();
 				return p.calcularValorAPagar();
 			}
 		}
@@ -265,6 +266,16 @@ public class EmpresaAmazing implements IEmpresa {
 		
 
 	}
+	private void actualizarFacturacionTotal() {
+		double valor = 0.0;
+		for(Pedido p : pedidos.values()) {
+			if(p.isEstaCerrado()) {
+				valor += p.calcularValorAPagar();
+			}
+		}
+		setFacturacionTotalPedidosCerrados(valor);
+	}
+
 	public boolean existePedido(int codPaquete) {
 		return pedidos.get(codPaquete) != null;
 	}

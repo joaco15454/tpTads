@@ -84,4 +84,8 @@ public class Paquete{
     public boolean fueEntregado() {
         return getEntregado();
     }
+
+	public double consultarPrecio() {
+		return getPrecio();
+	}
 }

@@ -292,7 +292,7 @@ public class Amazing {
 		HashMap<Integer, Paquete> carrito = pedido.getCarrito();
 		for (Paquete paquete : carrito.values()) {
 			if (t.seCumplenCondiciones(paquete)) {
-				t.cargarPaquete(paquete, pedido);
+				t.cargarPaquete(paquete);
 				listaPaquetesCargados.add(formatoEntrega(pedido, paquete));
 			}
 		}

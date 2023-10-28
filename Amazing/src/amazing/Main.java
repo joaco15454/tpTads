@@ -84,7 +84,7 @@ public class Main {
      * empresa.registrarUtilitario("AG111ZZ", 21000, 6000, 9000);
      * empresa.registrarCamion("AA111BB", 55000, 300000, 35);
      */
-    String resultado = empresa.cargarTransporte("AB444ZZ");
+    String resultado = empresa.cargarTransporte("AE555YY");
     System.out.println(resultado);
     
     

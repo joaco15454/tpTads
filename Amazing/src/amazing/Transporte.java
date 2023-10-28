@@ -68,7 +68,7 @@ public class Transporte {
         return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !transporteLleno();
     }
 
-    public void cargarPaquete(Paquete paquete, Pedido pedido) {
+    public void cargarPaquete(Paquete paquete) {
         if((paquete.getVolumen() + getVolumenActual()) < getVolumenMaximo()){
             paquetesCargados.add(paquete);
             aumentarVolumen(paquete.getVolumen());

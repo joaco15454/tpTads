@@ -90,10 +90,12 @@ public class Pedido {
         return p.getIdUnico();
     }
     protected void agregarProductoOrdinario (Integer id, PaqueteOrdinario p) {
-        if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
-            throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro");
+        if (paqueteEnCarrito(id)) {
+            throw new RuntimeException("Error, ya existe un paquete con esa id.");
+         }else if(isEstaCerrado() == true) {
+        	 throw new RuntimeException("Error, el pedido esta cerrado por lo que no puede modificarse.");
          }
-        carrito.put(id, p);
+        carrito.put(id, p); 
     }
 
 

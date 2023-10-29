@@ -14,6 +14,9 @@ public class Camion extends Transporte {
     }
 
     public void setValorAdicional(double valorAdicional) {
+    	if(valorAdicional < 0) {
+    		throw new RuntimeException("Error, el valor adicional debe ser positivo.");
+    	}
         this.valorAdicional = valorAdicional;
     }
 

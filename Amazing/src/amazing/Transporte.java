@@ -62,6 +62,9 @@ public class Transporte {
     }
 
     public void setValorQueCobra(double valorQueCobra) {
+    	if(valorQueCobra < 0) {
+    		throw new RuntimeException("Error, el valor que cobra el transporte debe ser positivo.");
+    	}
         this.valorQueCobra = valorQueCobra;
     }
 
@@ -88,9 +91,6 @@ public class Transporte {
         return paquetesCargados;
     }
 
-    public double obtenerCostoViaje() {
-        return getValorQueCobra();
-    }
 
     public boolean superaLimite() {
         return paquetesCargados.size() > getVolumenMaximo();

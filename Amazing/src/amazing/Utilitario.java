@@ -13,6 +13,9 @@ public class Utilitario extends Transporte {
     }
 
     public void setValorExtra(double valorExtra) {
+    	if(valorExtra < 0) {
+    		throw new RuntimeException("Error, el valor extra debe ser positivo.");
+    	}
         this.valorExtra = valorExtra;
     }
 

@@ -10,6 +10,9 @@ public class Comun extends Transporte {
     }
 
     public void setLimitePaquetes(int limitePaquetes) {
+    	if(limitePaquetes < 0) {
+    		throw new RuntimeException("Error, el limite de paquetes debe ser positivo.");
+    	}
         this.limitePaquetes = limitePaquetes;
     }
 

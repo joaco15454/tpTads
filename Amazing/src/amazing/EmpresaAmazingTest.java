@@ -24,7 +24,7 @@ public class EmpresaAmazingTest {
 		patenteAuto1 = "auto123";
 		patenteAuto2 = "auto124";
 		patenteCamion = "cam123";
-		patenteUtilitarios = "util123";
+		patenteUtilitarios = "util123"; 
 		patenteUtilitariosSinCarga = "sin123";
 		facturacionTotal = 0;
 		

@@ -352,7 +352,7 @@ public class EmpresaAmazing implements IEmpresa {
 			throw new RuntimeException("Error, el transporte esta vacio.");
 		}
 		return t.costoEntrega();
-	}
+	} 
 
 	/* FIN COSTO DE ENTREGA*/
 	
@@ -484,10 +484,31 @@ public class EmpresaAmazing implements IEmpresa {
 	private boolean mismaClaseTransporte(Transporte t1, Transporte t2) {
 		return t1.getClass() == t2.getClass();
 	}
-	@Override
-	public String toString() {
-		return "Empresa Amazing - [" + getCuit() + "]";
-	}
+    @Override
+    public String toString() {
+        StringBuilder pedidosStr = new StringBuilder();
+        pedidosStr.append("Listado de Pedidos:\n");
+        
+        for (Pedido p : pedidos.values()) {
+            pedidosStr.append(p.toString()).append("\n");
+        }
+        
+        StringBuilder transportesStr = new StringBuilder();
+        transportesStr.append("Listado de Transportes:\n");
+        
+        for (Transporte t : transportes.values()) {
+            transportesStr.append(t.toString()).append("\n");
+        }
+        
+        String separator = "============================================================================================================================\n";
+
+        return separator +"Empresa Amazing - [" + Cuit + "]\n" +
+                separator +
+                pedidosStr.toString() +
+                separator +
+                transportesStr.toString()+
+                separator;
+    }
 	
 	
 	private void actualizarFacturacionTotal(double valorPedido) {

@@ -24,7 +24,7 @@ public class Pedido {
         
         this.dni = dni;
         this.estaCerrado = estaCerrado;
-    }
+    }    
     /* FIN CONSTRUCTOR */
     /* GETTERS AND SETTERS */
      public int getDni() {
@@ -177,8 +177,25 @@ public class Pedido {
 		setEstaCerrado(true);
 	}
 
+    @Override
+    public String toString() {
+        StringBuilder carritoStr = new StringBuilder("[");
+        if (!carrito.isEmpty()) {
+            boolean first = true;
+            for (Integer id : carrito.keySet()) {
+                if (first) {
+                    carritoStr.append(id);
+                    first = false;
+                } else {
+                    carritoStr.append(", ").append(id);
+                }
+            }
+        }
+        carritoStr.append("]");
+
+        return "Pedido: Id=" + getNroPedido() +
+                ", Datos cliente: [Nombre=" + getNombreDeCliente() + ", Dni=" + getDni() + ", Direccion=" + getDireccion() + "]" +
+                ", Carrito=" + carritoStr.toString();
+    }
 	
-
-
-   
 }

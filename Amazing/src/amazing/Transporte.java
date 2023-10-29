@@ -16,7 +16,7 @@ public class Transporte {
         this.volumenMaximo = volumenMaximo;
         this.valorQueCobra = valorQueCobra;
         this.volumenActual = 0;
-        this.paquetesCargados = new ArrayList<>();
+        this.paquetesCargados = new ArrayList<>(); 
     }
 
     public String getPatente() {
@@ -104,6 +104,25 @@ public class Transporte {
         if (transporteLleno()) {
             throw new RuntimeException("Error, el transporte esta lleno.");
         }
+    }
+    @Override
+    public String toString() {
+        StringBuilder paquetesCargadosStr = new StringBuilder("[");
+        
+        List<Paquete> paquetes = getPaquetesCargados();
+        if (!paquetes.isEmpty()) {
+            for (int i = 0; i < paquetes.size() - 1; i++) {
+                paquetesCargadosStr.append(paquetes.get(i).getIdUnico()).append(", ");
+            }
+            paquetesCargadosStr.append(paquetes.get(paquetes.size() - 1).getIdUnico());
+        }
+        
+        paquetesCargadosStr.append("]");
+
+        return "Transporte: Patente=" + getPatente() +
+                ", VolumenMaximo=" + getVolumenMaximo() +
+                ", CostoDeEntrega=" + getValorQueCobra() +
+                ", PaquetesCargados:" + paquetesCargadosStr.toString();
     }
 
 }

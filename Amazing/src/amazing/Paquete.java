@@ -16,7 +16,7 @@ public class Paquete{
         this.direccion = direccion; 
         this.entregado = false;
     }
-
+    
     public int getIdUnico() {
 
         return idUnico;
@@ -86,4 +86,11 @@ public class Paquete{
 	public double costoFinal() {
 		return getPrecio();
 	}
+    @Override 
+    public String toString() {
+    	return "[Paquete: \nId="+ getIdUnico()+
+    			"\nVolumen="+ getVolumen()+
+    			"\nPrecio="+ costoFinal()+
+    			"\nDireccion="+getDireccion() +"]";
+    }
 }

@@ -142,6 +142,10 @@ public class Pedido {
 
 
     }
+    
+    /* FIN OPERACIONES */
+
+    /* METODOS AUXILIARES  */
     public boolean paqueteEnCarrito (int id) {
         return !(obtenerPaquete(id) == null);
         
@@ -155,9 +159,6 @@ public class Pedido {
     public Paquete obtenerPaquete(int id) {
         return carrito.get(id);
     }
-    /* FIN OPERACIONES */
-
-    /* METODOS AUXILIARES  */
     public boolean hayNumeroEnString(String s) // valdicion para que sea un string de letras y no variado, por ejemplo jo4aquin
     {     
 

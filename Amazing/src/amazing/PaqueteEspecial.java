@@ -27,7 +27,7 @@ public class PaqueteEspecial extends Paquete{
         this.valorAdicional = valorAdicional;
     }
     /* OPERACIONES */
-    public int seSuperaElVolumen(){
+    public int adicionalAPagar(){
     	int valorAdicionalAPagar = 0;
         if(getVolumen() >= 3000 && getVolumen() < 5000) {
         	valorAdicionalAPagar=(getValorAdicional());
@@ -40,7 +40,7 @@ public class PaqueteEspecial extends Paquete{
     @Override
     public double costoFinal(){
     	double precioBaseConPorcentaje = getPrecio() + (getPrecio() * (getPorcentajeAdicional()));
-    	precioBaseConPorcentaje += seSuperaElVolumen();
+    	precioBaseConPorcentaje += adicionalAPagar();
     	return precioBaseConPorcentaje;
     	
     	

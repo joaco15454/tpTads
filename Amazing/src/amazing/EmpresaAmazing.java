@@ -269,7 +269,7 @@ public class EmpresaAmazing implements IEmpresa {
 	private void actualizarFacturacionTotal() {
 		double valor = 0.0;
 		for(Pedido p : pedidos.values()) {
-			if(p.isEstaCerrado()) {
+			if(p.isEstaCerrado() && !p.fueCargado()) {
 				valor += p.calcularValorAPagar();
 			}
 		}
@@ -338,33 +338,41 @@ public class EmpresaAmazing implements IEmpresa {
 	    List<String> listaPaquetesCargados = new ArrayList<>();
 	    List<Paquete> paquetesEspeciales = new ArrayList<>();
 	    List<Paquete> paquetesOrdinarios = new ArrayList<>();
-	    
+	    actualizarFacturacionTotal();
 	    HashMap<Integer, Paquete> carrito = pedido.getCarrito();
 	    
 	    for (Paquete paquete : carrito.values()) {
 	        if (t.seCumplenCondiciones(paquete)) {
 	            if (paquete instanceof PaqueteEspecial) {
 	                paquetesEspeciales.add(paquete);
-	            } else {
+	            } else if (paquete instanceof PaqueteOrdinario){
 	                paquetesOrdinarios.add(paquete);
 	            }
 	        }
 	    }
+	    
+	    double valorActual = getFacturacionTotalPedidosCerrados();
 	    
 	    for (Paquete paquete : paquetesEspeciales) {
 	        t.cargarPaquete(paquete);
 	        String datosEntrega = formatoEntrega(pedido, paquete);
 	        listaPaquetesCargados.add(datosEntrega);
 	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
+	        valorActual += paquete.costoFinal();
+
 	    }
+	    
 	    
 	    for (Paquete paquete : paquetesOrdinarios) {
 	        t.cargarPaquete(paquete);
 	        String datosEntrega = formatoEntrega(pedido, paquete);
 	        listaPaquetesCargados.add(datosEntrega);
+	        actualizarFacturacionTotal();
 	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
+	        valorActual += paquete.costoFinal();
+
 	    }
-	    
+	    setFacturacionTotalPedidosCerrados(valorActual);
 	    return listaPaquetesCargados;
 	}
 

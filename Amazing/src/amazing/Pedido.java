@@ -13,6 +13,7 @@ public class Pedido {
     private HashMap<Integer,Paquete> carrito = new HashMap<>();
     private boolean estaCerrado;
     private static int contadorPedidos = 1000;
+    private boolean estaCargado;
 
     /* CONSTRUCTOR  */
     public Pedido(int nroPedido, String direccion, String nombreDeCliente, int dni, boolean estaCerrado) {
@@ -112,7 +113,9 @@ public class Pedido {
     }
 
 
-
+    protected boolean fueCargado() {
+    	
+    }
 
 
     protected  void eliminarProductoCarrito (int id) {

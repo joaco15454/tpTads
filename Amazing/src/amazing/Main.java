@@ -38,28 +38,28 @@ public class Main {
     int paq5 = empresa.agregarPaquete(p3, 1800, 3500, 1000);
     int paq6 = empresa.agregarPaquete(p2, 3800, 13400, 3, 400);  
     //int paq7 = empresa.agregarPaquete(p6, 17000, 28900, 1000);
-    int paq8 = empresa.agregarPaquete(p1, 35000, 134000, 3, 400);
+   // int paq8 = empresa.agregarPaquete(p1, 35000, 134000, 3, 400);
    // int paq9 = empresa.agregarPaquete(p4, 120000, 56000, 2, 1100);
     //int paq10 = empresa.agregarPaquete(p6, 1500, 3890, 1000);
 
     empresa.cerrarPedido(p1);
-    empresa.cerrarPedido(p3);
-    empresa.cerrarPedido(p2);
-
+   // empresa.cerrarPedido(p3);
+   // empresa.cerrarPedido(p2);
+System.out.println(empresa.facturacionTotalPedidosCerrados());
     //empresa.cerrarPedido(p3);
     
     System.out.println("Listados con la carga de transportes: ");
     
    // System.out.println(empresa.cargarTransporte("AB454ZZ"));
      
-    System.out.println(empresa.cargarTransporte("AA222FF"));
+   /* System.out.println(empresa.cargarTransporte("AA222FF"));
     int p9 = empresa.registrarPedido("Angel Gutierrez", "San Martin 341", 28324132);
 
     int paq10 = empresa.agregarPaquete(p9, 1800, 3500, 1000);
     int paq11= empresa.agregarPaquete(p9, 3800, 13400, 3, 400);
     empresa.cerrarPedido(p9);
 
-    System.out.println(empresa.cargarTransporte("AA222FF"));
+    System.out.println(empresa.cargarTransporte("AA222FF"));*/
     
     
     

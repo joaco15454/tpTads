@@ -49,8 +49,8 @@ public class Main {
 		   System.out.println(empresa.cargarTransporte("AE555YY"));
 		   System.out.println();
 		   
-		   System.out.println("Costo del transporte: " + empresa.costoEntrega("AE555YY"));
-		   System.out.println();
+		   //System.out.println("Costo del transporte: " + empresa.costoEntrega("AE555YY"));
+		   //System.out.println();
 		   
 		   System.out.println("Facturacion total de pedidos: " + empresa.facturacionTotalPedidosCerrados());
 		   System.out.println();

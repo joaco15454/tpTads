@@ -127,27 +127,20 @@ public class Pedido {
 
 
 
-    public double calcularValorAPagar2() {
+    public double calcularValorAPagar() {
         /*COMPLETAR */
         double valor = 0.0;
         Iterator <Integer> it = carrito.keySet().iterator();
         while (it.hasNext()) {
             int id = it.next();
-            valor+= calcularValorPaquete(id);
+            if (!carrito.get(id).fueEntregado()) {
+            	 valor+= carrito.get(id).costoFinal();
+            }
+           
         }
         return valor;
 
 
-    }
-    public double calcularValorAPagar() {
-    	double valor = 0;
-    	for(Paquete p : carrito.values()) {
-    		if(!p.fueEntregado()) {
-    			valor += p.costoFinal();
-    		}
-    	}
-    	
-    	return valor;
     }
     public boolean paqueteEnCarrito (int id) {
         return !(obtenerPaquete(id) == null);

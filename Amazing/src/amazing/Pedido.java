@@ -13,7 +13,7 @@ public class Pedido {
     private HashMap<Integer,Paquete> carrito = new HashMap<>();
     private boolean estaCerrado;
     private static int contadorPedidos = 1000;
-    private boolean estaCargado;
+    private boolean seSumoAFacturacion;
 
     /* CONSTRUCTOR  */
     public Pedido(int nroPedido, String direccion, String nombreDeCliente, int dni, boolean estaCerrado) {
@@ -21,6 +21,7 @@ public class Pedido {
         this.direccion = direccion;
         this.nombreDeCliente = nombreDeCliente;
     
+        this.seSumoAFacturacion = false;
         this.dni = dni;
         this.estaCerrado = estaCerrado;
     }
@@ -106,22 +107,20 @@ public class Pedido {
         return p.getIdUnico();
     }
     protected void agregarProductoEspecial (Integer id, PaqueteEspecial p) {
-        if (paqueteEnCarrito(id) || isEstaCerrado() == true) {
-            throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro");
+        if (paqueteEnCarrito(id)) {
+            throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro.");
+         }else if(isEstaCerrado() == true) {
+             throw new RuntimeException("Error, el pedido esta cerrado por lo que no puede modificarse.");        	 
          }
         carrito.put(id, p);
     }
 
-
-    protected boolean fueCargado() {
-    	
-    }
-
-
     protected  void eliminarProductoCarrito (int id) {
         
-        if (!paqueteEnCarrito(id) || isEstaCerrado() == true) {
+        if (!paqueteEnCarrito(id)) {
             throw new RuntimeException("Error, el paquete que desea borrar no esta en el carrito");
+        }else if(isEstaCerrado() == true) {
+            throw new RuntimeException("Error, el pedido esta cerrado por lo que no puede modificarse.");        	 
         }
         carrito.remove(id);
     }
@@ -177,7 +176,16 @@ public class Pedido {
 	public void finalizarPedido() {
 		setEstaCerrado(true);
 	}
-    
+
+	public boolean yaSeSumoAFacturacion() {
+	    return seSumoAFacturacion;
+	}
+
+	public void marcarComoSumadoAFacturacion() {
+	    seSumoAFacturacion = true;
+	}
+
+
 
    
 }

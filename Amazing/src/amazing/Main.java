@@ -43,11 +43,12 @@ public class Main {
     //int paq10 = empresa.agregarPaquete(p6, 1500, 3890, 1000);
 
     empresa.cerrarPedido(p1);
+    
    // empresa.cerrarPedido(p3);
    // empresa.cerrarPedido(p2);
-System.out.println(empresa.facturacionTotalPedidosCerrados());
+    System.out.println(empresa.facturacionTotalPedidosCerrados());
     //empresa.cerrarPedido(p3);
-    
+    System.out.println(empresa);
     System.out.println("Listados con la carga de transportes: ");
     
    // System.out.println(empresa.cargarTransporte("AB454ZZ"));

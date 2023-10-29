@@ -37,12 +37,7 @@ public class Pedido {
     public int getNroPedido() {
         return nroPedido;
     }
-    public void setNroPedido() {
-        if (nroPedido < 0) {
-            throw new RuntimeException("Error, el numero tiene que ser mayor a 0");
-        }
-        this.nroPedido = contadorPedidos++; //capaz esta unpoco al pedo este set, debatir despues
-    }
+
     public String getDireccion() {
         return direccion;
     }
@@ -127,41 +122,35 @@ public class Pedido {
 
 
 
-    public double calcularValorAPagar2() {
-        /*COMPLETAR */
+    public double calcularValorAPagar() {
+        
         double valor = 0.0;
         Iterator <Integer> it = carrito.keySet().iterator();
         while (it.hasNext()) {
             int id = it.next();
-            valor+= calcularValorPaquete(id);
+            if (!carrito.get(id).fueEntregado()) {
+            	valor+= carrito.get(id).costoFinal();
+            }
+            
         }
         return valor;
 
 
     }
-    public double calcularValorAPagar() {
-    	double valor = 0;
-    	for(Paquete p : carrito.values()) {
-    		if(!p.fueEntregado()) {
-    			valor += p.costoFinal();
-    		}
-    	}
-    	
-    	return valor;
-    }
     public boolean paqueteEnCarrito (int id) {
-        return !(obtenerPaquete(id) == null);
-        
+    	return !(obtenerPaquete(id) == null);
+    	
     }
     protected  boolean paqueteEntregado(int id) {
-        return obtenerPaquete(id).getEntregado();
+    	return obtenerPaquete(id).getEntregado();
     }
     protected  double calcularValorPaquete(int id) {
-        return obtenerPaquete(id).getPrecio();
+    	return obtenerPaquete(id).getPrecio();
     }
     public Paquete obtenerPaquete(int id) {
-        return carrito.get(id);
+    	return carrito.get(id);
     }
+ 
     /* FIN OPERACIONES */
 
     /* METODOS AUXILIARES  */

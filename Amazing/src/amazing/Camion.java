@@ -19,7 +19,7 @@ public class Camion extends Transporte {
     	}
         this.valorAdicional = valorAdicional;
     }
-
+ 
     public void calcularCostoViaje() {
         double costo = getValorQueCobra() + (paquetesCargados.size() * getValorAdicional());
         setValorQueCobra(costo);

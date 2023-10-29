@@ -15,7 +15,7 @@ public class Pedido {
     private static int contadorPedidos = 1000;
     
 
-    /* CONSTRUCTOR  */
+    /* CONSTRUCTOR  */ 
     public Pedido(int nroPedido, String direccion, String nombreDeCliente, int dni, boolean estaCerrado) {
         this.nroPedido = contadorPedidos++; // numero unico
         this.direccion = direccion;
@@ -63,7 +63,7 @@ public class Pedido {
     }
     public HashMap<Integer, Paquete> getCarrito() {
         return carrito;
-    }
+    } 
     public void setCarrito(HashMap<Integer, Paquete> carrito) {
         this.carrito = carrito;
     }
@@ -82,7 +82,7 @@ public class Pedido {
 
 
     //Agrega un producto ordinario
-    protected  int agregarProductoCarrito(int volumen, int precio, int costoEnvio) {
+    protected  int agregarProductoCarrito(int volumen, double precio, int costoEnvio) {
         /*COMPLETAR */
          
         PaqueteOrdinario p = new PaqueteOrdinario(getDireccion(),volumen,precio, costoEnvio);

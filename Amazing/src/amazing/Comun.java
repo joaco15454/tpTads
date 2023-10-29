@@ -18,7 +18,7 @@ public class Comun extends Transporte {
 
     public int getLimitePaquetes() {
         return limitePaquetes;
-    }
+    } 
 
     @Override
     public boolean transporteLleno() {

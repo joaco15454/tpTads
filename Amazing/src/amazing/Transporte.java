@@ -98,7 +98,7 @@ public class Transporte {
     public boolean superaLimite() {
         return paquetesCargados.size() > getVolumenMaximo();
     }
-
+ 
     public boolean transporteLleno() {
         return getVolumenActual() == getVolumenMaximo();
     }

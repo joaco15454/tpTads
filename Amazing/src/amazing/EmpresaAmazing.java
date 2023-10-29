@@ -523,7 +523,6 @@ public class EmpresaAmazing implements IEmpresa {
 	    List<String> listaPaquetesCargados = new ArrayList<>();
 	    List<Paquete> paquetesEspeciales = new ArrayList<>();
 	    List<Paquete> paquetesOrdinarios = new ArrayList<>();
-	    //actualizarFacturacionTotal();
 	    HashMap<Integer, Paquete> carrito = pedido.getCarrito();
 	    
 	    for (Paquete paquete : carrito.values()) {
@@ -535,9 +534,8 @@ public class EmpresaAmazing implements IEmpresa {
 	            }
 	        }
 	    }
+
 	    
-	    double valorActual = getFacturacionTotalPedidosCerrados();
-	    //double  paquetesEspeciales =  valorTotalPedidosCerrados();
 	    
 	    for (Paquete paquete : paquetesEspeciales) {
 	        t.cargarPaquete(paquete);
@@ -545,7 +543,7 @@ public class EmpresaAmazing implements IEmpresa {
 	        listaPaquetesCargados.add(datosEntrega);
 	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
 
-	       //valorActual += paquete.costoFinal();
+	      
 
 	    }
 	    
@@ -555,11 +553,10 @@ public class EmpresaAmazing implements IEmpresa {
 	        String datosEntrega = formatoEntrega(pedido, paquete);
 	        listaPaquetesCargados.add(datosEntrega);
 	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
-	      //  valorActual += paquete.costoFinal();
+	      
 
 	    }
-       // actualizarFacturacionTotal();
-	    setFacturacionTotalPedidosCerrados(valorActual);
+       
 	    return listaPaquetesCargados;
 	}
 
@@ -568,12 +565,12 @@ public class EmpresaAmazing implements IEmpresa {
 	    String formato = " + [ %d - %d ] %s\n";
 	    return String.format(formato, pedido.getNroPedido(), paquete.getIdUnico(), pedido.getDireccion());
 	}
-	/* Metodos auxiliares transportes */
+	
 	private boolean existeTransporte(String patente) {
 		return transportes.get(patente) != null;
 	}
 
-	/* Fin metodos auxiliares transportes */
+	
 	
 	/* FIN METODOS AUXILIARES */
 }

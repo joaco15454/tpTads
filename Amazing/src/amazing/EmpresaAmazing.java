@@ -304,17 +304,21 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		StringBuilder sb = new StringBuilder();
 		Transporte t = transportes.get(patente);
-		
+
 		for (Pedido p : pedidos.values()) {
+			
 			if (p.isEstaCerrado()) {
+				
 				List<String> listaPaquetesCargados = cargarPedido(t, p);
 				for (String j : listaPaquetesCargados) {
-					 sb.append(String.join("\n", j)).append("\n");
+					 sb.append(String.join("\n", j));
 
 				}
 				 //sb.append(listaPaquetesCargados);
 			}
+			
 		}
+		
 		actualizarCostoEntrega(t);
 		String listadoPaquetesCargados = sb.toString();
 		return listadoPaquetesCargados;
@@ -330,22 +334,42 @@ public class EmpresaAmazing implements IEmpresa {
 	}
 
 	private List<String> cargarPedido(Transporte t, Pedido pedido) {
-		t.transporteEstaLleno();
-		List<String> listaPaquetesCargados = new ArrayList<>();
-		HashMap<Integer, Paquete> carrito = pedido.getCarrito();
-		for (Paquete paquete : carrito.values()) {
-			if (t.seCumplenCondiciones(paquete)) {
-				t.cargarPaquete(paquete);
-				String datosEntrega = formatoEntrega(pedido,paquete);
-				listaPaquetesCargados.add(datosEntrega);
-			}
-		}
-		
-		return listaPaquetesCargados;
+	    t.transporteEstaLleno();
+	    List<String> listaPaquetesCargados = new ArrayList<>();
+	    List<Paquete> paquetesEspeciales = new ArrayList<>();
+	    List<Paquete> paquetesOrdinarios = new ArrayList<>();
+	    
+	    HashMap<Integer, Paquete> carrito = pedido.getCarrito();
+	    
+	    for (Paquete paquete : carrito.values()) {
+	        if (t.seCumplenCondiciones(paquete)) {
+	            if (paquete instanceof PaqueteEspecial) {
+	                paquetesEspeciales.add(paquete);
+	            } else {
+	                paquetesOrdinarios.add(paquete);
+	            }
+	        }
+	    }
+	    
+	    for (Paquete paquete : paquetesEspeciales) {
+	        t.cargarPaquete(paquete);
+	        String datosEntrega = formatoEntrega(pedido, paquete);
+	        listaPaquetesCargados.add(datosEntrega);
+	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
+	    }
+	    
+	    for (Paquete paquete : paquetesOrdinarios) {
+	        t.cargarPaquete(paquete);
+	        String datosEntrega = formatoEntrega(pedido, paquete);
+	        listaPaquetesCargados.add(datosEntrega);
+	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
+	    }
+	    
+	    return listaPaquetesCargados;
 	}
 
-	public String formatoEntrega(Pedido pedido, Paquete paquete) {
-		String pa = "+ [ " + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion() + "\n";
+	/*public String formatoEntrega(Pedido pedido, Paquete paquete) {
+		String pa = "+ [ " + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion() + "";
 		/*StringBuilder sb = new StringBuilder();
 		sb.append("+ [ ");
 		sb.append(pedido.getNroPedido());
@@ -354,8 +378,14 @@ public class EmpresaAmazing implements IEmpresa {
 		sb.append(" ] ");
 		sb.append(pedido.getDireccion());
 		sb.append("\n");
-		String datosEntrega = sb.toString();*/
+		String datosEntrega = sb.toString();
 		return pa;
+	}
+*/
+	 
+	public String formatoEntrega(Pedido pedido, Paquete paquete) {
+	    String formato = " + [ %d - %d ] %s\n";
+	    return String.format(formato, pedido.getNroPedido(), paquete.getIdUnico(), pedido.getDireccion());
 	}
 	/* Fin metodo auxiliar cargarTransporte */
 
@@ -497,5 +527,11 @@ public class EmpresaAmazing implements IEmpresa {
 	private boolean mismaClaseTransporte(Transporte t1, Transporte t2) {
 		return t1.getClass() == t2.getClass();
 	}
+	@Override
+	public String toString() {
+		return "[Empresa Amazing - " + getCuit() + "]";
+	}
+	
+	
 	/* Fin metodos auxiliares transportes identicos */
 }

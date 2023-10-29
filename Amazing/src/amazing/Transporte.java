@@ -70,7 +70,7 @@ public class Transporte {
     }
 
     public boolean seCumplenCondiciones(Paquete p) {
-        return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !transporteLleno();
+        return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !getPaquetesCargados().contains(p) &&!transporteLleno();
     }
 
     public void cargarPaquete(Paquete paquete) {

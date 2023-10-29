@@ -304,11 +304,15 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		StringBuilder sb = new StringBuilder();
 		Transporte t = transportes.get(patente);
+		
 		for (Pedido p : pedidos.values()) {
 			if (p.isEstaCerrado()) {
 				List<String> listaPaquetesCargados = cargarPedido(t, p);
+				for (String j : listaPaquetesCargados) {
+					 sb.append(String.join("\n", j)).append("\n");
+
+				}
 				 //sb.append(listaPaquetesCargados);
-				sb.append(String.join("\n", listaPaquetesCargados)).append("\n");
 			}
 		}
 		actualizarCostoEntrega(t);
@@ -341,9 +345,8 @@ public class EmpresaAmazing implements IEmpresa {
 	}
 
 	public String formatoEntrega(Pedido pedido, Paquete paquete) {
-		// String pa = "+ [ " + pedido.getNroPedido() + " - " + paquete.getIdUnico() + "
-		// ] " + pedido.getDireccion() + "\n";
-		StringBuilder sb = new StringBuilder();
+		String pa = "+ [ " + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion() + "\n";
+		/*StringBuilder sb = new StringBuilder();
 		sb.append("+ [ ");
 		sb.append(pedido.getNroPedido());
 		sb.append(" - ");
@@ -351,8 +354,8 @@ public class EmpresaAmazing implements IEmpresa {
 		sb.append(" ] ");
 		sb.append(pedido.getDireccion());
 		sb.append("\n");
-		String datosEntrega = sb.toString();
-		return datosEntrega;
+		String datosEntrega = sb.toString();*/
+		return pa;
 	}
 	/* Fin metodo auxiliar cargarTransporte */
 
@@ -434,7 +437,7 @@ public class EmpresaAmazing implements IEmpresa {
 				boolean distintaPatenteMismaClase = (distintaPatente(t1,t2) && mismaClaseTransporte(t1,t2));
 				boolean transportesNoVacios = (!t1.transporteVacio() && !t2.transporteVacio());
 				boolean mismaCarga = (cargaIdentica(t1,t2));
-				if (!transportesNoVacios && distintaPatenteMismaClase && mismaCarga) {
+				if (transportesNoVacios && distintaPatenteMismaClase && mismaCarga) {
 					return true;
 				}
 			}

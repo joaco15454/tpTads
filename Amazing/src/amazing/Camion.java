@@ -27,7 +27,7 @@ public class Camion extends Transporte {
 
     @Override
     public boolean seCumplenCondiciones(Paquete p) {
-        return (p instanceof PaqueteEspecial) && !transporteLleno() && p.getVolumen() > 2000;
+        return (p instanceof PaqueteEspecial) && !transporteLleno() && !getPaquetesCargados().contains(p) && p.getVolumen() > 2000;
     }
 
 }

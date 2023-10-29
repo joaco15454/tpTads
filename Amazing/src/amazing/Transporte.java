@@ -58,6 +58,9 @@ public class Transporte {
     }
 
     public void aumentarVolumen(int volumenPaquete) {
+    	if (volumenPaquete < 0) {
+            throw new RuntimeException("Error, debe ser un numero positivo");
+        }
         setVolumenActual(volumenActual + volumenPaquete);
     }
 

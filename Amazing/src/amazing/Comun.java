@@ -27,6 +27,6 @@ public class Comun extends Transporte {
 
     @Override
     public boolean seCumplenCondiciones(Paquete p) {
-        return (p instanceof PaqueteOrdinario) && !transporteLleno() && p.getVolumen() < 2000;
+        return (p instanceof PaqueteOrdinario) && !transporteLleno() && !getPaquetesCargados().contains(p) && p.getVolumen() < 2000;
     }
 }

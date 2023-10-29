@@ -52,7 +52,10 @@ public class EmpresaAmazing implements IEmpresa {
 		Cuit = cuit;
 	}
 	// ** PARTE OPERACIONES INTERFAZ */
-
+//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	/* REGISTRAR TRANSPORTE AUTOMOVIL */
 	/**
 	 * Registra un nuevo transporte tipo Automovil en el sistema con los siguientes
 	 * datos correspondiente a todo transporte:
@@ -65,12 +68,7 @@ public class EmpresaAmazing implements IEmpresa {
 	 * 
 	 * Si esa patente ya esta en el sistema se debe generar una excepcion.
 	 */
-	/* Metodos auxiliares transportes */
-	private boolean existeTransporte(String patente) {
-		return transportes.get(patente) != null;
-	}
-
-	/* Fin metodos auxiliares transportes */
+	
 	public void registrarAutomovil(String patente, int volMax, int valorViaje, int maxPaq) {
 		if (existeTransporte(patente)) {
 			throw new RuntimeException("Error, ya hay un transporte registrado con la patente " + patente);
@@ -78,7 +76,11 @@ public class EmpresaAmazing implements IEmpresa {
 		Transporte t = new Comun(patente, volMax, valorViaje, maxPaq);
 		transportes.put(patente, t);
 	}
-
+	/* FIN REGISTRAR TRANSPORTE AUTOMOVIL */
+	
+//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/* REGISTRAR TRANSPORTE UTILITARIO */
 	/**
 	 * Registra un nuevo transporte tipo Utilitario en el sistema con los
 	 * datos correspondientes a toda clase de transporte y ademas:
@@ -94,7 +96,12 @@ public class EmpresaAmazing implements IEmpresa {
 		Transporte t = new Utilitario(patente, volMax, valorViaje, valorExtra);
 		transportes.put(patente, t);
 	}
-
+	/* FIN REGISTRAR TRANSPORTE UTILITARIO */
+	
+//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	/* REGISTRAR TRANSPORTE CAMION */
 	/**
 	 * Registra un nuevo transporte tipo Camion en el sistema con los
 	 * datos correspondiente a todo transporte y ademas:
@@ -111,7 +118,12 @@ public class EmpresaAmazing implements IEmpresa {
 		Transporte t = new Camion(patente, volMax, valorViaje, adicXPaq);
 		transportes.put(patente, t);
 	}
+	/* FIN REGISTRAR TRANSPORTE CAMION */
+	
+//////////////////////////////////////////////////////////////////////////////////////////////
 
+	
+	/* REGISTRAR PEDIDO*/
 	/**
 	 * Se registra un nuevo pedido en el sistema proporcionando los siguientes
 	 * datos:
@@ -130,7 +142,13 @@ public class EmpresaAmazing implements IEmpresa {
 		System.out.println(p.getNroPedido());
 		return p.getNroPedido();
 	}
-
+	
+	
+	
+	/* FIN REGISTRAR PEDIDO*/
+//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/* AGREGAR PAQUETE ORDINARIO */
 	/**
 	 * Se registra la compra de un producto, el cual se agregara al carrito del
 	 * pedido dado
@@ -157,7 +175,11 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		return p.agregarProductoCarrito(volumen, precio, costoEnvio);
 	}
-
+	/* FIN AGREGAR PAQUETE ORDINARIO */
+	
+//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/* AGREGAR PAQUETE ESPECIAL */
 	/**
 	 * Se registra la compra de un producto que se agregara al carrito del pedido
 	 * dado
@@ -185,7 +207,12 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		return p.agregarProductoCarrito(volumen, precio, porcentaje, adicional);
 	}
+	/* FIN AGREGAR PAQUETE ESPECIAL */
+	
+//////////////////////////////////////////////////////////////////////////////////////////////
 
+	
+	/*QUITAR PAQUETE*/
 	/**
 	 * quita un paquete del pedido dado su codigo unico de paquete.
 	 * 
@@ -194,24 +221,7 @@ public class EmpresaAmazing implements IEmpresa {
 	 * 
 	 * Demostrar la complejidad en terminos de O grande en el informe.
 	 */
-	public boolean quitarPaquete2(int codPaquete) {
-		Iterator<Integer> it = pedidos.keySet().iterator();
-
-		while (it.hasNext()) {
-			Integer clave = it.next();
-			Pedido p = pedidos.get(clave);
-
-			for (Integer id : p.getCarrito().keySet()) {
-				Paquete pedido = p.getCarrito().get(id);
-				if (pedido.getIdUnico() == codPaquete) {
-					return true;
-				}
-				// Hacer algo con el pedido
-			}
-
-		}
-		return false;
-	}
+	
 
 	public boolean quitarPaquete(int codPaquete) {
 		for (Pedido p : pedidos.values()) {
@@ -222,15 +232,10 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		throw new RuntimeException("Error, no hay ningun paquete registrado con el codigo: " + codPaquete);
 	}
-
-	private boolean paqueteEnPedido(Pedido p, int codPaquete) {
-		HashMap<Integer, Paquete> carrito = p.getCarrito();
-		Paquete paquete = carrito.get(codPaquete);
-		if (paquete == null) {
-			return false;
-		}
-		return true;
-	}
+	/* FIN QUITAR PAQUETE*/
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////
 	/* CERRAR PEDIDO */
 
 	/**
@@ -269,7 +274,7 @@ public class EmpresaAmazing implements IEmpresa {
 	
 
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 	
 	/*CARGA TRANSPORTE*/
@@ -317,9 +322,10 @@ public class EmpresaAmazing implements IEmpresa {
 		return listadoPaquetesCargados;
 	}
 	/*FIN CARGA TRANSPORTE*/
-	/* metodo auxiliar cargarTransporte */
 	
-	/* Fin metodo auxiliar cargarTransporte */
+//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/* COSTO DE ENTREGA*/
 
 	/**
 	 * Se registra el costo del viaje de un transporte dado su patente
@@ -348,6 +354,11 @@ public class EmpresaAmazing implements IEmpresa {
 		return t.costoEntrega();
 	}
 
+	/* FIN COSTO DE ENTREGA*/
+	
+	
+	
+	/* FACTURACION TOTAL */
 	/**
 	 * Devuelve la suma del precio facturado de todos los pedidos cerrados.
 	 * 
@@ -357,7 +368,13 @@ public class EmpresaAmazing implements IEmpresa {
 
 		return getFacturacionTotalPedidosCerrados();
 	}
-
+	/*FIN FACTURACION TOTAL*/
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////	
+	
+	/*PEDIDOS NO ENTREGADOS (QUE SON CERRADOS)*/
+	
 	/**
 	 * Devuelve los pedidos cerrados y que no fueron entregados en su totalidad.
 	 * O sea, que tienen paquetes sin entregar.
@@ -380,7 +397,13 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		return pedidosNoEntregados;
 	}
-
+	/*FIN PEDIDOS NO ENTREGADOS (QUE SON CERRADOS)*/
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	/*HAY TRANSPORTES IDENTICOS*/
 	/**
 	 * Se consideran transportes identicos a 2 transportes cargados con:
 	 * - distinta patente,
@@ -408,8 +431,11 @@ public class EmpresaAmazing implements IEmpresa {
 	}
 
 	
-
+	/*FIN HAY TRANSPORTES IDENTICOS*/
+//////////////////////////////////////////////////////////////////////////////////////////////
 	/* METODOS AUXILIARES */
+	
+	
 	public Pedido buscarPedido(int codPedido) {
 		if(existePedido(codPedido)) {
 			Pedido p = pedidos.get((codPedido));
@@ -475,7 +501,14 @@ public class EmpresaAmazing implements IEmpresa {
 	public boolean existePedido(int codPaquete) {
 		return pedidos.get(codPaquete) != null;
 	}
-	
+	private boolean paqueteEnPedido(Pedido p, int codPaquete) {
+		HashMap<Integer, Paquete> carrito = p.getCarrito();
+		Paquete paquete = carrito.get(codPaquete);
+		if (paquete == null) {
+			return false;
+		}
+		return true;
+	}
 	
 	public void actualizarCostoEntrega(Transporte t) {
 		if (t instanceof Camion) {
@@ -530,25 +563,17 @@ public class EmpresaAmazing implements IEmpresa {
 	    return listaPaquetesCargados;
 	}
 
-	/*public String formatoEntrega(Pedido pedido, Paquete paquete) {
-		String pa = "+ [ " + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion() + "";
-		/*StringBuilder sb = new StringBuilder();
-		sb.append("+ [ ");
-		sb.append(pedido.getNroPedido());
-		sb.append(" - ");
-		sb.append(paquete.getIdUnico());
-		sb.append(" ] ");
-		sb.append(pedido.getDireccion());
-		sb.append("\n");
-		String datosEntrega = sb.toString();
-		return pa;
-	}
-*/
 	 
 	public String formatoEntrega(Pedido pedido, Paquete paquete) {
 	    String formato = " + [ %d - %d ] %s\n";
 	    return String.format(formato, pedido.getNroPedido(), paquete.getIdUnico(), pedido.getDireccion());
 	}
+	/* Metodos auxiliares transportes */
+	private boolean existeTransporte(String patente) {
+		return transportes.get(patente) != null;
+	}
+
+	/* Fin metodos auxiliares transportes */
 	
 	/* FIN METODOS AUXILIARES */
 }

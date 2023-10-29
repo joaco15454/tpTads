@@ -13,7 +13,7 @@ public class Pedido {
     private HashMap<Integer,Paquete> carrito = new HashMap<>();
     private boolean estaCerrado;
     private static int contadorPedidos = 1000;
-    private boolean seSumoAFacturacion;
+    
 
     /* CONSTRUCTOR  */
     public Pedido(int nroPedido, String direccion, String nombreDeCliente, int dni, boolean estaCerrado) {
@@ -21,7 +21,7 @@ public class Pedido {
         this.direccion = direccion;
         this.nombreDeCliente = nombreDeCliente;
     
-        this.seSumoAFacturacion = false;
+        
         this.dni = dni;
         this.estaCerrado = estaCerrado;
     }
@@ -150,7 +150,7 @@ public class Pedido {
     	return valor;
     }
     public boolean paqueteEnCarrito (int id) {
-        return obtenerPaquete(id) == null ? false: true;
+        return !(obtenerPaquete(id) == null);
         
     }
     protected  boolean paqueteEntregado(int id) {
@@ -177,14 +177,7 @@ public class Pedido {
 		setEstaCerrado(true);
 	}
 
-	public boolean yaSeSumoAFacturacion() {
-	    return seSumoAFacturacion;
-	}
-
-	public void marcarComoSumadoAFacturacion() {
-	    seSumoAFacturacion = true;
-	}
-
+	
 
 
    

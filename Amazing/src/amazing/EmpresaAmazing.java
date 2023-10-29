@@ -231,6 +231,7 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		return true;
 	}
+	/* CERRAR PEDIDO */
 
 	/**
 	 * Se registra la finalizacion de un pedido registrado en la empresa,
@@ -258,33 +259,20 @@ public class EmpresaAmazing implements IEmpresa {
 				throw new RuntimeException("Error, el pedido ya esta cerrado.");
 			}else {
 				p.finalizarPedido();
-				actualizarFacturacionTotal();
+				actualizarFacturacionTotal(p.calcularValorAPagar());
 				return p.calcularValorAPagar();
 			}
 		}
 	}
 	
-	private double valorTotalPedidosCerrados() {
-	    double valor = 0.0;
-	    for (Pedido p : pedidos.values()) {
-	        if (p.isEstaCerrado() && !p.yaSeSumoAFacturacion()) {
-	            valor += p.calcularValorAPagar();
-	            p.marcarComoSumadoAFacturacion();
-	        }
-	    }
-	    return valor;
-	}
-
-	private void actualizarFacturacionTotal() {
-	    double valor = valorTotalPedidosCerrados();
-	    setFacturacionTotalPedidosCerrados(valor);
-	}
+	/* FIN CERRAR PEDIDOS*/
+	
 
 
-	public boolean existePedido(int codPaquete) {
-		return pedidos.get(codPaquete) != null;
-	}
 
+
+	
+	/*CARGA TRANSPORTE*/
 	/**
 	 * Se solicita la carga de un transporte registrado en la empresa, dada su
 	 * patente.
@@ -328,79 +316,9 @@ public class EmpresaAmazing implements IEmpresa {
 		String listadoPaquetesCargados = sb.toString();
 		return listadoPaquetesCargados;
 	}
-
+	/*FIN CARGA TRANSPORTE*/
 	/* metodo auxiliar cargarTransporte */
-	public void actualizarCostoEntrega(Transporte t) {
-		if (t instanceof Camion) {
-			((Camion) t).calcularCostoViaje();
-		} else if (t instanceof Utilitario) {
-			((Utilitario) t).calcularCostoViaje();
-		}
-	}
-
-	private List<String> cargarPedido(Transporte t, Pedido pedido) {
-	    t.transporteEstaLleno();
-	    List<String> listaPaquetesCargados = new ArrayList<>();
-	    List<Paquete> paquetesEspeciales = new ArrayList<>();
-	    List<Paquete> paquetesOrdinarios = new ArrayList<>();
-	    //actualizarFacturacionTotal();
-	    HashMap<Integer, Paquete> carrito = pedido.getCarrito();
-	    
-	    for (Paquete paquete : carrito.values()) {
-	        if (t.seCumplenCondiciones(paquete)) {
-	            if (paquete instanceof PaqueteEspecial) {
-	                paquetesEspeciales.add(paquete);
-	            } else if (paquete instanceof PaqueteOrdinario){
-	                paquetesOrdinarios.add(paquete);
-	            }
-	        }
-	    }
-	    
-	    double valorActual = getFacturacionTotalPedidosCerrados();
-	    
-	    for (Paquete paquete : paquetesEspeciales) {
-	        t.cargarPaquete(paquete);
-	        String datosEntrega = formatoEntrega(pedido, paquete);
-	        listaPaquetesCargados.add(datosEntrega);
-	        actualizarFacturacionTotal();
-	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
-	        valorActual += paquete.costoFinal();
-
-	    }
-	    
-	    
-	    for (Paquete paquete : paquetesOrdinarios) {
-	        t.cargarPaquete(paquete);
-	        String datosEntrega = formatoEntrega(pedido, paquete);
-	        listaPaquetesCargados.add(datosEntrega);
-	        actualizarFacturacionTotal();
-	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
-	        valorActual += paquete.costoFinal();
-
-	    }
-	    setFacturacionTotalPedidosCerrados(valorActual);
-	    return listaPaquetesCargados;
-	}
-
-	/*public String formatoEntrega(Pedido pedido, Paquete paquete) {
-		String pa = "+ [ " + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion() + "";
-		/*StringBuilder sb = new StringBuilder();
-		sb.append("+ [ ");
-		sb.append(pedido.getNroPedido());
-		sb.append(" - ");
-		sb.append(paquete.getIdUnico());
-		sb.append(" ] ");
-		sb.append(pedido.getDireccion());
-		sb.append("\n");
-		String datosEntrega = sb.toString();
-		return pa;
-	}
-*/
-	 
-	public String formatoEntrega(Pedido pedido, Paquete paquete) {
-	    String formato = " + [ %d - %d ] %s\n";
-	    return String.format(formato, pedido.getNroPedido(), paquete.getIdUnico(), pedido.getDireccion());
-	}
+	
 	/* Fin metodo auxiliar cargarTransporte */
 
 	/**
@@ -500,7 +418,6 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
 	}
-	/* Metodos auxiliares transportes identicos */
 	private boolean cargaIdentica(Transporte t1, Transporte t2) {
 		List<Paquete> primeraCarga = t1.getPaquetesCargados();
 		List<Paquete> segundaCarga = t2.getPaquetesCargados();
@@ -547,5 +464,91 @@ public class EmpresaAmazing implements IEmpresa {
 	}
 	
 	
-	/* Fin metodos auxiliares transportes identicos */
+	private void actualizarFacturacionTotal(double valorPedido) {
+		double valor = getFacturacionTotalPedidosCerrados(); // Obtiene el valor actual
+		valor += valorPedido; // Acumula el valor del pedido cerrado
+		setFacturacionTotalPedidosCerrados(valor); // Actualiza la variable
+	} 
+	
+	
+	
+	public boolean existePedido(int codPaquete) {
+		return pedidos.get(codPaquete) != null;
+	}
+	
+	
+	public void actualizarCostoEntrega(Transporte t) {
+		if (t instanceof Camion) {
+			((Camion) t).calcularCostoViaje();
+		} else if (t instanceof Utilitario) {
+			((Utilitario) t).calcularCostoViaje();
+		}
+	}
+
+	private List<String> cargarPedido(Transporte t, Pedido pedido) {
+	    t.transporteEstaLleno();
+	    List<String> listaPaquetesCargados = new ArrayList<>();
+	    List<Paquete> paquetesEspeciales = new ArrayList<>();
+	    List<Paquete> paquetesOrdinarios = new ArrayList<>();
+	    //actualizarFacturacionTotal();
+	    HashMap<Integer, Paquete> carrito = pedido.getCarrito();
+	    
+	    for (Paquete paquete : carrito.values()) {
+	        if (t.seCumplenCondiciones(paquete)) {
+	            if (paquete instanceof PaqueteEspecial) {
+	                paquetesEspeciales.add(paquete);
+	            } else if (paquete instanceof PaqueteOrdinario){
+	                paquetesOrdinarios.add(paquete);
+	            }
+	        }
+	    }
+	    
+	    double valorActual = getFacturacionTotalPedidosCerrados();
+	    //double  paquetesEspeciales =  valorTotalPedidosCerrados();
+	    
+	    for (Paquete paquete : paquetesEspeciales) {
+	        t.cargarPaquete(paquete);
+	        String datosEntrega = formatoEntrega(pedido, paquete);
+	        listaPaquetesCargados.add(datosEntrega);
+	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
+
+	       //valorActual += paquete.costoFinal();
+
+	    }
+	    
+	    
+	    for (Paquete paquete : paquetesOrdinarios) {
+	        t.cargarPaquete(paquete);
+	        String datosEntrega = formatoEntrega(pedido, paquete);
+	        listaPaquetesCargados.add(datosEntrega);
+	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
+	      //  valorActual += paquete.costoFinal();
+
+	    }
+       // actualizarFacturacionTotal();
+	    setFacturacionTotalPedidosCerrados(valorActual);
+	    return listaPaquetesCargados;
+	}
+
+	/*public String formatoEntrega(Pedido pedido, Paquete paquete) {
+		String pa = "+ [ " + pedido.getNroPedido() + " - " + paquete.getIdUnico() + " ] " + pedido.getDireccion() + "";
+		/*StringBuilder sb = new StringBuilder();
+		sb.append("+ [ ");
+		sb.append(pedido.getNroPedido());
+		sb.append(" - ");
+		sb.append(paquete.getIdUnico());
+		sb.append(" ] ");
+		sb.append(pedido.getDireccion());
+		sb.append("\n");
+		String datosEntrega = sb.toString();
+		return pa;
+	}
+*/
+	 
+	public String formatoEntrega(Pedido pedido, Paquete paquete) {
+	    String formato = " + [ %d - %d ] %s\n";
+	    return String.format(formato, pedido.getNroPedido(), paquete.getIdUnico(), pedido.getDireccion());
+	}
+	
+	/* FIN METODOS AUXILIARES */
 }

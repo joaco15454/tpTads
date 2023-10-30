@@ -247,13 +247,7 @@ public class EmpresaAmazing implements IEmpresa {
 	 *
 	 */
 	public double cerrarPedido(int codPedido) {
-		//Pedido p = buscarPedido(codPedido);
-		//p.setEstaCerrado(true);
-		//setFacturacionTotalPedidosCerrados(p.calcularValorAPagar());
-		//return p.calcularValorAPagar(); 
-		// Devuelve el total a pagar pero es un void, por las dudas dejo esto aca para
-		// correccion futura
-		
+
 		if(!existePedido(codPedido)) {
 			throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
 		}
@@ -301,21 +295,14 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		StringBuilder sb = new StringBuilder();
 		Transporte t = transportes.get(patente);
-
 		for (Pedido p : pedidos.values()) {
-			
 			if (p.isEstaCerrado()) {
-				
 				List<String> listaPaquetesCargados = cargarPedido(t, p);
 				for (String j : listaPaquetesCargados) {
 					 sb.append(String.join("\n", j));
-
 				}
-				 //sb.append(listaPaquetesCargados);
 			}
-			
 		}
-		
 		actualizarCostoEntrega(t);
 		String listadoPaquetesCargados = sb.toString();
 		return listadoPaquetesCargados;
@@ -438,7 +425,6 @@ public class EmpresaAmazing implements IEmpresa {
 	private Pedido buscarPedido(int codPedido) {
 		if(existePedido(codPedido)) {
 			Pedido p = pedidos.get((codPedido));
-
 			return p;
 		}
 		throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
@@ -554,29 +540,18 @@ public class EmpresaAmazing implements IEmpresa {
 	            }
 	        }
 	    }
-
-	    
-	    
 	    for (Paquete paquete : paquetesEspeciales) {
 	        t.cargarPaquete(paquete);
 	        String datosEntrega = formatoEntrega(pedido, paquete);
 	        listaPaquetesCargados.add(datosEntrega);
 	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
-
-	      
-
 	    }
-	    
-	    
 	    for (Paquete paquete : paquetesOrdinarios) {
 	        t.cargarPaquete(paquete);
 	        String datosEntrega = formatoEntrega(pedido, paquete);
 	        listaPaquetesCargados.add(datosEntrega);
 	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
-	      
-
 	    }
-       
 	    return listaPaquetesCargados;
 	}
 

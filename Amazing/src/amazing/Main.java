@@ -41,7 +41,6 @@ public class Main {
            
 		   System.out.println(empresa.cargarTransporte("AA666XX"));
 		   System.out.println();
-		   System.out.println(empresa.cargarTransporte("AE555YY"));
 		   
 		   empresa.cerrarPedido(p6);
 		   empresa.quitarPaquete(paq10);
@@ -49,10 +48,12 @@ public class Main {
 		   System.out.println(empresa.cargarTransporte("AE555YY"));
 		   System.out.println();
 		   
-		   //System.out.println("Costo del transporte: " + empresa.costoEntrega("AE555YY"));
-		   //System.out.println();
+		   System.out.println("Costo del transporte: " + 
+                   empresa.costoEntrega("AE555YY"));
+		   System.out.println();
 		   
-		   System.out.println("Facturacion total de pedidos: " + empresa.facturacionTotalPedidosCerrados());
+		   System.out.println("Facturacion total de pedidos: " + 
+		           empresa.facturacionTotalPedidosCerrados());
 		   System.out.println();
 		   
 		   System.out.println("Listados con paquetes sin entregar: ");

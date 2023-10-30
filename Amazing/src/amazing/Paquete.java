@@ -76,14 +76,14 @@ public class Paquete{
     /* FIN CONSTRUCTOR, SETTERS AND GETTERS */
     /* OPERACIONES */
     
-    public void paqueteEntregado() {
+    protected void paqueteEntregado() {
         setEntregado(true);
     }
-    public boolean fueEntregado() {
+    protected boolean fueEntregado() {
         return getEntregado();
     }
     
-	public double costoFinal() {
+	protected double costoFinal() {
 		return getPrecio();
 	}
     @Override 

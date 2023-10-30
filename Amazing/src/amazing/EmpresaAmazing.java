@@ -2,7 +2,6 @@ package amazing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -436,7 +435,7 @@ public class EmpresaAmazing implements IEmpresa {
 	/* METODOS AUXILIARES */
 	
 	
-	public Pedido buscarPedido(int codPedido) {
+	private Pedido buscarPedido(int codPedido) {
 		if(existePedido(codPedido)) {
 			Pedido p = pedidos.get((codPedido));
 
@@ -519,7 +518,7 @@ public class EmpresaAmazing implements IEmpresa {
 	
 	
 	
-	public boolean existePedido(int codPaquete) {
+	private boolean existePedido(int codPaquete) {
 		return pedidos.get(codPaquete) != null;
 	}
 	private boolean paqueteEnPedido(Pedido p, int codPaquete) {
@@ -531,7 +530,7 @@ public class EmpresaAmazing implements IEmpresa {
 		return true;
 	}
 	
-	public void actualizarCostoEntrega(Transporte t) {
+	private void actualizarCostoEntrega(Transporte t) {
 		if (t instanceof Camion) {
 			((Camion) t).calcularCostoViaje();
 		} else if (t instanceof Utilitario) {
@@ -582,7 +581,7 @@ public class EmpresaAmazing implements IEmpresa {
 	}
 
 	 
-	public String formatoEntrega(Pedido pedido, Paquete paquete) {
+	private String formatoEntrega(Pedido pedido, Paquete paquete) {
 	    String formato = " + [ %d - %d ] %s\n";
 	    return String.format(formato, pedido.getNroPedido(), paquete.getIdUnico(), pedido.getDireccion());
 	}

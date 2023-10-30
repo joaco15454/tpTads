@@ -27,7 +27,7 @@ public class PaqueteEspecial extends Paquete{
         this.valorAdicional = valorAdicional;
     }
     /* OPERACIONES */
-    public int adicionalAPagar(){
+    protected int adicionalAPagar(){
     	int valorAdicionalAPagar = 0;
         if(getVolumen() >= 3000 && getVolumen() < 5000) {
         	valorAdicionalAPagar=(getValorAdicional());

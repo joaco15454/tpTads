@@ -384,9 +384,9 @@ public class EmpresaAmazing implements IEmpresa {
 	public boolean hayTransportesIdenticos() {
 		for (Transporte t1 : transportes.values()) {
 			for (Transporte t2 : transportes.values()) {
-				boolean distintaPatenteMismaClase = (distintaPatente(t1,t2) && mismaClaseTransporte(t1,t2));
+				boolean distintaPatenteMismaClase = (t1.distintaPatente(t2) && t1.mismaClase(t2));
 				boolean transportesNoVacios = (!t1.transporteVacio() && !t2.transporteVacio());
-				boolean mismaCarga = (cargaIdentica(t1,t2));
+				boolean mismaCarga = (t1.cargaIdentica(t2));
 				if (transportesNoVacios && distintaPatenteMismaClase && mismaCarga) {
 					return true;
 				}
@@ -399,36 +399,8 @@ public class EmpresaAmazing implements IEmpresa {
 	/*FIN HAY TRANSPORTES IDENTICOS*/
 //////////////////////////////////////////////////////////////////////////////////////////////
 	/* METODOS AUXILIARES */
-	
-	
-	private boolean cargaIdentica(Transporte t1, Transporte t2) {
-		List<Paquete> primeraCarga = t1.obtenerPaquetesCargados();
-		List<Paquete> segundaCarga = t2.obtenerPaquetesCargados();
-		if (primeraCarga.size() != segundaCarga.size()) {
-			return false;
-		}
-		for (Paquete p1 : primeraCarga) {
-			if (!existePaqueteIgual(p1, segundaCarga)) {
-				return false;
-			}
-		}
-		return true;
-	}
 
-	private boolean existePaqueteIgual(Paquete p1, List<Paquete> cargaPaquetes) {
-		for (Paquete p2 : cargaPaquetes) {
-			if  (p1.mismoPrecio(p2) && p1.mismoVolumen(p2)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	private boolean distintaPatente(Transporte t1, Transporte t2) {
-		return !t1.obtenerPatente().equals(t2.obtenerPatente());
-	}
-	private boolean mismaClaseTransporte(Transporte t1, Transporte t2) {
-		return t1.getClass().equals(t2.getClass());
-	}
+
     @Override
     public String toString() {
         StringBuilder pedidosStr = new StringBuilder();

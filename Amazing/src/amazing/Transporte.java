@@ -124,6 +124,37 @@ public abstract class Transporte {
     	    return listaPaquetesCargados;
     	}
 
+    public boolean distintaPatente(Transporte t) {
+    	return !patente.equals(t.patente);
+    }
+
+    public boolean mismaClase(Transporte t) {
+    	return getClass().equals(t.getClass());
+    }
+    public boolean distintaCantidadPaquetes(Transporte t) {
+    	return paquetesCargados.size()!= t.paquetesCargados.size();
+    }
+
+	public boolean cargaIdentica(Transporte t) {
+		if(distintaCantidadPaquetes(t)) {
+			return false;
+		}
+		for(Paquete p1 : paquetesCargados) {
+			if(existePaqueteIgual(p1, t.paquetesCargados)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean existePaqueteIgual(Paquete p, List<Paquete> cargaPaquetes) {
+		for(Paquete p2 : cargaPaquetes) {
+			if(p.mismoPrecio(p2) && p.mismoVolumen(p2)) {
+				return true;
+			}
+		}
+		return false;
+	}
+    
     public abstract void actualizarCostoEntrega();
 
     public String formatoEntrega(Pedido pedido, Paquete paquete) {

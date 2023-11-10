@@ -431,15 +431,15 @@ public class EmpresaAmazing implements IEmpresa {
 	}
 
 	private boolean distintaPatente(Transporte t1, Transporte t2) {
-		return t1.obtenerPatente() != t2.obtenerPatente();
+		return !t1.obtenerPatente().equals(t2.obtenerPatente());
 	}
 
 	private boolean mismaClasePaquete(Paquete p1, Paquete p2) {
-		return p1.getClass() == p2.getClass();
+		return p1.getClass().equals(p2.getClass());
 	}
 
 	private boolean mismaClaseTransporte(Transporte t1, Transporte t2) {
-		return t1.getClass() == t2.getClass();
+		return t1.getClass().equals(t2.getClass());
 	}
     @Override
     public String toString() {

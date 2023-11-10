@@ -105,7 +105,6 @@ public class Pedido {
 
 
     public double calcularValorAPagar() {
-        /*COMPLETAR */
         double valor = 0.0;
         Iterator <Integer> it = carrito.keySet().iterator();
         while (it.hasNext()) {

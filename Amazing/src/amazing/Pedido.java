@@ -9,7 +9,7 @@ public class Pedido {
     private int dni;
     private int nroPedido;
     private String direccion;
-    private String nombreDeCliente;
+    private String nombreCliente;
     private HashMap<Integer,Paquete> carrito = new HashMap<>();
     private boolean estaCerrado;
     private static int contadorPedidos = 1000;
@@ -19,7 +19,7 @@ public class Pedido {
     public Pedido(int nroPedido, String direccion, String nombreDeCliente, int dni, boolean estaCerrado) {
         this.nroPedido = contadorPedidos++; // numero unico
         this.direccion = direccion;
-        this.nombreDeCliente = nombreDeCliente;
+        this.nombreCliente = nombreDeCliente;
     
         
         this.dni = dni;
@@ -27,32 +27,7 @@ public class Pedido {
     }    
     /* FIN CONSTRUCTOR */
     /* GETTERS AND SETTERS */
-     public int obtenerDni() {
-        return dni;
-    }
-
-    public int obtenerNroPedido() {
-        return nroPedido;
-    }
-
-    public String obtenerDireccion() {
-        return direccion;
-    }
-
-    public String obtenerNombreDeCliente() {
-        return nombreDeCliente;
-    }
-    
-    public HashMap<Integer, Paquete> obtenerCarrito() {
-        return carrito;
-    } 
-
-    public boolean isEstaCerrado() {
-        return estaCerrado;
-    }
-    public void modificarEstaCerrado(boolean estaCerrado) {
-        this.estaCerrado = estaCerrado;
-    }
+   
     /* FIN GETTERS AND SETTERS */
     /* OPERACIONES */
 
@@ -86,7 +61,7 @@ public class Pedido {
     protected void agregarProductoEspecial (Integer id, PaqueteEspecial p) {
         if (paqueteEnCarrito(id)) {
             throw new RuntimeException("Error, ya existe un paquete con esa id o el paquete cerro.");
-         }else if(isEstaCerrado() == true) {
+         }else if(estaCerrado == true) {
              throw new RuntimeException("Error, el pedido esta cerrado por lo que no puede modificarse.");        	 
          }
         carrito.put(id, p);
@@ -95,7 +70,7 @@ public class Pedido {
     protected  boolean eliminarProductoCarrito (int id) {
         if (!paqueteEnCarrito(id)) {
             throw new RuntimeException("Error, el paquete que desea borrar no esta en el carrito");
-        }else if(isEstaCerrado() == true) {
+        }else if(estaCerrado == true) {
             throw new RuntimeException("Error, el pedido esta cerrado por lo que no puede modificarse.");        	 
         }
         carrito.remove(id);
@@ -147,6 +122,7 @@ public class Pedido {
 		}
 		return false;
 	}
+	
 
     @Override
     public String toString() {
@@ -157,9 +133,39 @@ public class Pedido {
 	        }
         }
         carritoStr.append("]");
-        return "Pedido: Id=" + obtenerNroPedido() +
-                ", Datos cliente: [Nombre=" + obtenerNombreDeCliente() + ", Dni=" + obtenerDni() + ", Direccion=" + obtenerDireccion() + "]" +
+        return "Pedido: Id=" + nroPedido +
+                ", Datos cliente: [Nombre=" + nombreCliente + ", Dni=" + dni  + ", Direccion=" + direccion + "]" +
                 ", Carrito=" + carritoStr.toString();
     }
+
+	public boolean noEstaEntregado() {
+		// TODO Auto-generated method stub
+		return estaCerrado && entregaPendiente();
+	}
+
+	public Integer obtenerNroPedido() {
+		// TODO Auto-generated method stub
+		return nroPedido;
+	}
+
+	public String obtenerNombreDeCliente() {
+		// TODO Auto-generated method stub
+		return nombreCliente;
+	}
+
+	public boolean isEstaCerrado() {
+		// TODO Auto-generated method stub
+		return estaCerrado;
+	}
+
+	public HashMap<Integer, Paquete> obtenerCarrito() {
+		// TODO Auto-generated method stub
+		return carrito;
+	}
+
+	public String obtenerDireccion() {
+		// TODO Auto-generated method stub
+		return direccion;
+	}
 	
 }

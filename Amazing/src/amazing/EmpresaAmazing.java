@@ -355,7 +355,7 @@ public class EmpresaAmazing implements IEmpresa {
 	public Map<Integer, String> pedidosNoEntregados() {
 		Map<Integer, String> pedidosNoEntregados = new HashMap<>();
 		for (Pedido p : pedidos.values()) {
-			if (p.isEstaCerrado() && p.entregaPendiente()&& !pedidosNoEntregados.containsKey(p.obtenerNroPedido())) {
+			if (p.noEstaEntregado() && !pedidosNoEntregados.containsKey(p.obtenerNroPedido())) {
 				pedidosNoEntregados.put(p.obtenerNroPedido(), p.obtenerNombreDeCliente());
 			}
 		}

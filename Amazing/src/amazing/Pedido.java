@@ -60,14 +60,14 @@ public class Pedido {
     protected  int agregarProductoCarrito(int volumen, double precio, int costoEnvio) {
         /*COMPLETAR */
          
-        PaqueteOrdinario p = new PaqueteOrdinario(obtenerDireccion(),volumen,precio, costoEnvio);
+        PaqueteOrdinario p = new PaqueteOrdinario(direccion,volumen,precio, costoEnvio);
         agregarProductoOrdinario(p.obtenerIdUnico(), p);
         return p.obtenerIdUnico();
     }
     protected void agregarProductoOrdinario (Integer id, PaqueteOrdinario p) {
         if (paqueteEnCarrito(id)) {
             throw new RuntimeException("Error, ya existe un paquete con esa id.");
-         }else if(isEstaCerrado() == true) {
+         }else if(estaCerrado == true) {
         	 throw new RuntimeException("Error, el pedido esta cerrado por lo que no puede modificarse.");
          }
         carrito.put(id, p); 
@@ -79,7 +79,7 @@ public class Pedido {
     protected  int agregarProductoCarrito( int volumen, double precio, int porcentaje, int adicional) {
         /*COMPLETAR */
 
-        PaqueteEspecial p = new PaqueteEspecial(obtenerDireccion(),volumen,precio, porcentaje,adicional);
+        PaqueteEspecial p = new PaqueteEspecial(direccion,volumen,precio, porcentaje,adicional);
         agregarProductoEspecial(p.obtenerIdUnico(), p);
         return p.obtenerIdUnico();
     }
@@ -133,7 +133,10 @@ public class Pedido {
     }
 
 	public void finalizarPedido() {
-		modificarEstaCerrado(true);
+		if (estaCerrado == true ) {
+			throw new RuntimeException("Error, el pedido esta finalizado");
+		}
+		estaCerrado = true;
 	}
 	
 	public boolean entregaPendiente() {

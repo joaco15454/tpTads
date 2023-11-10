@@ -423,21 +423,9 @@ public class EmpresaAmazing implements IEmpresa {
 		}
 		return false;
 	}
-
-	private boolean mismoPrecioVolumen(Paquete p1, Paquete p2) {
-		boolean mismoPrecio = (p1.obtenerPrecio() == p2.obtenerPrecio());
-		boolean mismoVolumen = (p1.obtenerVolumen() == p2.obtenerVolumen());
-		return mismoPrecio && mismoVolumen;
-	}
-
 	private boolean distintaPatente(Transporte t1, Transporte t2) {
 		return !t1.obtenerPatente().equals(t2.obtenerPatente());
 	}
-
-	private boolean mismaClasePaquete(Paquete p1, Paquete p2) {
-		return p1.getClass().equals(p2.getClass());
-	}
-
 	private boolean mismaClaseTransporte(Transporte t1, Transporte t2) {
 		return t1.getClass().equals(t2.getClass());
 	}
@@ -476,8 +464,7 @@ public class EmpresaAmazing implements IEmpresa {
 	
 	private Pedido buscarPedido(int codPedido) {
 		if(existePedido(codPedido)) {
-			Pedido p = pedidos.get((codPedido));
-			return p;
+			return pedidos.get((codPedido));
 		}
 		throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
 	}

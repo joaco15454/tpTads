@@ -259,8 +259,8 @@ public class EmpresaAmazing implements IEmpresa {
 		for (Pedido p : pedidos.values()) {
 			if (p.isEstaCerrado()) {
 				List<String> listaPaquetesCargados = t.cargarPedido(p);
-				for (String j : listaPaquetesCargados) {
-					 sb.append(String.join("\n", j));
+				for (String paqueteStr : listaPaquetesCargados) {
+					 sb.append(String.join("\n", paqueteStr));
 				}
 			}
 		}

@@ -13,27 +13,6 @@ public class EmpresaAmazing implements IEmpresa {
 	public EmpresaAmazing(String cuit) {
 		Cuit = cuit;
 	}
-
-	public String obtenerCuit() {
-		return Cuit;
-	}
-
-	public double obtenerFacturacionTotalPedidosCerrados() {
-		return facturacionTotalPedidosCerrados;
-	}
-
-	public void actualizarFacturacionTotalPedidosCerrados(double facturacionTotalPedidosCerrados) {
-		this.facturacionTotalPedidosCerrados = facturacionTotalPedidosCerrados;
-	}
-
-	public HashMap<Integer, Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	public HashMap<String, Transporte> obtenerTransportes() {
-		return transportes;
-	}
-
 	// ** PARTE OPERACIONES INTERFAZ */
 //////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -333,7 +312,7 @@ public class EmpresaAmazing implements IEmpresa {
 	 */
 	public double facturacionTotalPedidosCerrados() {
 
-		return obtenerFacturacionTotalPedidosCerrados();
+		return facturacionTotalPedidosCerrados;
 	}
 	/*FIN FACTURACION TOTAL*/
 	
@@ -429,9 +408,9 @@ public class EmpresaAmazing implements IEmpresa {
 	
 	
 	private void actualizarFacturacionTotal(double valorPedido) {
-		double valor = obtenerFacturacionTotalPedidosCerrados(); // Obtiene el valor actual
+		double valor = facturacionTotalPedidosCerrados(); // Obtiene el valor actual
 		valor += valorPedido; // Acumula el valor del pedido cerrado
-		actualizarFacturacionTotalPedidosCerrados(valor); // Actualiza la variable
+		facturacionTotalPedidosCerrados=valor; // Actualiza la variable
 	} 
 	
 	private Pedido buscarPedido(int codPedido) {

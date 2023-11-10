@@ -120,6 +120,7 @@ public abstract class Transporte {
     	        listaPaquetesCargados.add(datosEntrega);
     	        carrito.remove(paquete.obtenerIdUnico()); // Elimina el paquete del carrito
     	    }
+    	    actualizarCostoEntrega();
     	    return listaPaquetesCargados;
     	}
 
@@ -136,14 +137,11 @@ public abstract class Transporte {
 
         List<Paquete> paquetes = obtenerPaquetesCargados();
         if (!paquetes.isEmpty()) {
-            for (int i = 0; i < paquetes.size() - 1; i++) {
-                paquetesCargadosStr.append(paquetes.get(i).obtenerIdUnico()).append(", ");
-            }
-            paquetesCargadosStr.append(paquetes.get(paquetes.size() - 1).obtenerIdUnico());
+        	for(Paquete p : paquetesCargados) {
+        		paquetesCargadosStr.append(p.toString());
+        	}
         }
-
         paquetesCargadosStr.append("]");
-
         return "Transporte: Patente=" + obtenerPatente() +
                 ", VolumenMaximo=" + obtenerVolumenMaximo() +
                 ", CostoDeEntrega=" + obtenerValorQueCobra() +

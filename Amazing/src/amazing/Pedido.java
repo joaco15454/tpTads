@@ -143,18 +143,11 @@ public class Pedido {
     public String toString() {
         StringBuilder carritoStr = new StringBuilder("[");
         if (!carrito.isEmpty()) {
-            boolean first = true;
-            for (Integer id : carrito.keySet()) {
-                if (first) {
-                    carritoStr.append(id);
-                    first = false;
-                } else {
-                    carritoStr.append(", ").append(id);
-                }
-            }
+	        for(Paquete p : carrito.values()) {
+	        	carritoStr.append(p.toString());
+	        }
         }
         carritoStr.append("]");
-
         return "Pedido: Id=" + obtenerNroPedido() +
                 ", Datos cliente: [Nombre=" + obtenerNombreDeCliente() + ", Dni=" + obtenerDni() + ", Direccion=" + obtenerDireccion() + "]" +
                 ", Carrito=" + carritoStr.toString();

@@ -55,9 +55,6 @@ public class Paquete{
 	}
     @Override 
     public String toString() {
-    	return "[Paquete: \nId="+ obtenerIdUnico()+
-    			"\nVolumen="+ obtenerVolumen()+
-    			"\nPrecio="+ costoFinal()+
-    			"\nDireccion="+obtenerDireccion() +"]";
+    	return " [" + obtenerIdUnico()+ "] ";
     }
 }

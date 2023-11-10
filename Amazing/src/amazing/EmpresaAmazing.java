@@ -1,6 +1,5 @@
 package amazing;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -289,7 +288,6 @@ public class EmpresaAmazing implements IEmpresa {
 				}
 			}
 		}
-		t.actualizarCostoEntrega();
 		String listadoPaquetesCargados = sb.toString();
 		return listadoPaquetesCargados;
 	}
@@ -471,14 +469,14 @@ public class EmpresaAmazing implements IEmpresa {
             transportesStr.append(t.toString()).append("\n");
         }
         
-        String separator = "============================================================================================================================\n";
+        String separador = "============================================================================================================================\n";
 
-        return separator +"Empresa Amazing - [" + Cuit + "]\n" +
-                separator +
+        return separador +"Empresa Amazing - [" + Cuit + "]\n" +
+                separador +
                 pedidosStr.toString() +
-                separator +
+                separador +
                 transportesStr.toString()+
-                separator;
+                separador;
     }
 	
 	
@@ -488,56 +486,9 @@ public class EmpresaAmazing implements IEmpresa {
 		actualizarFacturacionTotalPedidosCerrados(valor); // Actualiza la variable
 	} 
 	
-	
-	
 	private boolean existePedido(int codPaquete) {
 		return pedidos.get(codPaquete) != null;
 	}
-	
-//	private void actualizarCostoEntrega(Transporte t) {
-//		if (t instanceof Camion) {
-//			((Camion) t).calcularCostoViaje();
-//		} else if (t instanceof Utilitario) {
-//			((Utilitario) t).calcularCostoViaje();
-//		}
-//	}
-
-//	private List<String> cargarPedido(Transporte t, Pedido pedido) {
-//	    t.transporteEstaLleno();
-//	    List<String> listaPaquetesCargados = new ArrayList<>();
-//	    List<Paquete> paquetesEspeciales = new ArrayList<>();
-//	    List<Paquete> paquetesOrdinarios = new ArrayList<>();
-//	    HashMap<Integer, Paquete> carrito = pedido.getCarrito();
-//	    
-//	    for (Paquete paquete : carrito.values()) {
-//	        if (t.seCumplenCondiciones(paquete)) {
-//	            if (paquete instanceof PaqueteEspecial) {
-//	                paquetesEspeciales.add(paquete);
-//	            } else if (paquete instanceof PaqueteOrdinario){
-//	                paquetesOrdinarios.add(paquete);
-//	            }
-//	        }
-//	    }
-//	    for (Paquete paquete : paquetesEspeciales) {
-//	        t.cargarPaquete(paquete);
-//	        String datosEntrega = formatoEntrega(pedido, paquete);
-//	        listaPaquetesCargados.add(datosEntrega);
-//	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
-//	    }
-//	    for (Paquete paquete : paquetesOrdinarios) {
-//	        t.cargarPaquete(paquete);
-//	        String datosEntrega = formatoEntrega(pedido, paquete);
-//	        listaPaquetesCargados.add(datosEntrega);
-//	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
-//	    }
-//	    return listaPaquetesCargados;
-//	}
-//
-//	 
-//	private String formatoEntrega(Pedido pedido, Paquete paquete) {
-//	    String formato = " + [ %d - %d ] %s\n";
-//	    return String.format(formato, pedido.getNroPedido(), paquete.getIdUnico(), pedido.getDireccion());
-//	}
 	
 	private boolean existeTransporte(String patente) {
 		return transportes.get(patente) != null;

@@ -138,7 +138,6 @@ public class EmpresaAmazing implements IEmpresa {
 	public int registrarPedido(String cliente, String direccion, int dni) {
 		Pedido p = new Pedido(dni, direccion, cliente, dni, false);
 		pedidos.put(p.getNroPedido(), p);
-		System.out.println(p.getNroPedido());
 		return p.getNroPedido();
 	}
 	
@@ -224,10 +223,11 @@ public class EmpresaAmazing implements IEmpresa {
 
 	public boolean quitarPaquete(int codPaquete) {
 		for (Pedido p : pedidos.values()) {
-			if (paqueteEnPedido(p, codPaquete)) {
-				p.getCarrito().remove(codPaquete);
-				return true;
+			//if (paqueteEnPedido(p, codPaquete)) {
+			if (p.paqueteEnCarrito(codPaquete)) {
+				return p.eliminarProductoCarrito(codPaquete);
 			}
+			//}
 		}
 		throw new RuntimeException("Error, no hay ningun paquete registrado con el codigo: " + codPaquete);
 	}
@@ -506,14 +506,6 @@ public class EmpresaAmazing implements IEmpresa {
 	
 	private boolean existePedido(int codPaquete) {
 		return pedidos.get(codPaquete) != null;
-	}
-	private boolean paqueteEnPedido(Pedido p, int codPaquete) {
-		HashMap<Integer, Paquete> carrito = p.getCarrito();
-		Paquete paquete = carrito.get(codPaquete);
-		if (paquete == null) {
-			return false;
-		}
-		return true;
 	}
 	
 	private void actualizarCostoEntrega(Transporte t) {

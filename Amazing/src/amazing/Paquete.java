@@ -22,7 +22,6 @@ public class Paquete{
         return idUnico;
     }
 
-
     public int getVolumen() {
         return volumen;
     }

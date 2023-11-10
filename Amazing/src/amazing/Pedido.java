@@ -117,7 +117,7 @@ public class Pedido {
         carrito.put(id, p);
     }
 
-    protected  void eliminarProductoCarrito (int id) {
+    protected  boolean eliminarProductoCarrito (int id) {
         
         if (!paqueteEnCarrito(id)) {
             throw new RuntimeException("Error, el paquete que desea borrar no esta en el carrito");
@@ -125,6 +125,7 @@ public class Pedido {
             throw new RuntimeException("Error, el pedido esta cerrado por lo que no puede modificarse.");        	 
         }
         carrito.remove(id);
+        return true;
     }
 
 
@@ -138,6 +139,7 @@ public class Pedido {
             if (!carrito.get(id).fueEntregado()) {
             	 valor+= carrito.get(id).costoFinal();
             }
+           
            
         }
         return valor;

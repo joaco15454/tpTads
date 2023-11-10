@@ -57,4 +57,12 @@ public class Paquete{
     public String toString() {
     	return " [" + obtenerIdUnico()+ "] ";
     }
+    public boolean mismoPrecio ( Paquete p2) {
+    	return (obtenerPrecio() == p2.obtenerPrecio()) ;
+    		
+    }
+    public boolean mismoVolumen ( Paquete p2) {
+    	return (obtenerVolumen() == p2.obtenerVolumen()); 		
+    	
+    }
 }

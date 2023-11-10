@@ -417,7 +417,7 @@ public class EmpresaAmazing implements IEmpresa {
 
 	private boolean existePaqueteIgual(Paquete p1, List<Paquete> cargaPaquetes) {
 		for (Paquete p2 : cargaPaquetes) {
-			if (mismoPrecioVolumen(p1, p2) && mismaClasePaquete(p1, p2)) {
+			if  (p1.mismoPrecio(p2) && p1.mismoVolumen(p2)) {
 				return true;
 			}
 		}

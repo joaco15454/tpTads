@@ -14,7 +14,7 @@ public class Camion extends Transporte {
     	if(p == null) {
     		throw new RuntimeException("Error, el paquete no existe.");
     	}
-        return (p instanceof PaqueteEspecial) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) && p.obtenerVolumen() > 2000;
+        return (p instanceof PaqueteEspecial) && !transporteLleno() && !super.paquetesCargados.contains(p) && p.obtenerVolumen() > 2000;
     }
 
 	@Override

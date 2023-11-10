@@ -12,24 +12,21 @@ public class PaqueteEspecial extends Paquete{
         return porcentajeAdicional/100;
     }
 
-    public int obtenerValorAdicional() {
-        return valorAdicional;
-    }
 
     /* OPERACIONES */
     protected int adicionalAPagar(){
     	int valorAdicionalAPagar = 0;
-        if(obtenerVolumen() >= 3000 && obtenerVolumen() < 5000) {
-        	valorAdicionalAPagar=(obtenerValorAdicional());
+        if(super.volumen>= 3000 && super.volumen < 5000) {
+        	valorAdicionalAPagar=(valorAdicional);
         }
-        else if (obtenerVolumen() > 5000) {
-        	valorAdicionalAPagar=(obtenerValorAdicional()  * 2);
+        else if (super.volumen > 5000) {
+        	valorAdicionalAPagar=(valorAdicional  * 2);
         }
         return valorAdicionalAPagar;
     }
     @Override
     public double costoFinal(){
-    	double precioBaseConPorcentaje = obtenerPrecio() + (obtenerPrecio() * (obtenerPorcentajeAdicional()));
+    	double precioBaseConPorcentaje = super.precio + (super.precio * (obtenerPorcentajeAdicional()));
     	precioBaseConPorcentaje += adicionalAPagar();
     	return precioBaseConPorcentaje;    	    	
     }

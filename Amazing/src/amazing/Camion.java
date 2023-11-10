@@ -2,15 +2,11 @@ package amazing;
 
 public class Camion extends Transporte {
 
-    private double valorAdicional;
+    protected double valorAdicional;
 
     public Camion(String patente, int volumenMaximo, double valorQueCobra, double valorAdicional) {
         super(patente, volumenMaximo, valorQueCobra);
         this.valorAdicional = valorAdicional;
-    }
-
-    public double obtenerValorAdicional() {
-        return valorAdicional;
     }
 
     @Override
@@ -20,7 +16,7 @@ public class Camion extends Transporte {
 
 	@Override
 	public void actualizarCostoEntrega() {
-		   double costo = obtenerValorQueCobra() + (paquetesCargados.size() * obtenerValorAdicional());
+		   double costo = obtenerValorQueCobra() + (paquetesCargados.size() * valorAdicional);
 	       this.valorQueCobra = costo;
 	}
 }

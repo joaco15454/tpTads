@@ -2,20 +2,16 @@ package amazing;
 
 public class Comun extends Transporte {
 
-    private int limitePaquetes;
+    protected int limitePaquetes;
 
     public Comun(String patente, int volumenMaximo, double valorQueCobra, int limitePaquetes) {
         super(patente, volumenMaximo, valorQueCobra);
         this.limitePaquetes = limitePaquetes;
     }
 
-    public int obtenerLimitePaquetes() {
-        return limitePaquetes;
-    }
-
     @Override
     public boolean transporteLleno() {
-        return ((paquetesCargados.size() == obtenerLimitePaquetes()) || (obtenerVolumenActual() == obtenerVolumenMaximo()));
+        return ((paquetesCargados.size() == limitePaquetes) || (obtenerVolumenActual() == volumenMaximo));
     }
 
     @Override

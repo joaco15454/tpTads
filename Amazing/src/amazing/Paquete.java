@@ -1,10 +1,10 @@
 package amazing;
 
 public class Paquete{
-    private static int contadorPedidos = 100;
-    private int idUnico;
-    private int volumen;
-    private double precio;
+    protected static int contadorPedidos = 100;
+    protected int idUnico;
+    protected int volumen;
+    protected double precio;
  
     private Boolean entregado;
 

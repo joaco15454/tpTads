@@ -7,13 +7,10 @@ public class PaqueteOrdinario extends Paquete{
         this.costoDeEnvio = costoDeEnvio;
     }
 
-    public int obtenerCostoDeEnvio() {
-        return costoDeEnvio;
-    }
     
     /* OPERACIONES */
     @Override
     public double costoFinal () {
-    	return obtenerPrecio() + costoDeEnvio;
+    	return super.precio + costoDeEnvio;
     }
 }

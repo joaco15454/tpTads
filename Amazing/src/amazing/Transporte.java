@@ -6,9 +6,9 @@ import java.util.List;
 
 public abstract class Transporte {
 
-    private String patente;
-    private int volumenMaximo;
-    private int volumenActual;
+    protected String patente;
+    protected int volumenMaximo;
+    protected int volumenActual;
     protected double valorQueCobra;
     protected List<Paquete> paquetesCargados;
 
@@ -24,9 +24,6 @@ public abstract class Transporte {
         return patente;
     }
 
-    public int obtenerVolumenMaximo() {
-        return volumenMaximo;
-    }
 
     public double obtenerValorQueCobra() {
         return valorQueCobra;
@@ -41,8 +38,8 @@ public abstract class Transporte {
     }
 
     public void modificarVolumenActual(int volumenActual) {
-        if (volumenActual > obtenerVolumenMaximo()) {
-            throw new RuntimeException("Error, el volumen no puede superar " + obtenerVolumenMaximo());
+        if (volumenActual > volumenMaximo) {
+            throw new RuntimeException("Error, el volumen no puede superar " + volumenMaximo);
         }
         this.volumenActual = volumenActual;
     }
@@ -63,7 +60,7 @@ public abstract class Transporte {
     }
 
     public void cargarPaquete(Paquete paquete) {
-        if ((paquete.obtenerVolumen() + obtenerVolumenActual()) < obtenerVolumenMaximo()) {
+        if ((paquete.obtenerVolumen() + obtenerVolumenActual()) < volumenMaximo) {
             paquetesCargados.add(paquete);
             aumentarVolumen(paquete.obtenerVolumen());
         }
@@ -79,11 +76,11 @@ public abstract class Transporte {
     }
 
     public boolean superaLimite() {
-        return paquetesCargados.size() > obtenerVolumenMaximo();
+        return paquetesCargados.size() > volumenMaximo;
     }
 
     public boolean transporteLleno() {
-        return obtenerVolumenActual() == obtenerVolumenMaximo();
+        return obtenerVolumenActual() == volumenMaximo;
     }
 
     public void transporteEstaLleno() {
@@ -136,15 +133,14 @@ public abstract class Transporte {
     }
 
 	public boolean cargaIdentica(Transporte t) {
+		boolean paquetesIguales = true;
 		if(distintaCantidadPaquetes(t)) {
 			return false;
 		}
 		for(Paquete p1 : paquetesCargados) {
-			if(existePaqueteIgual(p1, t.paquetesCargados)) {
-				return true;
-			}
+			paquetesIguales &= existePaqueteIgual(p1,t.paquetesCargados);
 		}
-		return false;
+		return paquetesIguales;
 	}
 	private boolean existePaqueteIgual(Paquete p, List<Paquete> cargaPaquetes) {
 		for(Paquete p2 : cargaPaquetes) {
@@ -174,7 +170,7 @@ public abstract class Transporte {
         }
         paquetesCargadosStr.append("]");
         return "Transporte: Patente=" + obtenerPatente() +
-                ", VolumenMaximo=" + obtenerVolumenMaximo() +
+                ", VolumenMaximo=" + volumenMaximo +
                 ", CostoDeEntrega=" + obtenerValorQueCobra() +
                 ", PaquetesCargados:" + paquetesCargadosStr.toString();
     }

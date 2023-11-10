@@ -2,25 +2,24 @@ package amazing;
 
 public class Camion extends Transporte {
 
-    private double valorAdicional;
+    protected double valorAdicional;
 
     public Camion(String patente, int volumenMaximo, double valorQueCobra, double valorAdicional) {
         super(patente, volumenMaximo, valorQueCobra);
         this.valorAdicional = valorAdicional;
     }
 
-    public double obtenerValorAdicional() {
-        return valorAdicional;
-    }
-
     @Override
     public boolean seCumplenCondiciones(Paquete p) {
+    	if(p == null) {
+    		throw new RuntimeException("Error, el paquete no existe.");
+    	}
         return (p instanceof PaqueteEspecial) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) && p.obtenerVolumen() > 2000;
     }
 
 	@Override
 	public void actualizarCostoEntrega() {
-		   double costo = obtenerValorQueCobra() + (paquetesCargados.size() * obtenerValorAdicional());
+		   double costo = super.valorQueCobra + (paquetesCargados.size() * valorAdicional);
 	       this.valorQueCobra = costo;
 	}
 }

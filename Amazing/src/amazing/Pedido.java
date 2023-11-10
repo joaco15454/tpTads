@@ -139,32 +139,26 @@ public class Pedido {
     }
 
 	public boolean noEstaEntregado() {
-		// TODO Auto-generated method stub
 		return estaCerrado && entregaPendiente();
 	}
 
 	public Integer obtenerNroPedido() {
-		// TODO Auto-generated method stub
 		return nroPedido;
 	}
 
 	public String obtenerNombreDeCliente() {
-		// TODO Auto-generated method stub
 		return nombreCliente;
 	}
 
 	public boolean isEstaCerrado() {
-		// TODO Auto-generated method stub
 		return estaCerrado;
 	}
 
 	public HashMap<Integer, Paquete> obtenerCarrito() {
-		// TODO Auto-generated method stub
 		return carrito;
 	}
 
 	public String obtenerDireccion() {
-		// TODO Auto-generated method stub
 		return direccion;
 	}
 	

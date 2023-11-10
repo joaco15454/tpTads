@@ -207,13 +207,10 @@ public class EmpresaAmazing implements IEmpresa {
 
 	public boolean quitarPaquete(int codPaquete) {
 		for (Pedido p : pedidos.values()) {
-			//if (paqueteEnPedido(p, codPaquete)) {
 			if (p.paqueteEnCarrito(codPaquete)) {
 				return p.eliminarProductoCarrito(codPaquete);
 			}
-			//}
 		}
-		
 		throw new RuntimeException("Error, no hay ningun paquete registrado con el codigo: " + codPaquete);
 	}
 	/* FIN QUITAR PAQUETE*/

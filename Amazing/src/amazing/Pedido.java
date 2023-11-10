@@ -93,7 +93,6 @@ public class Pedido {
     }
 
     protected  boolean eliminarProductoCarrito (int id) {
-        
         if (!paqueteEnCarrito(id)) {
             throw new RuntimeException("Error, el paquete que desea borrar no esta en el carrito");
         }else if(isEstaCerrado() == true) {

@@ -133,15 +133,14 @@ public abstract class Transporte {
     }
 
 	public boolean cargaIdentica(Transporte t) {
+		boolean paquetesIguales = true;
 		if(distintaCantidadPaquetes(t)) {
 			return false;
 		}
 		for(Paquete p1 : paquetesCargados) {
-			if(existePaqueteIgual(p1, t.paquetesCargados)) {
-				return true;
-			}
+			paquetesIguales &= existePaqueteIgual(p1,t.paquetesCargados);
 		}
-		return false;
+		return paquetesIguales;
 	}
 	private boolean existePaqueteIgual(Paquete p, List<Paquete> cargaPaquetes) {
 		for(Paquete p2 : cargaPaquetes) {

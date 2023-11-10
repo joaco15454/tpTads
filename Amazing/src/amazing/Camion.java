@@ -11,12 +11,15 @@ public class Camion extends Transporte {
 
     @Override
     public boolean seCumplenCondiciones(Paquete p) {
+    	if(p == null) {
+    		throw new RuntimeException("Error, el paquete no existe.");
+    	}
         return (p instanceof PaqueteEspecial) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) && p.obtenerVolumen() > 2000;
     }
 
 	@Override
 	public void actualizarCostoEntrega() {
-		   double costo = obtenerValorQueCobra() + (paquetesCargados.size() * valorAdicional);
+		   double costo = super.valorQueCobra + (paquetesCargados.size() * valorAdicional);
 	       this.valorQueCobra = costo;
 	}
 }

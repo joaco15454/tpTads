@@ -11,11 +11,14 @@ public class Comun extends Transporte {
 
     @Override
     public boolean transporteLleno() {
-        return ((paquetesCargados.size() == limitePaquetes) || (obtenerVolumenActual() == volumenMaximo));
+        return ((super.paquetesCargados.size() == limitePaquetes) || (obtenerVolumenActual() == volumenMaximo));
     }
 
     @Override
     public boolean seCumplenCondiciones(Paquete p) {
+    	if(p == null) {
+    		throw new RuntimeException("Error, el paquete no existe.");
+    	}
         return (p instanceof PaqueteOrdinario) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) && p.obtenerVolumen() < 2000;
     }
 

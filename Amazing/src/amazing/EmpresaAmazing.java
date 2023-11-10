@@ -354,19 +354,17 @@ public class EmpresaAmazing implements IEmpresa {
 	 * cliente que lo pidio.
 	 * 
 	 */
+	
 	public Map<Integer, String> pedidosNoEntregados() {
 		Map<Integer, String> pedidosNoEntregados = new HashMap<>();
 		for (Pedido p : pedidos.values()) {
-			if (p.isEstaCerrado()) {
-				for (Paquete c : p.obtenerCarrito().values()) {
-					if (!c.fueEntregado() && !pedidosNoEntregados.containsKey(p.obtenerNroPedido())) {
-						pedidosNoEntregados.put(p.obtenerNroPedido(), p.obtenerNombreDeCliente());
-					}
-				}
+			if (p.isEstaCerrado() && p.entregaPendiente()&& !pedidosNoEntregados.containsKey(p.obtenerNroPedido())) {
+				pedidosNoEntregados.put(p.obtenerNroPedido(), p.obtenerNombreDeCliente());
 			}
 		}
 		return pedidosNoEntregados;
 	}
+	
 	/*FIN PEDIDOS NO ENTREGADOS (QUE SON CERRADOS)*/
 	
 	

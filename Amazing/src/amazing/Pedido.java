@@ -138,6 +138,15 @@ public class Pedido {
 	public void finalizarPedido() {
 		modificarEstaCerrado(true);
 	}
+	
+	public boolean entregaPendiente() {
+		for(Paquete p : carrito.values()) {
+			if(!p.fueEntregado()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     @Override
     public String toString() {

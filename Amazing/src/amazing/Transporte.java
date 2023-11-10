@@ -1,14 +1,15 @@
 package amazing;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class Transporte {
+public abstract class Transporte {
 
     private String patente;
     private int volumenMaximo;
     private int volumenActual;
-    private double valorQueCobra;
+    protected double valorQueCobra;
     protected List<Paquete> paquetesCargados;
 
     public Transporte(String patente, int volumenMaximo, double valorQueCobra) {
@@ -16,77 +17,60 @@ public class Transporte {
         this.volumenMaximo = volumenMaximo;
         this.valorQueCobra = valorQueCobra;
         this.volumenActual = 0;
-        this.paquetesCargados = new ArrayList<>(); 
+        this.paquetesCargados = new ArrayList<>();
     }
 
-    public String getPatente() {
+    public String obtenerPatente() {
         return patente;
     }
 
-    public int getVolumenMaximo() {
+    public int obtenerVolumenMaximo() {
         return volumenMaximo;
     }
 
-    public double getValorQueCobra() {
+    public double obtenerValorQueCobra() {
         return valorQueCobra;
     }
 
-    public List<Paquete> getPaquetesCargados() {
+    public List<Paquete> obtenerPaquetesCargados() {
         return paquetesCargados;
     }
 
-    public void setPatente(String patente) {
-        this.patente = patente;
-    }
-
-    public void setVolumenMaximo(int volumenMaximo) {
-        if (volumenMaximo < 0) {
-            throw new RuntimeException("Error, tiene que ser mayor que 0.");
-        }
-        this.volumenMaximo = volumenMaximo;
-    }
-
-    public int getVolumenActual() {
+    public int obtenerVolumenActual() {
         return volumenActual;
     }
 
-    public void setVolumenActual(int volumenActual) {
-        if (volumenActual > getVolumenMaximo()) {
-            throw new RuntimeException("Error, el volumen no puede superar " + getVolumenMaximo());
+    public void modificarVolumenActual(int volumenActual) {
+        if (volumenActual > obtenerVolumenMaximo()) {
+            throw new RuntimeException("Error, el volumen no puede superar " + obtenerVolumenMaximo());
         }
         this.volumenActual = volumenActual;
     }
 
     public void aumentarVolumen(int volumenPaquete) {
-    	if (volumenPaquete < 0) {
+        if (volumenPaquete < 0) {
             throw new RuntimeException("Error, debe ser un numero positivo");
         }
-        setVolumenActual(volumenActual + volumenPaquete);
-    }
-
-    public void setValorQueCobra(double valorQueCobra) {
-    	if(valorQueCobra < 0) {
-    		throw new RuntimeException("Error, el valor que cobra el transporte debe ser positivo.");
-    	}
-        this.valorQueCobra = valorQueCobra;
+        modificarVolumenActual(volumenActual + volumenPaquete);
     }
 
     public double costoEntrega() {
-        return getValorQueCobra();
+        return obtenerValorQueCobra();
     }
 
     public boolean seCumplenCondiciones(Paquete p) {
-        return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !getPaquetesCargados().contains(p) &&!transporteLleno();
+        return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !obtenerPaquetesCargados().contains(p) && !transporteLleno();
     }
 
     public void cargarPaquete(Paquete paquete) {
-        if ((paquete.getVolumen() + getVolumenActual()) < getVolumenMaximo()) {
+        if ((paquete.obtenerVolumen() + obtenerVolumenActual()) < obtenerVolumenMaximo()) {
             paquetesCargados.add(paquete);
-            aumentarVolumen(paquete.getVolumen());
+            aumentarVolumen(paquete.obtenerVolumen());
         }
 
     }
-    public boolean transporteVacio(){
+
+    public boolean transporteVacio() {
         return paquetesCargados.isEmpty();
     }
 
@@ -94,13 +78,12 @@ public class Transporte {
         return paquetesCargados;
     }
 
-
     public boolean superaLimite() {
-        return paquetesCargados.size() > getVolumenMaximo();
+        return paquetesCargados.size() > obtenerVolumenMaximo();
     }
- 
+
     public boolean transporteLleno() {
-        return getVolumenActual() == getVolumenMaximo();
+        return obtenerVolumenActual() == obtenerVolumenMaximo();
     }
 
     public void transporteEstaLleno() {
@@ -108,24 +91,62 @@ public class Transporte {
             throw new RuntimeException("Error, el transporte esta lleno.");
         }
     }
+
+    public  List<String> cargarPedido(Pedido pedido){
+    		transporteEstaLleno();
+    	    List<String> listaPaquetesCargados = new ArrayList<>();
+    	    List<Paquete> paquetesEspeciales = new ArrayList<>();
+    	    List<Paquete> paquetesOrdinarios = new ArrayList<>();
+    	    HashMap<Integer, Paquete> carrito = pedido.obtenerCarrito();
+    	    
+    	    for (Paquete paquete : carrito.values()) {
+    	        if (seCumplenCondiciones(paquete)) {
+    	            if (paquete instanceof PaqueteEspecial) {
+    	                paquetesEspeciales.add(paquete);
+    	            } else if (paquete instanceof PaqueteOrdinario){
+    	                paquetesOrdinarios.add(paquete);
+    	            }
+    	        }
+    	    }
+    	    for (Paquete paquete : paquetesEspeciales) {
+    	        cargarPaquete(paquete);
+    	        String datosEntrega = formatoEntrega(pedido, paquete);
+    	        listaPaquetesCargados.add(datosEntrega);
+    	        carrito.remove(paquete.obtenerIdUnico()); // Elimina el paquete del carrito
+    	    }
+    	    for (Paquete paquete : paquetesOrdinarios) {
+    	        cargarPaquete(paquete);
+    	        String datosEntrega = formatoEntrega(pedido, paquete);
+    	        listaPaquetesCargados.add(datosEntrega);
+    	        carrito.remove(paquete.obtenerIdUnico()); // Elimina el paquete del carrito
+    	    }
+    	    return listaPaquetesCargados;
+    	}
+
+    public abstract void actualizarCostoEntrega();
+
+    public String formatoEntrega(Pedido pedido, Paquete paquete) {
+        String formato = " + [ %d - %d ] %s\n";
+        return String.format(formato, pedido.obtenerNroPedido(), paquete.obtenerIdUnico(), pedido.obtenerDireccion());
+    }
+
     @Override
     public String toString() {
         StringBuilder paquetesCargadosStr = new StringBuilder("[");
-        
-        List<Paquete> paquetes = getPaquetesCargados();
+
+        List<Paquete> paquetes = obtenerPaquetesCargados();
         if (!paquetes.isEmpty()) {
             for (int i = 0; i < paquetes.size() - 1; i++) {
-                paquetesCargadosStr.append(paquetes.get(i).getIdUnico()).append(", ");
+                paquetesCargadosStr.append(paquetes.get(i).obtenerIdUnico()).append(", ");
             }
-            paquetesCargadosStr.append(paquetes.get(paquetes.size() - 1).getIdUnico());
+            paquetesCargadosStr.append(paquetes.get(paquetes.size() - 1).obtenerIdUnico());
         }
-        
+
         paquetesCargadosStr.append("]");
 
-        return "Transporte: Patente=" + getPatente() +
-                ", VolumenMaximo=" + getVolumenMaximo() +
-                ", CostoDeEntrega=" + getValorQueCobra() +
+        return "Transporte: Patente=" + obtenerPatente() +
+                ", VolumenMaximo=" + obtenerVolumenMaximo() +
+                ", CostoDeEntrega=" + obtenerValorQueCobra() +
                 ", PaquetesCargados:" + paquetesCargadosStr.toString();
     }
-
 }

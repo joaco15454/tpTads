@@ -43,13 +43,12 @@ public class Main {
 		   System.out.println();
 		   
 		   empresa.cerrarPedido(p6);
-		   empresa.quitarPaquete(paq10);
+		   //empresa.quitarPaquete(paq10);
 		   
 		   System.out.println(empresa.cargarTransporte("AE555YY"));
 		   System.out.println();
 		   
-		   System.out.println("Costo del transporte: " + 
-                   empresa.costoEntrega("AE555YY"));
+		   //System.out.println("Costo del transporte: " + empresa.costoEntrega("AE555YY"));
 		   System.out.println();
 		   
 		   System.out.println("Facturacion total de pedidos: " + 

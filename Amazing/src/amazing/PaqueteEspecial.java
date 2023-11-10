@@ -8,42 +8,29 @@ public class PaqueteEspecial extends Paquete{
         this.porcentajeAdicional = porcentajeAdicional;
         this.valorAdicional = valorAdicional;
     }
-    public double getPorcentajeAdicional() {
+    public double obtenerPorcentajeAdicional() {
         return porcentajeAdicional/100;
     }
-    public void setPorcentajeAdicional(int porcentajeAdicional) {
-    	if (porcentajeAdicional < 0) {
-    		throw new RuntimeException("Error porcentaje negativo");
-    	}
-        this.porcentajeAdicional = porcentajeAdicional;
-    }
-    public int getValorAdicional() {
+
+    public int obtenerValorAdicional() {
         return valorAdicional;
     }
-    public void setValorAdicional(int valorAdicional) {
-    	if (valorAdicional < 0) {
-    		throw new RuntimeException("Error valor negativo negativo");
-    	}
-        this.valorAdicional = valorAdicional;
-    }
+
     /* OPERACIONES */
     protected int adicionalAPagar(){
     	int valorAdicionalAPagar = 0;
-        if(getVolumen() >= 3000 && getVolumen() < 5000) {
-        	valorAdicionalAPagar=(getValorAdicional());
+        if(obtenerVolumen() >= 3000 && obtenerVolumen() < 5000) {
+        	valorAdicionalAPagar=(obtenerValorAdicional());
         }
-        else if (getVolumen() > 5000) {
-        	valorAdicionalAPagar=(getValorAdicional()  * 2);
+        else if (obtenerVolumen() > 5000) {
+        	valorAdicionalAPagar=(obtenerValorAdicional()  * 2);
         }
         return valorAdicionalAPagar;
     }
     @Override
     public double costoFinal(){
-    	double precioBaseConPorcentaje = getPrecio() + (getPrecio() * (getPorcentajeAdicional()));
+    	double precioBaseConPorcentaje = obtenerPrecio() + (obtenerPrecio() * (obtenerPorcentajeAdicional()));
     	precioBaseConPorcentaje += adicionalAPagar();
-    	return precioBaseConPorcentaje;
-    	
-    	
-    	
+    	return precioBaseConPorcentaje;    	    	
     }
 }

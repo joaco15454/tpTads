@@ -15,15 +15,15 @@ public class EmpresaAmazing implements IEmpresa {
 		Cuit = cuit;
 	}
 
-	public String getCuit() {
+	public String obtenerCuit() {
 		return Cuit;
 	}
 
-	public double getFacturacionTotalPedidosCerrados() {
+	public double obtenerFacturacionTotalPedidosCerrados() {
 		return facturacionTotalPedidosCerrados;
 	}
 
-	public void setFacturacionTotalPedidosCerrados(double facturacionTotalPedidosCerrados) {
+	public void actualizarFacturacionTotalPedidosCerrados(double facturacionTotalPedidosCerrados) {
 		this.facturacionTotalPedidosCerrados = facturacionTotalPedidosCerrados;
 	}
 
@@ -31,25 +31,10 @@ public class EmpresaAmazing implements IEmpresa {
 		return pedidos;
 	}
 
-	public void setPedidos(HashMap<Integer, Pedido> pedidos) {
-
-		this.pedidos = pedidos;
-	}
-
-	public HashMap<String, Transporte> getTransportes() {
+	public HashMap<String, Transporte> obtenerTransportes() {
 		return transportes;
 	}
 
-	public void setTransportes(HashMap<String, Transporte> transportes) {
-		this.transportes = transportes;
-	}
-
-	public void setCuit(String cuit) {
-		if (cuit.length() != 11) {
-			throw new RuntimeException("Error, longitud del cuit erronea");
-		}
-		Cuit = cuit;
-	}
 	// ** PARTE OPERACIONES INTERFAZ */
 //////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -137,8 +122,8 @@ public class EmpresaAmazing implements IEmpresa {
 	 */
 	public int registrarPedido(String cliente, String direccion, int dni) {
 		Pedido p = new Pedido(dni, direccion, cliente, dni, false);
-		pedidos.put(p.getNroPedido(), p);
-		return p.getNroPedido();
+		pedidos.put(p.obtenerNroPedido(), p);
+		return p.obtenerNroPedido();
 	}
 	
 	
@@ -229,6 +214,7 @@ public class EmpresaAmazing implements IEmpresa {
 			}
 			//}
 		}
+		
 		throw new RuntimeException("Error, no hay ningun paquete registrado con el codigo: " + codPaquete);
 	}
 	/* FIN QUITAR PAQUETE*/
@@ -297,13 +283,13 @@ public class EmpresaAmazing implements IEmpresa {
 		Transporte t = transportes.get(patente);
 		for (Pedido p : pedidos.values()) {
 			if (p.isEstaCerrado()) {
-				List<String> listaPaquetesCargados = cargarPedido(t, p);
+				List<String> listaPaquetesCargados = t.cargarPedido(p);
 				for (String j : listaPaquetesCargados) {
 					 sb.append(String.join("\n", j));
 				}
 			}
 		}
-		actualizarCostoEntrega(t);
+		t.actualizarCostoEntrega();
 		String listadoPaquetesCargados = sb.toString();
 		return listadoPaquetesCargados;
 	}
@@ -352,7 +338,7 @@ public class EmpresaAmazing implements IEmpresa {
 	 */
 	public double facturacionTotalPedidosCerrados() {
 
-		return getFacturacionTotalPedidosCerrados();
+		return obtenerFacturacionTotalPedidosCerrados();
 	}
 	/*FIN FACTURACION TOTAL*/
 	
@@ -374,9 +360,9 @@ public class EmpresaAmazing implements IEmpresa {
 		Map<Integer, String> pedidosNoEntregados = new HashMap<>();
 		for (Pedido p : pedidos.values()) {
 			if (p.isEstaCerrado()) {
-				for (Paquete c : p.getCarrito().values()) {
-					if (!c.fueEntregado() && !pedidosNoEntregados.containsKey(p.getNroPedido())) {
-						pedidosNoEntregados.put(p.getNroPedido(), p.getNombreDeCliente());
+				for (Paquete c : p.obtenerCarrito().values()) {
+					if (!c.fueEntregado() && !pedidosNoEntregados.containsKey(p.obtenerNroPedido())) {
+						pedidosNoEntregados.put(p.obtenerNroPedido(), p.obtenerNombreDeCliente());
 					}
 				}
 			}
@@ -430,8 +416,8 @@ public class EmpresaAmazing implements IEmpresa {
 		throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
 	}
 	private boolean cargaIdentica(Transporte t1, Transporte t2) {
-		List<Paquete> primeraCarga = t1.getPaquetesCargados();
-		List<Paquete> segundaCarga = t2.getPaquetesCargados();
+		List<Paquete> primeraCarga = t1.obtenerPaquetesCargados();
+		List<Paquete> segundaCarga = t2.obtenerPaquetesCargados();
 		if (primeraCarga.size() != segundaCarga.size()) {
 			return false;
 		}
@@ -453,13 +439,13 @@ public class EmpresaAmazing implements IEmpresa {
 	}
 
 	private boolean mismoPrecioVolumen(Paquete p1, Paquete p2) {
-		boolean mismoPrecio = (p1.getPrecio() == p2.getPrecio());
-		boolean mismoVolumen = (p1.getVolumen() == p2.getVolumen());
+		boolean mismoPrecio = (p1.obtenerPrecio() == p2.obtenerPrecio());
+		boolean mismoVolumen = (p1.obtenerVolumen() == p2.obtenerVolumen());
 		return mismoPrecio && mismoVolumen;
 	}
 
 	private boolean distintaPatente(Transporte t1, Transporte t2) {
-		return t1.getPatente() != t2.getPatente();
+		return t1.obtenerPatente() != t2.obtenerPatente();
 	}
 
 	private boolean mismaClasePaquete(Paquete p1, Paquete p2) {
@@ -497,9 +483,9 @@ public class EmpresaAmazing implements IEmpresa {
 	
 	
 	private void actualizarFacturacionTotal(double valorPedido) {
-		double valor = getFacturacionTotalPedidosCerrados(); // Obtiene el valor actual
+		double valor = obtenerFacturacionTotalPedidosCerrados(); // Obtiene el valor actual
 		valor += valorPedido; // Acumula el valor del pedido cerrado
-		setFacturacionTotalPedidosCerrados(valor); // Actualiza la variable
+		actualizarFacturacionTotalPedidosCerrados(valor); // Actualiza la variable
 	} 
 	
 	
@@ -508,50 +494,50 @@ public class EmpresaAmazing implements IEmpresa {
 		return pedidos.get(codPaquete) != null;
 	}
 	
-	private void actualizarCostoEntrega(Transporte t) {
-		if (t instanceof Camion) {
-			((Camion) t).calcularCostoViaje();
-		} else if (t instanceof Utilitario) {
-			((Utilitario) t).calcularCostoViaje();
-		}
-	}
+//	private void actualizarCostoEntrega(Transporte t) {
+//		if (t instanceof Camion) {
+//			((Camion) t).calcularCostoViaje();
+//		} else if (t instanceof Utilitario) {
+//			((Utilitario) t).calcularCostoViaje();
+//		}
+//	}
 
-	private List<String> cargarPedido(Transporte t, Pedido pedido) {
-	    t.transporteEstaLleno();
-	    List<String> listaPaquetesCargados = new ArrayList<>();
-	    List<Paquete> paquetesEspeciales = new ArrayList<>();
-	    List<Paquete> paquetesOrdinarios = new ArrayList<>();
-	    HashMap<Integer, Paquete> carrito = pedido.getCarrito();
-	    
-	    for (Paquete paquete : carrito.values()) {
-	        if (t.seCumplenCondiciones(paquete)) {
-	            if (paquete instanceof PaqueteEspecial) {
-	                paquetesEspeciales.add(paquete);
-	            } else if (paquete instanceof PaqueteOrdinario){
-	                paquetesOrdinarios.add(paquete);
-	            }
-	        }
-	    }
-	    for (Paquete paquete : paquetesEspeciales) {
-	        t.cargarPaquete(paquete);
-	        String datosEntrega = formatoEntrega(pedido, paquete);
-	        listaPaquetesCargados.add(datosEntrega);
-	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
-	    }
-	    for (Paquete paquete : paquetesOrdinarios) {
-	        t.cargarPaquete(paquete);
-	        String datosEntrega = formatoEntrega(pedido, paquete);
-	        listaPaquetesCargados.add(datosEntrega);
-	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
-	    }
-	    return listaPaquetesCargados;
-	}
-
-	 
-	private String formatoEntrega(Pedido pedido, Paquete paquete) {
-	    String formato = " + [ %d - %d ] %s\n";
-	    return String.format(formato, pedido.getNroPedido(), paquete.getIdUnico(), pedido.getDireccion());
-	}
+//	private List<String> cargarPedido(Transporte t, Pedido pedido) {
+//	    t.transporteEstaLleno();
+//	    List<String> listaPaquetesCargados = new ArrayList<>();
+//	    List<Paquete> paquetesEspeciales = new ArrayList<>();
+//	    List<Paquete> paquetesOrdinarios = new ArrayList<>();
+//	    HashMap<Integer, Paquete> carrito = pedido.getCarrito();
+//	    
+//	    for (Paquete paquete : carrito.values()) {
+//	        if (t.seCumplenCondiciones(paquete)) {
+//	            if (paquete instanceof PaqueteEspecial) {
+//	                paquetesEspeciales.add(paquete);
+//	            } else if (paquete instanceof PaqueteOrdinario){
+//	                paquetesOrdinarios.add(paquete);
+//	            }
+//	        }
+//	    }
+//	    for (Paquete paquete : paquetesEspeciales) {
+//	        t.cargarPaquete(paquete);
+//	        String datosEntrega = formatoEntrega(pedido, paquete);
+//	        listaPaquetesCargados.add(datosEntrega);
+//	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
+//	    }
+//	    for (Paquete paquete : paquetesOrdinarios) {
+//	        t.cargarPaquete(paquete);
+//	        String datosEntrega = formatoEntrega(pedido, paquete);
+//	        listaPaquetesCargados.add(datosEntrega);
+//	        carrito.remove(paquete.getIdUnico()); // Elimina el paquete del carrito
+//	    }
+//	    return listaPaquetesCargados;
+//	}
+//
+//	 
+//	private String formatoEntrega(Pedido pedido, Paquete paquete) {
+//	    String formato = " + [ %d - %d ] %s\n";
+//	    return String.format(formato, pedido.getNroPedido(), paquete.getIdUnico(), pedido.getDireccion());
+//	}
 	
 	private boolean existeTransporte(String patente) {
 		return transportes.get(patente) != null;

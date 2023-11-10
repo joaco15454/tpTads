@@ -9,25 +9,18 @@ public class Camion extends Transporte {
         this.valorAdicional = valorAdicional;
     }
 
-    public double getValorAdicional() {
+    public double obtenerValorAdicional() {
         return valorAdicional;
-    }
-
-    public void setValorAdicional(double valorAdicional) {
-    	if(valorAdicional < 0) {
-    		throw new RuntimeException("Error, el valor adicional debe ser positivo.");
-    	}
-        this.valorAdicional = valorAdicional;
-    }
- 
-    public void calcularCostoViaje() {
-        double costo = getValorQueCobra() + (paquetesCargados.size() * getValorAdicional());
-        setValorQueCobra(costo);
     }
 
     @Override
     public boolean seCumplenCondiciones(Paquete p) {
-        return (p instanceof PaqueteEspecial) && !transporteLleno() && !getPaquetesCargados().contains(p) && p.getVolumen() > 2000;
+        return (p instanceof PaqueteEspecial) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) && p.obtenerVolumen() > 2000;
     }
 
+	@Override
+	public void actualizarCostoEntrega() {
+		   double costo = obtenerValorQueCobra() + (paquetesCargados.size() * obtenerValorAdicional());
+	       this.valorQueCobra = costo;
+	}
 }

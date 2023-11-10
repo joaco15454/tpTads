@@ -27,67 +27,42 @@ public class Pedido {
     }    
     /* FIN CONSTRUCTOR */
     /* GETTERS AND SETTERS */
-     public int getDni() {
+     public int obtenerDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-    public int getNroPedido() {
+    public int obtenerNroPedido() {
         return nroPedido;
     }
-    public void setNroPedido() {
-        if (nroPedido < 0) {
-            throw new RuntimeException("Error, el numero tiene que ser mayor a 0");
-        }
-        this.nroPedido = contadorPedidos++; //capaz esta unpoco al pedo este set, debatir despues
-    }
-    public String getDireccion() {
+
+    public String obtenerDireccion() {
         return direccion;
     }
-    public void setDireccion(String direccion) {
 
-        this.direccion = direccion;
-    }
-    public String getNombreDeCliente() {
-        
+    public String obtenerNombreDeCliente() {
         return nombreDeCliente;
     }
-    public void setNombreDeCliente(String nombreDeCliente) {
-        if (hayNumeroEnString(nombreDeCliente)) {
-                        throw new RuntimeException("Error, el nombre tiene que ser valido");
-
-        }
-        this.nombreDeCliente = nombreDeCliente;
-    }
-    public HashMap<Integer, Paquete> getCarrito() {
+    
+    public HashMap<Integer, Paquete> obtenerCarrito() {
         return carrito;
     } 
-    public void setCarrito(HashMap<Integer, Paquete> carrito) {
-        this.carrito = carrito;
-    }
+
     public boolean isEstaCerrado() {
         return estaCerrado;
     }
-    public void setEstaCerrado(boolean estaCerrado) {
+    public void modificarEstaCerrado(boolean estaCerrado) {
         this.estaCerrado = estaCerrado;
     }
     /* FIN GETTERS AND SETTERS */
     /* OPERACIONES */
 
-
-
-
-
-
     //Agrega un producto ordinario
     protected  int agregarProductoCarrito(int volumen, double precio, int costoEnvio) {
         /*COMPLETAR */
          
-        PaqueteOrdinario p = new PaqueteOrdinario(getDireccion(),volumen,precio, costoEnvio);
-        agregarProductoOrdinario(p.getIdUnico(), p);
-        return p.getIdUnico();
+        PaqueteOrdinario p = new PaqueteOrdinario(obtenerDireccion(),volumen,precio, costoEnvio);
+        agregarProductoOrdinario(p.obtenerIdUnico(), p);
+        return p.obtenerIdUnico();
     }
     protected void agregarProductoOrdinario (Integer id, PaqueteOrdinario p) {
         if (paqueteEnCarrito(id)) {
@@ -104,9 +79,9 @@ public class Pedido {
     protected  int agregarProductoCarrito( int volumen, double precio, int porcentaje, int adicional) {
         /*COMPLETAR */
 
-        PaqueteEspecial p = new PaqueteEspecial(getDireccion(),volumen,precio, porcentaje,adicional);
-        agregarProductoEspecial(p.getIdUnico(), p);
-        return p.getIdUnico();
+        PaqueteEspecial p = new PaqueteEspecial(obtenerDireccion(),volumen,precio, porcentaje,adicional);
+        agregarProductoEspecial(p.obtenerIdUnico(), p);
+        return p.obtenerIdUnico();
     }
     protected void agregarProductoEspecial (Integer id, PaqueteEspecial p) {
         if (paqueteEnCarrito(id)) {
@@ -139,12 +114,8 @@ public class Pedido {
             if (!carrito.get(id).fueEntregado()) {
             	 valor+= carrito.get(id).costoFinal();
             }
-           
-           
         }
         return valor;
-
-
     }
     
     /* FIN OPERACIONES */
@@ -155,24 +126,17 @@ public class Pedido {
         
     }
     protected  boolean paqueteEntregado(int id) {
-        return obtenerPaquete(id).getEntregado();
+        return obtenerPaquete(id).paqueteFueEntregado();
     }
     protected  double calcularValorPaquete(int id) {
-        return obtenerPaquete(id).getPrecio();
+        return obtenerPaquete(id).obtenerPrecio();
     }
     public Paquete obtenerPaquete(int id) {
         return carrito.get(id);
     }
-    public boolean hayNumeroEnString(String s) // valdicion para que sea un string de letras y no variado, por ejemplo jo4aquin
-    {     
 
-        for( int i = 0; i < s.length(); i++ )
-            if( Character.isDigit( s.charAt( i ) ) )
-                return false;
-        return true;
-    }
 	public void finalizarPedido() {
-		setEstaCerrado(true);
+		modificarEstaCerrado(true);
 	}
 
     @Override
@@ -191,8 +155,8 @@ public class Pedido {
         }
         carritoStr.append("]");
 
-        return "Pedido: Id=" + getNroPedido() +
-                ", Datos cliente: [Nombre=" + getNombreDeCliente() + ", Dni=" + getDni() + ", Direccion=" + getDireccion() + "]" +
+        return "Pedido: Id=" + obtenerNroPedido() +
+                ", Datos cliente: [Nombre=" + obtenerNombreDeCliente() + ", Dni=" + obtenerDni() + ", Direccion=" + obtenerDireccion() + "]" +
                 ", Carrito=" + carritoStr.toString();
     }
 	

@@ -8,20 +8,13 @@ public class PaqueteOrdinario extends Paquete{
         this.costoDeEnvio = costoDeEnvio;
     }
 
-    public int getCostoDeEnvio() {
-        return this.costoDeEnvio;
-    }
-
-    public void setCostoDeEnvio(int costoDeEnvio) {
-    	if(costoDeEnvio < 0) {
-    		throw new RuntimeException("Error, el costo de envio no puede ser negativo.");
-    		}
-        this.costoDeEnvio = costoDeEnvio;
+    public int obtenerCostoDeEnvio() {
+        return costoDeEnvio;
     }
     
     /* OPERACIONES */
     @Override
     public double costoFinal () {
-    	return getPrecio() + costoDeEnvio;
+    	return obtenerPrecio() + costoDeEnvio;
     }
 }

@@ -9,24 +9,22 @@ public class Comun extends Transporte {
         this.limitePaquetes = limitePaquetes;
     }
 
-    public void setLimitePaquetes(int limitePaquetes) {
-    	if(limitePaquetes < 0) {
-    		throw new RuntimeException("Error, el limite de paquetes debe ser positivo.");
-    	}
-        this.limitePaquetes = limitePaquetes;
-    }
-
-    public int getLimitePaquetes() {
+    public int obtenerLimitePaquetes() {
         return limitePaquetes;
-    } 
+    }
 
     @Override
     public boolean transporteLleno() {
-        return ((paquetesCargados.size() == getLimitePaquetes()) || (getVolumenActual() == getVolumenMaximo()));
+        return ((paquetesCargados.size() == obtenerLimitePaquetes()) || (obtenerVolumenActual() == obtenerVolumenMaximo()));
     }
 
     @Override
     public boolean seCumplenCondiciones(Paquete p) {
-        return (p instanceof PaqueteOrdinario) && !transporteLleno() && !getPaquetesCargados().contains(p) && p.getVolumen() < 2000;
+        return (p instanceof PaqueteOrdinario) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) && p.obtenerVolumen() < 2000;
     }
+
+	@Override
+	public void actualizarCostoEntrega() {}
+
+
 }

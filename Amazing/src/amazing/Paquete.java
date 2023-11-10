@@ -17,79 +17,47 @@ public class Paquete{
         this.entregado = false;
     }
     
-    public int getIdUnico() {
-
+    public int obtenerIdUnico() {
         return idUnico;
     }
 
-    public int getVolumen() {
+    public int obtenerVolumen() {
         return volumen;
     }
 
-
-    public double getPrecio() {
+    public double obtenerPrecio() {
         return precio;
     }
 
-
-    public String getDireccion() {
+    public String obtenerDireccion() {
         return direccion;
     }
 
-
-    public Boolean getEntregado() {
+    public Boolean paqueteFueEntregado() {
         return entregado;
     }
 
-
-    public void setIdUnico() {
-        //falta comprobar que no se repita
-        this.idUnico = contadorPedidos++;
-    }
-
-
-    public void setVolumen(int volumen) {
-        if (volumen < 0 || volumen > 999999) {
-            throw new RuntimeException("Error, el numero tiene que ser mayor a 0 y menor a 999999");
-        }
-        this.volumen = volumen;
-    }
-
-
-    public void setPrecio(double precio) {
-        if (precio < 0 ) {
-            throw new RuntimeException("Error,el precio tiene que ser mayor a 0");
-        }
-        this.precio += precio;
-    }
-
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-
-    public void setEntregado(Boolean entregado) {
+    public void modificarEntregado(Boolean entregado) {
         this.entregado = entregado;
     }
     /* FIN CONSTRUCTOR, SETTERS AND GETTERS */
     /* OPERACIONES */
     
     protected void paqueteEntregado() {
-        setEntregado(true);
+        modificarEntregado(true);
     }
     protected boolean fueEntregado() {
-        return getEntregado();
+        return paqueteFueEntregado();
     }
     
 	protected double costoFinal() {
-		return getPrecio();
+		return obtenerPrecio();
 	}
     @Override 
     public String toString() {
-    	return "[Paquete: \nId="+ getIdUnico()+
-    			"\nVolumen="+ getVolumen()+
+    	return "[Paquete: \nId="+ obtenerIdUnico()+
+    			"\nVolumen="+ obtenerVolumen()+
     			"\nPrecio="+ costoFinal()+
-    			"\nDireccion="+getDireccion() +"]";
+    			"\nDireccion="+obtenerDireccion() +"]";
     }
 }

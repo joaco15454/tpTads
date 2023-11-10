@@ -401,13 +401,6 @@ public class EmpresaAmazing implements IEmpresa {
 	/* METODOS AUXILIARES */
 	
 	
-	private Pedido buscarPedido(int codPedido) {
-		if(existePedido(codPedido)) {
-			Pedido p = pedidos.get((codPedido));
-			return p;
-		}
-		throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
-	}
 	private boolean cargaIdentica(Transporte t1, Transporte t2) {
 		List<Paquete> primeraCarga = t1.obtenerPaquetesCargados();
 		List<Paquete> segundaCarga = t2.obtenerPaquetesCargados();
@@ -480,6 +473,15 @@ public class EmpresaAmazing implements IEmpresa {
 		valor += valorPedido; // Acumula el valor del pedido cerrado
 		actualizarFacturacionTotalPedidosCerrados(valor); // Actualiza la variable
 	} 
+	
+	private Pedido buscarPedido(int codPedido) {
+		if(existePedido(codPedido)) {
+			Pedido p = pedidos.get((codPedido));
+			return p;
+		}
+		throw new RuntimeException("Error, no hay un pedido registrado con el codigo: " + codPedido);
+	}
+	
 	
 	private boolean existePedido(int codPaquete) {
 		return pedidos.get(codPaquete) != null;

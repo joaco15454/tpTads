@@ -4,7 +4,7 @@ public class PaqueteEspecial extends Paquete{
     private int valorAdicional;
     public PaqueteEspecial(String direccion, int volumen, double precio,
             double porcentajeAdicional, int valorAdicional) {
-        super(direccion, volumen, precio);
+        super( volumen, precio);
         this.porcentajeAdicional = porcentajeAdicional;
         this.valorAdicional = valorAdicional;
     }

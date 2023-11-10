@@ -5,15 +5,15 @@ public class Paquete{
     private int idUnico;
     private int volumen;
     private double precio;
-    private String direccion;
+ 
     private Boolean entregado;
 
     /* CONSTRUCTOR, SETTERS AND GETTERS */
-    public Paquete(String direccion ,int volumen, double precio) {
+    public Paquete(int volumen, double precio) {
         this.idUnico = contadorPedidos++;
         this.volumen = volumen;
         this.precio = precio;
-        this.direccion = direccion; 
+        
         this.entregado = false;
     }
     
@@ -29,22 +29,18 @@ public class Paquete{
         return precio;
     }
 
-    public String obtenerDireccion() {
-        return direccion;
-    }
+    
 
     public Boolean paqueteFueEntregado() {
         return entregado;
     }
 
-    public void modificarEntregado(Boolean entregado) {
-        this.entregado = entregado;
-    }
+    
     /* FIN CONSTRUCTOR, SETTERS AND GETTERS */
     /* OPERACIONES */
     
     protected void paqueteEntregado() {
-        modificarEntregado(true);
+        entregado	 = true;
     }
     protected boolean fueEntregado() {
         return paqueteFueEntregado();

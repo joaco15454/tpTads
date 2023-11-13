@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-	   EmpresaAmazing empresa = new EmpresaAmazing("30-456789-2"); 
+	   EmpresaAmazing empresa = new EmpresaAmazing("30-456789-2");
 	   
 		   empresa.registrarAutomovil("AB444ZZ", 10000, 3500, 5);
 		   empresa.registrarUtilitario("AA222FF", 18000, 10000, 10000);
@@ -48,7 +48,8 @@ public class Main {
 		   System.out.println(empresa.cargarTransporte("AE555YY"));
 		   System.out.println();
 		   
-		   System.out.println("Costo del transporte: " + empresa.costoEntrega("AE555YY"));
+		   System.out.println("Costo del transporte: " + 
+                   empresa.costoEntrega("AE555YY"));
 		   System.out.println();
 		   
 		   System.out.println("Facturacion total de pedidos: " + 

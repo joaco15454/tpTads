@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>6</zoom_level><element><id>UMLClass</id><coordinates><x>510</x><y>84</y><w>336</w><h>186</h></coordinates><panel_attributes>_EmpresaAmazing_
+<diagram program="umletino" version="15.1"><zoom_level>8</zoom_level><element><id>UMLClass</id><coordinates><x>392</x><y>0</y><w>448</w><h>248</h></coordinates><panel_attributes>_EmpresaAmazing_
 --
 -String Cuit;
 -double facturacionTotalPedidosCerrados
@@ -18,46 +18,56 @@
 +costoEntrega(String patente):double;
 +facturacionTotalPedidosCerrados():double;
 +pedidosNoEntregados(): Map&lt;Integer, String&gt;;
-+ hayTransportesIdenticos():boolean;
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>888</x><y>294</y><w>210</w><h>150</h></coordinates><panel_attributes>_TRANSPORTE_
++hayTransportesIdenticos():boolean;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>896</x><y>152</y><w>336</w><h>304</h></coordinates><panel_attributes>/AbstractClass/
+__Transporte__
 --
-	 -String patente;
-    -int volumenMaximo;
-    -int volumenActual;
-    -double valorQueCobra;
-    -List&lt;Paquete&gt; paquetesCargados;
+-String patente;
+-int volumenMaximo;
+-int volumenActual;
+-double valorQueCobra;
+-List&lt;Paquete&gt; paquetesCargados;
 --
-+cargarPaquetes(Paquete paquete): void;
-+listadoPaquetesAEntregar(): List&lt;Paquete&gt;;
-+costoEntrega(): double;
-+aumentarVolumen(int volumenAAumentar):void
-+superaLimite(): boolean;
-+tranporteLleno(): boolean
++crear(String patente, int volumenMaximo, double valorQueCobra): void
++costoEntrega(): double
++seCumplenCondiciones(): boolean
++cargarPaquete(Paquete paquete): void
++transporteVacio(): boolean
++listadoPaquetesAEntregar(): List&lt;Paquete&gt;
++tranporteEstaLleno(): boolean
++cargarPedido(Pedido pedido): List&lt;String&gt;
++distintaPatente(Transporte t): boolean
++mismaClase(Transporte t): boolean
++distintaCantidadPaquetes(Transporte t): boolean
++cargaIdentica(Transporte t): boolean
++formatoEntrega(): String
 +transporteVacio():boolean
-+seCumplenCondiciones():boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>822</x><y>492</y><w>342</w><h>60</h></coordinates><panel_attributes>_UTILITARIO_
++seCumplenCondiciones():boolean
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>808</x><y>544</y><w>456</w><h>80</h></coordinates><panel_attributes>_Utilitario_
 --
 -double valorExtra;
 
 --
 +crear(String patente, int volumenMaximo, double valorExtra, double valorQueCobra): void;
-+calcularCostoViaje():void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>690</x><y>582</y><w>354</w><h>72</h></coordinates><panel_attributes>_COMUN_
++actualizarCostoEntrega():void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>632</x><y>664</y><w>472</w><h>104</h></coordinates><panel_attributes>_Comun_
 --
 -int limitePaquetes;
 
 --
 +crear(String patente, int limitePaquetes, double volumenMaximo, double valorQueCobra): void;
 +transporteLleno():boolean;
-+seCumplenCondiciones():boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1038</x><y>702</y><w>348</w><h>72</h></coordinates><panel_attributes>_CAMION_
++seCumplenCondiciones():boolean
++actualizarCostoEntrega(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1096</x><y>824</y><w>464</w><h>96</h></coordinates><panel_attributes>_Camion_
 --
 -double valorAdicional;
 
 --
 +crear(String patente, int volumenMaximo, double valorAdicional, double valorQueCobra): void;
-+calcularCostoViaje():void;
-+seCumplenCondiciones():boolean;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1092</x><y>402</y><w>126</w><h>312</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;190;10;190;500</additional_attributes></element><element><id>Relation</id><coordinates><x>792</x><y>402</y><w>108</w><h>192</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;10;10;10;300</additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>438</y><w>18</w><h>66</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>840</x><y>126</y><w>168</w><h>180</h></coordinates><panel_attributes></panel_attributes><additional_attributes>260;280;260;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>588</x><y>348</y><w>312</w><h>270</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;430;190;270;190;10;500;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>366</x><y>354</y><w>288</w><h>156</h></coordinates><panel_attributes>_Pedido_
++actualizarCostoEntrega():void;
++seCumplenCondiciones():boolean;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1224</x><y>256</y><w>112</w><h>584</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;10;120;710</additional_attributes></element><element><id>Relation</id><coordinates><x>768</x><y>392</y><w>144</w><h>288</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;10;10;10;340</additional_attributes></element><element><id>Relation</id><coordinates><x>1032</x><y>448</y><w>24</w><h>112</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>832</x><y>48</y><w>224</w><h>120</h></coordinates><panel_attributes></panel_attributes><additional_attributes>260;130;260;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>496</x><y>312</y><w>416</w><h>400</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;480;60;480;190;320;200;10;500;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>200</x><y>360</y><w>384</w><h>208</h></coordinates><panel_attributes>_Pedido_
 --
-- int dni;
-- int nroPedido;
+ int dni;
+-int nroPedido;
 -String direccion;
 -String nombreDeCliente;
 -HashMap&lt;Integer,Paquete&gt; carrito;
@@ -72,32 +82,31 @@
 +paqueteEntregado(id): boolean;
 +calcularValorPaquete(id): double;
 +calcularValorAPagar():double;
-+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>558</y><w>252</w><h>126</h></coordinates><panel_attributes>_Paquete_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>168</x><y>632</y><w>336</w><h>168</h></coordinates><panel_attributes>_Paquete_
 --
 -int contadorPedidos;
-- int idUnico;
-- int volumen;
+-int idUnico;
+-int volumen;
 -double precio;
--String direccion;
 -Boolean entregado;
 	
 -
 +Paquete(direccion, volumen, precio): void;
 +estaEntregado(): boolean;
 +finalizado(): boolean;
-+costoFinal():double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>498</x><y>504</y><w>18</w><h>66</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>216</x><y>726</y><w>294</w><h>96</h></coordinates><panel_attributes>_PaqueteEspecial_
++costoFinal():double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>376</x><y>560</y><w>24</w><h>88</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>856</y><w>400</w><h>128</h></coordinates><panel_attributes>_PaqueteEspecial_
 --
 -double porcentajeAdicional;
 -int valorAdicional
 
 --
-+crear(idUnico, volumen, precio, direccion, +porcentajeAdicional,valorAdicional): void;
-+adicionalAPagar():int;
-+costoFinal(): void;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>540</x><y>726</y><w>252</w><h>96</h></coordinates><panel_attributes>_PaqueteOrdinario_
++crear(idUnico, volumen, precio, direccion): void
++obtenerPorcentajeAdicional,valorAdicional): double
++adicionalAPagar(): int
++costoFinal(): double</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>432</x><y>856</y><w>336</w><h>128</h></coordinates><panel_attributes>_PaqueteOrdinario_
 --
 -double costoEnvio;
 
 --
-
 +crear(idUnico, volumen, precio, direccion, costoEnvio): void;
-+costoFinal(): double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>354</x><y>678</y><w>18</w><h>60</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>564</x><y>678</y><w>72</w><h>60</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>100;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>468</x><y>180</y><w>54</w><h>186</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;290;10;10;70;10</additional_attributes></element></diagram>
++costoFinal(): double;</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>184</x><y>792</y><w>24</w><h>80</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>464</x><y>792</y><w>96</w><h>80</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>100;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>336</x><y>128</y><w>72</w><h>248</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;290;10;10;70;10</additional_attributes></element></diagram>

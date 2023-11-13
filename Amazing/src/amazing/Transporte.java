@@ -60,7 +60,7 @@ public abstract class Transporte {
     }
 
     public void cargarPaquete(Paquete paquete) {
-        if ((paquete.obtenerVolumen() + obtenerVolumenActual()) < volumenMaximo) {
+        if ((paquete.obtenerVolumen() + obtenerVolumenActual()) <= volumenMaximo) {
             paquetesCargados.add(paquete);
             aumentarVolumen(paquete.obtenerVolumen());
         }

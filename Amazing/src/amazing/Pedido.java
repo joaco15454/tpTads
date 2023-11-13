@@ -71,7 +71,7 @@ public class Pedido {
         if (!paqueteEnCarrito(id)) {
             throw new RuntimeException("Error, el paquete que desea borrar no esta en el carrito");
         }else if(estaCerrado == true) {
-            throw new RuntimeException("Error, el pedido esta cerrado por lo que no puede modificarse.");        	 
+            return false;        	 
         }
         carrito.remove(id);
         return true;

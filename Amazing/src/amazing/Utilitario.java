@@ -14,4 +14,12 @@ public class Utilitario extends Transporte {
 		double costo = paquetesCargados.size() > 3 ? (super.valorQueCobra + valorExtra) :super.valorQueCobra;
         this.valorQueCobra = costo; 
 	}
+	
+    @Override
+    public boolean seCumplenCondiciones(Paquete p) {
+    	if(p == null) {
+    		throw new RuntimeException("Error, el paquete no existe.");
+    	}
+        return (p instanceof PaqueteEspecial) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) && p.obtenerVolumen() < 2000;
+    }
 }

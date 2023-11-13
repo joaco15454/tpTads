@@ -11,7 +11,7 @@ public class Comun extends Transporte {
 
     @Override
     public boolean transporteLleno() {
-        return ((super.paquetesCargados.size() == limitePaquetes) || (obtenerVolumenActual() == volumenMaximo));
+        return ((super.paquetesCargados.size() == limitePaquetes) || (super.volumenActual == volumenMaximo));
     }
 
     @Override

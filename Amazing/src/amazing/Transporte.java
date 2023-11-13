@@ -20,20 +20,6 @@ public abstract class Transporte {
         this.paquetesCargados = new ArrayList<>();
     }
 
-    public void modificarVolumenActual(int volumenActual) {
-        if (volumenActual > volumenMaximo) {
-            throw new RuntimeException("Error, el volumen no puede superar " + volumenMaximo);
-        }
-        this.volumenActual = volumenActual;
-    }
-
-    public void aumentarVolumen(int volumenPaquete) {
-        if (volumenPaquete < 0) {
-            throw new RuntimeException("Error, debe ser un numero positivo");
-        }
-        modificarVolumenActual(volumenActual + volumenPaquete);
-    }
-
     public double costoEntrega() {
         return valorQueCobra;
     }
@@ -50,6 +36,19 @@ public abstract class Transporte {
 
     }
 
+    private void modificarVolumenActual(int volumenActual) {
+        if (volumenActual > volumenMaximo) {
+            throw new RuntimeException("Error, el volumen no puede superar " + volumenMaximo);
+        }
+        this.volumenActual = volumenActual;
+    }
+
+    private void aumentarVolumen(int volumenPaquete) {
+        if (volumenPaquete < 0) {
+            throw new RuntimeException("Error, debe ser un numero positivo");
+        }
+        modificarVolumenActual(volumenActual + volumenPaquete);
+    }
     public boolean transporteVacio() {
         return paquetesCargados.isEmpty();
     }
@@ -58,11 +57,7 @@ public abstract class Transporte {
         return paquetesCargados;
     }
 
-    public boolean superaLimite() {
-        return paquetesCargados.size() > volumenMaximo;
-    }
-
-    public boolean transporteLleno() {
+    protected boolean transporteLleno() {
         return volumenActual == volumenMaximo;
     }
 

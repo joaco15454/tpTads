@@ -20,19 +20,6 @@ public abstract class Transporte {
         this.paquetesCargados = new ArrayList<>();
     }
 
-    public String obtenerPatente() {
-        return patente;
-    }
-
-
-    public double obtenerValorQueCobra() {
-        return valorQueCobra;
-    }
-
-    public List<Paquete> obtenerPaquetesCargados() {
-        return paquetesCargados;
-    }
-
     public int obtenerVolumenActual() {
         return volumenActual;
     }
@@ -52,11 +39,11 @@ public abstract class Transporte {
     }
 
     public double costoEntrega() {
-        return obtenerValorQueCobra();
+        return valorQueCobra;
     }
 
     public boolean seCumplenCondiciones(Paquete p) {
-        return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !obtenerPaquetesCargados().contains(p) && !transporteLleno();
+        return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !paquetesCargados.contains(p) && !transporteLleno();
     }
 
     public void cargarPaquete(Paquete paquete) {
@@ -162,16 +149,15 @@ public abstract class Transporte {
     public String toString() {
         StringBuilder paquetesCargadosStr = new StringBuilder("[");
 
-        List<Paquete> paquetes = obtenerPaquetesCargados();
-        if (!paquetes.isEmpty()) {
+        if (!paquetesCargados.isEmpty()) {
         	for(Paquete p : paquetesCargados) {
         		paquetesCargadosStr.append(p.toString());
         	}
         }
         paquetesCargadosStr.append("]");
-        return "Transporte: Patente=" + obtenerPatente() +
+        return "Transporte: Patente=" + patente +
                 ", VolumenMaximo=" + volumenMaximo +
-                ", CostoDeEntrega=" + obtenerValorQueCobra() +
+                ", CostoDeEntrega=" + valorQueCobra +
                 ", PaquetesCargados:" + paquetesCargadosStr.toString();
     }
 }

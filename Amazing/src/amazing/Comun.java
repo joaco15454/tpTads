@@ -19,11 +19,10 @@ public class Comun extends Transporte {
     	if(p == null) {
     		throw new RuntimeException("Error, el paquete no existe.");
     	}
-        return (p instanceof PaqueteOrdinario) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) && p.obtenerVolumen() < 2000;
+        return (p instanceof PaqueteOrdinario) && !transporteLleno() && !super.paquetesCargados.contains(p) && p.obtenerVolumen() < 2000;
     }
 
 	@Override
 	public void actualizarCostoEntrega() {}
-
 
 }

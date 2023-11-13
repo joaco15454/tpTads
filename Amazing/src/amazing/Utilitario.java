@@ -11,7 +11,7 @@ public class Utilitario extends Transporte {
 
 	@Override
 	public void actualizarCostoEntrega() {
-		double costo = paquetesCargados.size() > 3 ? (super.valorQueCobra + valorExtra) :super.valorQueCobra;
+		double costo = paquetesCargados.size() > 3 ? (super.valorQueCobra + valorExtra) : super.valorQueCobra;
         this.valorQueCobra = costo; 
 	}
 }

@@ -72,7 +72,7 @@ public abstract class Transporte {
         }
     }
 
-    public  List<String> cargarPedido(Pedido pedido){
+    public List<String> cargarPedido(Pedido pedido){
     		transporteEstaLleno();
     	    List<String> listaPaquetesCargados = new ArrayList<>();
     	    List<Paquete> paquetesEspeciales = new ArrayList<>();

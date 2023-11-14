@@ -22,4 +22,6 @@ public class Utilitario extends Transporte {
     	}
         return (p instanceof PaqueteEspecial) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) ;
     }
+    
+
 }

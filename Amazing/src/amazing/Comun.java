@@ -25,5 +25,4 @@ public class Comun extends Transporte {
 	@Override
 	public void actualizarCostoEntrega() {}
 
-
 }

@@ -94,7 +94,7 @@ public abstract class Transporte {
         }
     }
 
-    public  List<String> cargarPedido(Pedido pedido){
+    public List<String> cargarPedido(Pedido pedido){
     		transporteEstaLleno();
     	    List<String> listaPaquetesCargados = new ArrayList<>();
     	    List<Paquete> paquetesEspeciales = new ArrayList<>();
@@ -104,7 +104,6 @@ public abstract class Transporte {
     	    for (Paquete paquete : carrito.values()) {
     	        if (seCumplenCondiciones(paquete)) {
     	            if (paquete instanceof PaqueteEspecial) {
-    	            	;
     	                paquetesEspeciales.add(paquete);
     	            } else if (paquete instanceof PaqueteOrdinario){
     	                paquetesOrdinarios.add(paquete);
@@ -114,21 +113,21 @@ public abstract class Transporte {
     	    for (Paquete paquete : paquetesEspeciales) {
     	    	if (cargarPaquete(paquete)) {
     	    		String datosEntrega = formatoEntrega(pedido, paquete);
-    	    	    
-    	    	        listaPaquetesCargados.add(datosEntrega);
-    	    	        carrito.remove(paquete.obtenerIdUnico());
+    	    	    listaPaquetesCargados.add(datosEntrega);
+    	    	    carrito.remove(paquete.obtenerIdUnico());
     	    	}
-    	         // Elimina el paquete del carrito
     	    }
     	    for (Paquete paquete : paquetesOrdinarios) {
-    	        cargarPaquete(paquete);
-    	        String datosEntrega = formatoEntrega(pedido, paquete);
-    	        listaPaquetesCargados.add(datosEntrega);
-    	        carrito.remove(paquete.obtenerIdUnico()); // Elimina el paquete del carrito
+    	        if(cargarPaquete(paquete)) {
+    	        	String datosEntrega = formatoEntrega(pedido, paquete);
+        	        listaPaquetesCargados.add(datosEntrega);
+        	        carrito.remove(paquete.obtenerIdUnico());
+    	        }
     	    }
     	    actualizarCostoEntrega();
     	    return listaPaquetesCargados;
     	}
+	
 
     public boolean distintaPatente(Transporte t) {
     	return !patente.equals(t.patente);

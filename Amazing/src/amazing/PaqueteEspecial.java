@@ -12,7 +12,9 @@ public class PaqueteEspecial extends Paquete{
         return porcentajeAdicional/100;
     }
 
-
+    public int obtenerIdUnico() {
+    	return super.idUnico;
+    }
     /* OPERACIONES */
     protected int adicionalAPagar(){
     	int valorAdicionalAPagar = 0;

@@ -59,11 +59,16 @@ public abstract class Transporte {
         return (p instanceof PaqueteOrdinario || p instanceof PaqueteEspecial) && !obtenerPaquetesCargados().contains(p) && !transporteLleno();
     }
 
-    public void cargarPaquete(Paquete paquete) {
-        if ((paquete.obtenerVolumen() + obtenerVolumenActual()) <= volumenMaximo) {
+    public boolean cargarPaquete(Paquete paquete) {
+    	int sumaVolumenes = paquete.obtenerVolumen() + volumenActual;
+        if (sumaVolumenes <= volumenMaximo) {
+        	
             paquetesCargados.add(paquete);
             aumentarVolumen(paquete.obtenerVolumen());
+        } else {
+        	return false;
         }
+        return true;
 
     }
 
@@ -99,6 +104,7 @@ public abstract class Transporte {
     	    for (Paquete paquete : carrito.values()) {
     	        if (seCumplenCondiciones(paquete)) {
     	            if (paquete instanceof PaqueteEspecial) {
+    	            	;
     	                paquetesEspeciales.add(paquete);
     	            } else if (paquete instanceof PaqueteOrdinario){
     	                paquetesOrdinarios.add(paquete);
@@ -106,10 +112,13 @@ public abstract class Transporte {
     	        }
     	    }
     	    for (Paquete paquete : paquetesEspeciales) {
-    	        cargarPaquete(paquete);
-    	        String datosEntrega = formatoEntrega(pedido, paquete);
-    	        listaPaquetesCargados.add(datosEntrega);
-    	        carrito.remove(paquete.obtenerIdUnico()); // Elimina el paquete del carrito
+    	    	if (cargarPaquete(paquete)) {
+    	    		String datosEntrega = formatoEntrega(pedido, paquete);
+    	    	    
+    	    	        listaPaquetesCargados.add(datosEntrega);
+    	    	        carrito.remove(paquete.obtenerIdUnico());
+    	    	}
+    	         // Elimina el paquete del carrito
     	    }
     	    for (Paquete paquete : paquetesOrdinarios) {
     	        cargarPaquete(paquete);

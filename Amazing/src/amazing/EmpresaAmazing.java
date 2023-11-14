@@ -131,6 +131,7 @@ public class EmpresaAmazing implements IEmpresa {
 	 */
 	public int agregarPaquete(int codPedido, int volumen, int precio, int costoEnvio) {
 		Pedido p = pedidos.get(codPedido);
+	
 		if (p == null || p.isEstaCerrado()) {
 			throw new RuntimeException("pedido no encontrado o cerrado");
 		}

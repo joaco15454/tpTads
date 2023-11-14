@@ -20,6 +20,6 @@ public class Utilitario extends Transporte {
     	if(p == null) {
     		throw new RuntimeException("Error, el paquete no existe.");
     	}
-        return (p instanceof PaqueteEspecial) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) && p.obtenerVolumen() < 2000;
+        return (p instanceof PaqueteEspecial) && !transporteLleno() && !obtenerPaquetesCargados().contains(p) ;
     }
 }
